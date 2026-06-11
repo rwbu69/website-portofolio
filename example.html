@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RWBU | Terminal Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        :root {
+            --bg-color: #050505; /* Hitam pekat untuk kesan CRT */
+            --term-bg: rgba(15, 23, 42, 0.95);
+            --text-main: #e2e8f0;
+            --text-muted: #64748b;
+            --pink: #E39494;
+            --tosca: #82C8C5;
+            --green: #4ade80;
+            --yellow: #facc15;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Fira Code', 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* Mencegah scroll pada body */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* 1. Animasi Jendela Terminal Membuka */
+        @keyframes windowOpen {
+            0% { opacity: 0; transform: scale(0.95) translateY(20px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        #terminal-window {
+            width: 100vw;
+            height: 100vh;
+            background-color: var(--term-bg);
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 0 50px rgba(130, 200, 197, 0.1);
+            animation: windowOpen 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @media (min-width: 768px) {
+            #terminal-window {
+                width: 90vw;
+                height: 90vh;
+                border-radius: 0.5rem;
+                border: 1px solid #334155;
+            }
+        }
+
+        /* 2. Efek CRT Scanlines (Garis layar monitor jadul) */
+        .scanlines {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(255,255,255,0),
+                rgba(255,255,255,0) 50%,
+                rgba(0,0,0,0.1) 50%,
+                rgba(0,0,0,0.1)
+            );
+            background-size: 100% 4px;
+            pointer-events: none; /* Agar tidak menghalangi klik */
+            z-index: 50;
+            opacity: 0.6;
+        }
+
+        /* Teks Glow (Pendaran halus ala monitor phosphor) */
+        #terminal-body {
+            text-shadow: 0 0 2px rgba(226, 232, 240, 0.3);
+        }
+
+        #terminal-header {
+            background-color: #1e293b;
+            padding: 0.75rem 1rem;
+            display: flex;
+            align-items: center;
+            border-top-left-radius: inherit;
+            border-top-right-radius: inherit;
+            border-bottom: 1px solid #0f172a;
+            position: relative;
+            z-index: 10;
+        }
+
+        .term-btn { width: 12px; height: 12px; border-radius: 50%; margin-right: 0.5rem; }
+        .term-btn.close { background-color: #ff5f56; }
+        .term-btn.min { background-color: #ffbd2e; }
+        .term-btn.max { background-color: #27c93f; }
+        .term-title { position: absolute; left: 50%; transform: translateX(-50%); color: var(--text-muted); font-size: 0.8rem; }
+
+        #terminal-body {
+            flex-grow: 1;
+            padding: 1.5rem;
+            overflow-y: auto;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+
+        .input-line { display: flex; margin-top: 0.5rem; align-items: center; }
+        .prompt { color: var(--green); font-weight: bold; margin-right: 0.5rem; white-space: nowrap; }
+        .prompt .user { color: var(--tosca); text-shadow: 0 0 5px rgba(130, 200, 197, 0.5); }
+        .prompt .host { color: var(--pink); text-shadow: 0 0 5px rgba(227, 148, 148, 0.5); }
+
+        #command-input {
+            background: transparent;
+            border: none;
+            color: var(--text-main);
+            font-family: inherit;
+            font-size: inherit;
+            flex-grow: 1;
+            outline: none;
+            caret-color: var(--tosca);
+        }
+        
+        /* Matikan kursor saat animasi berjalan */
+        #command-input[readonly] { caret-color: transparent; }
+
+        .output-block {
+            margin-bottom: 1rem;
+            white-space: pre-wrap;
+        }
+
+        .text-pink { color: var(--pink); text-shadow: 0 0 5px rgba(227, 148, 148, 0.4); }
+        .text-tosca { color: var(--tosca); text-shadow: 0 0 5px rgba(130, 200, 197, 0.4); }
+        .text-green { color: var(--green); }
+        .text-yellow { color: var(--yellow); }
+        .text-muted { color: var(--text-muted); }
+        .text-bold { font-weight: bold; }
+
+        /* Kursor kotak berkedip saat animasi mengetik */
+        .typing-cursor::after {
+            content: '█';
+            color: var(--tosca);
+            animation: blink 1s step-end infinite;
+            margin-left: 2px;
+        }
+        @keyframes blink { 50% { opacity: 0; } }
+
+        /* Styling untuk Placeholder Gambar Project */
+        .img-gallery { display: flex; gap: 10px; margin-top: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+        .img-placeholder {
+            width: 180px; height: 100px;
+            border: 1px dashed var(--text-muted);
+            display: flex; align-items: center; justify-content: center; text-align: center;
+            font-size: 0.7rem; border-radius: 4px; padding: 0.5rem;
+        }
+        .img-placeholder.tosca { border-color: var(--tosca); color: var(--tosca); background: rgba(130, 200, 197, 0.05); }
+        .img-placeholder.pink { border-color: var(--pink); color: var(--pink); background: rgba(227, 148, 148, 0.05); }
+
+    </style>
+</head>
+<body>
+
+    <div id="terminal-window" onclick="document.getElementById('command-input').focus()">
+        <div class="scanlines"></div> <!-- Lapisan Efek CRT -->
+        
+        <div id="terminal-header">
+            <div class="term-btn close"></div>
+            <div class="term-btn min"></div>
+            <div class="term-btn max"></div>
+            <div class="term-title">guest@rwbu: ~</div>
+        </div>
+
+        <div id="terminal-body">
+            <div id="output-container"></div>
+
+            <!-- Baris Input (Disembunyikan saat booting) -->
+            <div class="input-line" id="input-line" style="display: none;">
+                <span class="prompt"><span class="user">guest</span>@<span class="host">rwbu</span>:~$</span>
+                <input type="text" id="command-input" autocomplete="off" spellcheck="false" autofocus>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const inputField = document.getElementById('command-input');
+        const outputContainer = document.getElementById('output-container');
+        const terminalBody = document.getElementById('terminal-body');
+        const inputLine = document.getElementById('input-line');
+
+        const commandHistory = [];
+        let historyIndex = -1;
+        let isAnimating = true; // Mencegah input saat sedang ada animasi render
+
+        // Data Konten
+        const terminalData = {
+            'help': `Daftar perintah yang tersedia:
+  <span class="text-tosca">about</span>      - Menampilkan informasi profil saya
+  <span class="text-tosca">skills</span>     - Menampilkan daftar teknologi yang saya kuasai
+  <span class="text-tosca">projects</span>   - Menampilkan proyek-proyek unggulan
+  <span class="text-tosca">contact</span>    - Menampilkan informasi kontak
+  <span class="text-tosca">clear</span>      - Membersihkan layar terminal
+  <span class="text-tosca">whoami</span>     - Mencetak nama *user* saat ini`,
+            
+            'about': `Halo! Saya <span class="text-pink text-bold">Sebastian Vay Yosafat P. Hutagalung</span> (RWBU).
+Seorang Fullstack Web Developer yang berbasis di Indonesia.
+
+Saya memiliki minat besar dalam merancang arsitektur web modern yang tidak merepotkan.
+Saat ini, saya sangat menikmati ekosistem <span class="text-tosca text-bold">VILT Stack</span> (Vue, Inertia, Laravel, Tailwind)
+serta bereksplorasi dengan <span class="text-tosca text-bold">Astro</span> untuk performa situs statis maksimal.
+
+Bagi saya, antarmuka pengguna haruslah seimbang: manis dipandang, kuat di balik layar.`,
+
+            'skills': `Teknologi & Alat:
+  [ <span class="text-tosca">Frontend</span> ]  : Vue.js, Astro, Tailwind CSS, JavaScript (ES6+)
+  [ <span class="text-pink">Backend</span>  ]  : Laravel (PHP), MySQL
+  [ <span class="text-muted">Lainnya</span>  ]  : Kotlin (Jetpack Compose), Git, GeoJSON, Geofencing`,
+
+            'projects': `[ <span class="text-tosca text-bold">PROYEK UNGGULAN</span> ]
+
+1. <span class="text-tosca text-bold">Aplikasi eSPMI (Sistem Penjaminan Mutu Internal)</span> <span class="text-yellow">[ 2023 - Sekarang ]</span>
+<div class="img-gallery"><div class="img-placeholder tosca"></div><div class="img-placeholder tosca">[Image of Dasbor Admin]</div><div class="img-placeholder tosca"></div></div>
+2. <span class="text-pink text-bold">Platform Event Otaku (Geospatial Mapping)</span> <span class="text-yellow">[ 2022 - 2023 ]</span>
+<div class="img-gallery"><div class="img-placeholder pink"></div><div class="img-placeholder pink"></div><div class="img-placeholder pink"></div></div>`,
+
+            'contact': `Mari berdiskusi atau berkolaborasi!
+  Email    : <a href="mailto:hello@rwbu.dev" class="text-tosca hover:underline">hello@rwbu.dev</a>
+  GitHub   : <a href="https://github.com/rwbu" target="_blank" class="text-pink hover:underline">github.com/rwbu</a>
+  LinkedIn : <a href="#" class="text-tosca hover:underline">linkedin.com/in/sebastianvay</a>`,
+
+            'whoami': `guest`
+        };
+
+        // --- 3. ANIMASI BOOTING ---
+        const bootSequence = [
+            `<span class="text-green">[ OK ]</span> Memuat kernel sistem...`,
+            `<span class="text-green">[ OK ]</span> Menginisialisasi modul VILT (Vue, Inertia, Laravel, Tailwind)...`,
+            `<span class="text-green">[ OK ]</span> Mengaktifkan Astro static renderer...`,
+            `<span class="text-yellow">[ INFO ]</span> Memuat data portofolio dari memori...`,
+            `<span class="text-green">[ OK ]</span> Koneksi jaringan aman terjalin.`,
+            `Bersiap membuka sesi interaktif...`
+        ];
+
+        async function runBootSequence() {
+            for (let i = 0; i < bootSequence.length; i++) {
+                const line = document.createElement('div');
+                line.innerHTML = bootSequence[i];
+                outputContainer.appendChild(line);
+                terminalBody.scrollTop = terminalBody.scrollHeight;
+                
+                // Random delay antara 100ms - 400ms untuk efek realistis
+                await new Promise(r => setTimeout(r, Math.random() * 300 + 100));
+            }
+
+            await new Promise(r => setTimeout(r, 600));
+            outputContainer.innerHTML = ''; // Bersihkan layar setelah boot
+            
+            const welcomeMsg = `Selamat datang di Portofolio Interaktif RWBU v2.0
+Ketik <span class="text-pink">'help'</span> untuk melihat daftar perintah yang tersedia.
+`;          
+            await renderLineByLine(welcomeMsg, true);
+        }
+
+        // --- 4. ANIMASI RENDER OUTPUT (LINE-BY-LINE) ---
+        async function renderLineByLine(htmlText, isWelcome = false) {
+            const lines = htmlText.split('\n');
+            const block = document.createElement('div');
+            block.className = 'output-block typing-cursor'; // Tambahkan kursor mengetik
+            outputContainer.appendChild(block);
+
+            for (let i = 0; i < lines.length; i++) {
+                block.innerHTML += lines[i] + '\n';
+                terminalBody.scrollTop = terminalBody.scrollHeight;
+                
+                // Kecepatan render baris (lebih cepat jika bukan welcome message)
+                const delay = isWelcome ? 100 : 30; 
+                await new Promise(r => setTimeout(r, delay));
+            }
+
+            block.classList.remove('typing-cursor'); // Hilangkan kursor setelah selesai
+            
+            // Tampilkan kembali input
+            inputLine.style.display = 'flex';
+            inputField.readOnly = false;
+            inputField.focus();
+            isAnimating = false;
+            terminalBody.scrollTop = terminalBody.scrollHeight;
+        }
+
+        // Menangani input user
+        inputField.addEventListener('keydown', function(e) {
+            if (isAnimating) {
+                e.preventDefault(); // Kunci input jika animasi sedang berjalan
+                return;
+            }
+
+            if (e.key === 'Enter') {
+                const command = this.value.trim().toLowerCase();
+                
+                if (command !== '') {
+                    commandHistory.push(command);
+                    historyIndex = commandHistory.length;
+                    processCommand(command);
+                } else {
+                    printPromptOnly();
+                }
+                
+                this.value = ''; 
+                
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                if (historyIndex > 0) {
+                    historyIndex--;
+                    this.value = commandHistory[historyIndex];
+                }
+            } else if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                if (historyIndex < commandHistory.length - 1) {
+                    historyIndex++;
+                    this.value = commandHistory[historyIndex];
+                } else {
+                    historyIndex = commandHistory.length;
+                    this.value = '';
+                }
+            }
+        });
+
+        // Eksekusi Perintah
+        function processCommand(cmd) {
+            // Sembunyikan input asli dan jadikan readonly selama animasi
+            inputLine.style.display = 'none';
+            inputField.readOnly = true;
+            isAnimating = true;
+
+            const promptStr = `<span class="prompt"><span class="user">guest</span>@<span class="host">rwbu</span>:~$</span> <span class="text-main">${cmd}</span>`;
+            
+            // Cetak riwayat ketikan user terlebih dahulu
+            const p = document.createElement('div');
+            p.innerHTML = promptStr;
+            p.style.marginBottom = '0.5rem';
+            outputContainer.appendChild(p);
+
+            if (cmd === 'clear') {
+                outputContainer.innerHTML = '';
+                // Kembalikan input
+                inputLine.style.display = 'flex';
+                inputField.readOnly = false;
+                inputField.focus();
+                isAnimating = false;
+                return;
+            } 
+
+            let outputResponse = terminalData[cmd];
+            
+            if (!outputResponse) {
+                outputResponse = `rwbu: command not found: <span class="text-pink">${cmd}</span>. Ketik 'help' untuk daftar perintah.`;
+            }
+
+            // Simulasikan waktu pemrosesan ("mikro delay" server)
+            setTimeout(() => {
+                renderLineByLine(outputResponse);
+            }, 150);
+        }
+
+        function printPromptOnly() {
+            const p = document.createElement('div');
+            p.innerHTML = `<span class="prompt"><span class="user">guest</span>@<span class="host">rwbu</span>:~$</span>`;
+            outputContainer.appendChild(p);
+            terminalBody.scrollTop = terminalBody.scrollHeight;
+        }
+
+        // Jalankan boot sequence saat pertama kali load
+        window.onload = () => {
+            inputField.readOnly = true;
+            runBootSequence();
+        };
+
+    </script>
+</body>
+</html>

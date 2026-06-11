@@ -1,0 +1,52 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+@theme {
+  --color-term-bg: rgba(15, 23, 42, 0.65);
+  --color-pink: #E39494;
+  --color-tosca: #82C8C5;
+}
+
+:root {
+  --bg-color: #050505;
+  --text-main: #e2e8f0;
+  --text-muted: #64748b;
+  --pink: #E39494;
+  --tosca: #82C8C5;
+  --green: #4ade80;
+  --yellow: #facc15;
+}
+
+body {
+  /* Ubah background body jadi gradient halus agar efek glassmorphism terminal terlihat menonjol */
+  background: linear-gradient(135deg, #020617 0%, #0f172a 100%);
+  color: var(--text-main);
+  font-family: 'Fira Code', 'Courier New', Courier, monospace;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+
+/* Prompt Input styling override untuk kursor caret */
+#command-input {
+  caret-color: var(--tosca);
+}
+#command-input[readonly] { 
+  caret-color: transparent; 
+}
+
+/* Kursor kotak berkedip saat animasi mengetik */
+.typing-cursor::after {
+  content: '█';
+  color: var(--tosca);
+  animation: blink 1s step-end infinite;
+  margin-left: 2px;
+}
+
+@keyframes blink { 
+  50% { opacity: 0; } 
+}
