@@ -20,6 +20,7 @@ export const getTerminalData = (lang: Language): Record<string, string> => ({
   'blog ls': '',
   'lang en': lang === 'en' ? 'Language is already set to English.' : 'Language changed to English.',
   'lang id': lang === 'id' ? 'Bahasa sudah diatur ke Bahasa Indonesia.' : 'Bahasa diubah ke Bahasa Indonesia.',
+  'gui': '',
   'clear': '',
 });
 

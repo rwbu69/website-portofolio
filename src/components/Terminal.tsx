@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import anime from 'animejs';
 import TerminalHeader from './TerminalHeader';
 import TerminalInput from './TerminalInput';
+import GuiPortfolio from './GuiPortfolio';
 import { getSystemData, getTerminalData, type Language } from '../data/terminalData';
 
 // Komponen helper untuk merender blok output secara line-by-line
@@ -41,6 +42,7 @@ function TypewriterBlock({
 }
 
 export default function Terminal() {
+  const [isGuiMode, setIsGuiMode] = useState(false);
   const [lang, setLang] = useState<Language>('en');
   const [isBooting, setIsBooting] = useState(true);
   const [bootIndex, setBootIndex] = useState(-1);
@@ -145,6 +147,50 @@ export default function Terminal() {
       return;
     }
 
+    if (cmd === 'gui') {
+      setIsAnimating(true);
+      if (terminalRef.current) {
+        document.body.style.transition = 'background-color 0.2s ease';
+        document.body.style.backgroundColor = '#450a0a'; // flash red
+        
+        anime.timeline()
+        .add({
+          targets: terminalRef.current,
+          translateX: [
+            { value: -30, duration: 50 }, { value: 30, duration: 50 },
+            { value: -40, duration: 50 }, { value: 40, duration: 50 },
+            { value: -50, duration: 50 }, { value: 50, duration: 50 },
+            { value: 0, duration: 50 }
+          ],
+          easing: 'easeInOutQuad'
+        })
+        .add({
+          targets: terminalRef.current,
+          scale: [1, 1.3],
+          rotate: [0, 15],
+          filter: ['blur(0px)', 'blur(10px)'],
+          opacity: [1, 0.7],
+          duration: 300,
+          easing: 'easeInSine'
+        }, '-=150')
+        .add({
+          targets: terminalRef.current,
+          translateY: [0, 2000],
+          rotate: [15, 60],
+          opacity: [0.7, 0],
+          duration: 600,
+          easing: 'easeInElastic(1, .6)',
+          complete: () => {
+            document.body.style.backgroundColor = '';
+            document.body.style.transition = '';
+            setIsGuiMode(true);
+            setIsAnimating(false);
+          }
+        });
+      }
+      return;
+    }
+
     if (cmd === 'lang en') setLang('en');
     if (cmd === 'lang id') setLang('id');
 
@@ -235,6 +281,10 @@ export default function Terminal() {
   const handleTypingComplete = () => {
     setIsAnimating(false);
   };
+
+  if (isGuiMode) {
+    return <GuiPortfolio lang={lang} onClose={() => setIsGuiMode(false)} />;
+  }
 
   return (
     <div 
