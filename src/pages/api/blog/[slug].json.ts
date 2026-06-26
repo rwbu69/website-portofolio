@@ -11,13 +11,13 @@ export async function getStaticPaths() {
 export async function GET({ props }: any) {
   const { entry } = props;
   
-  const htmlContent = marked.parse(entry.body);
+  const htmlContent = marked.parse(entry.body || "");
   
   const data = {
     slug: entry.id,
     title: entry.data.title,
-    date: entry.data.date.toISOString().split('T')[0],
-    description: entry.data.description,
+    date: entry.data.publishDate,
+    description: entry.data.excerpt,
     content: htmlContent,
   };
 

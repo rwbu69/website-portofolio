@@ -1,0 +1,24 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import ProjectFilter from '../components/react/ProjectFilter';
+import { projects, tools } from '../data/projects';
+---
+
+<Layout title="RWBU | Projects">
+  <Navbar />
+  
+  <main class="max-w-6xl mx-auto px-6 py-12 w-full flex-grow">
+    <header class="mb-12 border-l-2 border-tosca pl-6">
+      <h1 class="text-3xl md:text-4xl font-bold mb-4 tracking-tight">
+        <span class="text-tosca font-mono">/</span>projects
+      </h1>
+      <p class="text-lg text-text-muted max-w-2xl">
+        A collection of my work, experiments, and open-source contributions. 
+        Filter by technology to explore specific stacks.
+      </p>
+    </header>
+
+    <ProjectFilter client:load projects={projects} tools={tools} />
+  </main>
+</Layout>

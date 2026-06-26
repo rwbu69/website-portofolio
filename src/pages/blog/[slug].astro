@@ -1,0 +1,54 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map(post => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<Layout title={`RWBU | ${post.data.title}`}>
+  <Navbar />
+  
+  <main class="max-w-3xl mx-auto px-6 py-12 w-full flex-grow">
+    <a href="/blog" class="inline-flex items-center gap-2 text-sm font-mono text-text-muted hover:text-tosca transition-colors mb-8">
+      &lt;- Back to blogs
+    </a>
+
+    <header class="mb-12">
+      <div class="flex items-center gap-4 text-xs font-mono text-text-muted mb-6">
+        <span>{post.data.publishDate}</span>
+        <span class="text-[#1a2333]">|</span>
+        <span>{post.data.readingTime}</span>
+      </div>
+      
+      <h1 class="text-3xl md:text-5xl font-bold mb-6 tracking-tight leading-tight">
+        {post.data.title}
+      </h1>
+      
+      <div class="flex flex-wrap gap-2 pb-8 border-b border-[#1a2333]">
+        {post.data.tags.map(tag => (
+          <span class="text-xs text-pink bg-pink/10 px-2 py-1 rounded-sm">
+            {tag}
+          </span>
+        ))}
+      </div>
+    </header>
+
+    <article class="prose prose-invert prose-lg max-w-none 
+      prose-headings:font-bold prose-headings:tracking-tight 
+      prose-a:text-tosca hover:prose-a:text-pink prose-a:transition-colors
+      prose-code:text-pink prose-code:bg-[#0f172a] prose-code:px-1 prose-code:py-0.5 prose-code:rounded-sm
+      prose-pre:bg-[#0f172a] prose-pre:border prose-pre:border-[#1a2333]">
+      <Content />
+    </article>
+  </main>
+</Layout>

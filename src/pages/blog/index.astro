@@ -1,0 +1,59 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('blog');
+// Sort posts by date descending
+posts.sort((a, b) => new Date(b.data.publishDate).valueOf() - new Date(a.data.publishDate).valueOf());
+---
+
+<Layout title="RWBU | Blog">
+  <Navbar />
+  
+  <main class="max-w-6xl mx-auto px-6 py-12 w-full flex-grow">
+    <header class="mb-12 border-l-2 border-tosca pl-6">
+      <h1 class="text-3xl md:text-4xl font-bold mb-4 tracking-tight">
+        <span class="text-tosca font-mono">/</span>blog
+      </h1>
+      <p class="text-lg text-text-muted max-w-2xl">
+        Thoughts on software development, design, and building things for the web.
+      </p>
+    </header>
+
+    <div class="space-y-8">
+      {posts.map(post => (
+        <article class="p-6 bg-[#0f172a]/30 border border-[#1a2333] hover:border-tosca transition-colors rounded-sm group">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+            <div class="flex items-center gap-4 text-xs font-mono text-text-muted">
+              <span>{post.data.publishDate}</span>
+              <span class="text-[#1a2333]">|</span>
+              <span>{post.data.readingTime}</span>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              {post.data.tags.map(tag => (
+                <span class="text-xs text-tosca bg-tosca/10 px-2 py-1 rounded-sm">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+          
+          <h2 class="text-2xl font-bold mb-3 group-hover:text-pink transition-colors">
+            <a href={`/blog/${post.id}`} class="block">
+              {post.data.title}
+            </a>
+          </h2>
+          
+          <p class="text-text-muted mb-6 leading-relaxed">
+            {post.data.excerpt}
+          </p>
+          
+          <a href={`/blog/${post.id}`} class="inline-flex items-center gap-2 text-sm font-mono text-tosca group-hover:text-pink transition-colors">
+            Read article ->
+          </a>
+        </article>
+      ))}
+    </div>
+  </main>
+</Layout>

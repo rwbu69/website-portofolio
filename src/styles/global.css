@@ -1,9 +1,12 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
+
 @theme {
   --color-term-bg: rgba(15, 23, 42, 0.65);
   --color-pink: #E39494;
   --color-tosca: #82C8C5;
+  --color-green: #4ade80;
+  --color-yellow: #facc15;
 }
 
 :root {
@@ -17,36 +20,37 @@
 }
 
 body {
-  /* Ubah background body jadi gradient halus agar efek glassmorphism terminal terlihat menonjol */
-  background: linear-gradient(135deg, #020617 0%, #0f172a 100%);
+  background-color: var(--bg-color);
   color: var(--text-main);
-  font-family: 'Fira Code', 'Courier New', Courier, monospace;
+  /* Use Outfit as distinctive sans-serif and Fira Code as monospace */
+  font-family: 'Outfit', sans-serif;
   margin: 0;
   padding: 0;
-  overflow: hidden;
+  overflow-x: hidden;
+}
+
+.font-mono {
+  font-family: 'Fira Code', monospace;
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar { width: 8px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+::-webkit-scrollbar-track { background: var(--bg-color); }
+::-webkit-scrollbar-thumb { background: #334155; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
 
-/* Prompt Input styling override untuk kursor caret */
-#command-input {
-  caret-color: var(--tosca);
-}
-#command-input[readonly] { 
-  caret-color: transparent; 
-}
+/* Utility Classes for specific theme colors */
+.text-pink { color: var(--pink); }
+.text-tosca { color: var(--tosca); }
+.text-green { color: var(--green); }
+.text-yellow { color: var(--yellow); }
 
-/* Kursor kotak berkedip saat animasi mengetik */
-.typing-cursor::after {
-  content: '█';
-  color: var(--tosca);
-  animation: blink 1s step-end infinite;
-  margin-left: 2px;
-}
+.bg-pink { background-color: var(--pink); }
+.bg-tosca { background-color: var(--tosca); }
+.bg-green { background-color: var(--green); }
+.bg-yellow { background-color: var(--yellow); }
 
-@keyframes blink { 
-  50% { opacity: 0; } 
-}
+.border-pink { border-color: var(--pink); }
+.border-tosca { border-color: var(--tosca); }
+.border-green { border-color: var(--green); }
+.border-yellow { border-color: var(--yellow); }
