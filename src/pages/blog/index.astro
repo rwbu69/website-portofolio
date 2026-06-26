@@ -11,7 +11,7 @@ posts.sort((a, b) => new Date(b.data.publishDate).valueOf() - new Date(a.data.pu
 <Layout title="RWBU | Blog">
   <Navbar />
   
-  <main class="max-w-6xl mx-auto px-6 py-12 w-full flex-grow">
+  <main class="max-w-4xl mx-auto px-6 py-12 w-full grow flex flex-col">
     <header class="mb-12 border-l-2 border-tosca pl-6">
       <h1 class="text-3xl md:text-4xl font-bold mb-4 tracking-tight">
         <span class="text-tosca font-mono">/</span>blog
@@ -31,7 +31,7 @@ posts.sort((a, b) => new Date(b.data.publishDate).valueOf() - new Date(a.data.pu
               <span>{post.data.readingTime}</span>
             </div>
             <div class="flex flex-wrap gap-2">
-              {post.data.tags.map(tag => (
+              {post.data.tags.map((tag: string) => (
                 <span class="text-xs text-tosca bg-tosca/10 px-2 py-1 rounded-sm">
                   {tag}
                 </span>

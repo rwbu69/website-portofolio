@@ -11,6 +11,9 @@
     "jsx": "react-jsx",
     "jsxImportSource": "react",
     "types": ["react", "react-dom"],
-    "moduleResolution": "bundler"
+    "moduleResolution": "bundler",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "allowJs": true
   }
 }

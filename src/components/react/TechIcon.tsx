@@ -1,5 +1,3 @@
-import React from "react";
-
 // SVGs that are just single color paths (not in icons.md)
 // Simple paths removed per user request
 

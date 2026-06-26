@@ -18,7 +18,7 @@ const { Content } = await render(post);
 <Layout title={`RWBU | ${post.data.title}`}>
   <Navbar />
   
-  <main class="max-w-3xl mx-auto px-6 py-12 w-full flex-grow">
+  <main class="max-w-3xl mx-auto px-6 py-12 w-full grow">
     <a href="/blog" class="inline-flex items-center gap-2 text-sm font-mono text-text-muted hover:text-tosca transition-colors mb-8">
       &lt;- Back to blogs
     </a>
@@ -35,7 +35,7 @@ const { Content } = await render(post);
       </h1>
       
       <div class="flex flex-wrap gap-2 pb-8 border-b border-[#1a2333]">
-        {post.data.tags.map(tag => (
+        {post.data.tags.map((tag: string) => (
           <span class="text-xs text-pink bg-pink/10 px-2 py-1 rounded-sm">
             {tag}
           </span>
