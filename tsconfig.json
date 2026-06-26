@@ -12,6 +12,7 @@
     "jsxImportSource": "react",
     "types": ["react", "react-dom"],
     "moduleResolution": "bundler",
+    "module": "ESNext",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "allowJs": true
