@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import { ClientRouter } from 'astro:transitions';
+import Footer from '../components/Footer.astro';
 
 interface Props {
 	title: string;
@@ -43,20 +44,11 @@ const previewImageURL = new URL(image, Astro.site || Astro.url.origin);
 		<!-- Fonts -->
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 	</head>
-	<body class="min-h-screen flex flex-col bg-[#050505] text-[#e2e8f0]">
+	<body class="min-h-screen flex flex-col">
 		<slot />
 		
-		<footer class="mt-auto py-6 border-t border-[#1a2333]">
-			<div class="max-w-4xl mx-auto px-6 flex justify-between items-center text-xs font-mono text-text-muted">
-				<p>© {new Date().getFullYear()} RWBU. All rights reserved.</p>
-				<div class="flex gap-4">
-					<a href="https://www.linkedin.com/in/sebastianvyhutagalung/" target="_blank" rel="noopener noreferrer" class="hover:text-tosca transition-colors">LinkedIn</a>
-					<a href="https://www.instagram.com/shunshunrwbu" target="_blank" rel="noopener noreferrer" class="hover:text-tosca transition-colors">Instagram</a>
-					<a href="https://github.com/rwbu69" target="_blank" rel="noopener noreferrer" class="hover:text-tosca transition-colors">GitHub</a>
-				</div>
-			</div>
-		</footer>
+		<Footer />
 	</body>
 </html>

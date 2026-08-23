@@ -4,11 +4,13 @@ export interface Project {
   title: string;
   description: string;
   type: ProjectType;
-  tech: string[];
+  tech: string[]; // techStack equivalent
   demoLink?: string;
   repoLink?: string;
-  status: "live" | "deploying-soon" | "completed" | "in-progress";
+  status: "live" | "deploying-soon" | "completed" | "in-progress" | "ongoing";
   featured: boolean;
+  role?: string;
+  year?: number;
 }
 
 export const projects: Project[] = [
@@ -20,6 +22,8 @@ export const projects: Project[] = [
     demoLink: "https://comipara6-map.vercel.app/",
     status: "live",
     featured: true,
+    role: "Frontend & Pathfinding Developer",
+    year: 2024,
   },
   {
     title: "Yokai Website",
@@ -29,6 +33,8 @@ export const projects: Project[] = [
     demoLink: "https://yokai-website.lovelyrwbu69.workers.dev/",
     status: "deploying-soon",
     featured: false,
+    role: "Fullstack Developer",
+    year: 2024,
   },
   {
     title: "Retroda Website",
@@ -38,6 +44,8 @@ export const projects: Project[] = [
     demoLink: "https://retroda.id",
     status: "live",
     featured: true,
+    role: "Fullstack Developer",
+    year: 2024,
   },
   {
     title: "RentCos Project",
@@ -47,6 +55,8 @@ export const projects: Project[] = [
     repoLink: "https://github.com/rwbu69/cosu-rent",
     status: "completed",
     featured: false,
+    role: "Fullstack Developer",
+    year: 2023,
   },
 ];
 
@@ -59,6 +69,8 @@ export const tools: Project[] = [
     repoLink: "https://github.com/rwbu69/eltoolkitde_rwbu",
     status: "completed",
     featured: false,
+    role: "CLI Tool Creator",
+    year: 2024,
   },
 ];
 

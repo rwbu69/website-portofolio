@@ -1,7 +1,23 @@
-Rombak ulang website portofolio saya secara menyeluruh dengan tech stack: Astro + React (islands) + TailwindCSS.
+# PROMPT REVISI: Rombak Ulang Portofolio — Arah Desain Retro Jepang, Fokus Konversi & Performa
 
-## DESIGN SYSTEM (NON-NEGOTIABLE)
-Gunakan persis token warna ini, jangan diubah/ditambah gradient atau efek glassmorphism baru:
+> Catatan: Ini adalah revisi dari brief sebelumnya. Perubahan utama ada di **arah estetika** (dari "modern terminal minimal" menjadi "retro web Jepang era 90–2000an, padat informasi, low-frills") dan **penekanan tujuan** (setiap halaman harus punya jalur jelas menuju "hire me", serta performa & retensi jadi metrik keberhasilan, bukan sekadar estetika).
+
+Rombak ulang website portofolio saya secara menyeluruh dengan tech stack: **Astro + React (islands) + TailwindCSS**.
+
+---
+
+## 1. ARAH DESAIN (NON-NEGOTIABLE)
+
+Referensi mood: web Jepang lama (era GeoCities JP, personal homepage developer/doujin circle, official site band indie 2000-an, portal seperti 2ch/Yahoo! JAPAN generasi awal). Ciri yang diambil, bukan ditiru mentah-mentah:
+
+- **Padat tapi rapi**: informasi disusun dalam grid/list yang rapat, bukan whitespace besar ala landing page SaaS modern. Density tinggi = terkesan "isinya banyak, orang ini beneran kerja", bukan portofolio kosong dengan 1 kalimat besar di tengah layar.
+- **Hairline border**, bukan shadow atau glow. Border tipis 1px sebagai pemisah section, mengingatkan pada layout tabel lama.
+- **Tidak ada gradient, tidak ada blur/glow, tidak ada glassmorphism, tidak ada rounded-full di semua elemen.** Sudut boleh sedikit membulat (2–4px) di tempat terbatas (badge/tag), sisanya tegas/kotak.
+- **Teks kecil-menengah sebagai default**, bukan heading raksasa. Hierarchy dibangun lewat border, spacing mikro, dan weight—bukan ukuran font ekstrem.
+- **Sentuhan nostalgia yang disengaja, bukan gimmick murahan**: elemen seperti visitor counter kecil di footer (asli, pakai kv-store/API sendiri, bukan gambar animasi jadul), "last updated" timestamp, struktur navigasi ala direktori/sitemap eksplisit — dipakai secukupnya agar terasa personal & genuine, bukan pastiche.
+- **Hindari ciri khas "AI-generated look"**: tidak ada gradient mesh ungu-pink generik, tidak ada ilustrasi 3D floating shapes, tidak ada font generic (Inter/Poppins tanpa karakter) sebagai body text, tidak ada copywriting generik ala "Turning Ideas Into Reality ✨".
+
+### Palet warna (tetap dipakai persis, tidak ditambah/gradient):
 
 ```css
 @theme {
@@ -21,65 +37,133 @@ Gunakan persis token warna ini, jangan diubah/ditambah gradient atau efek glassm
 }
 ```
 
-Aesthetic direction:
-- Dark mode only, base background #050505, bukan pure black (#000) supaya tidak terlalu keras.
-- Hindari arah desain yang terlalu "AI-generated look": jangan pakai gradient mesh, jangan pakai blur glow berlebihan, jangan pakai rounded-full di semua elemen, jangan pakai font generic seperti Inter tanpa personality.
-- Pakai pink (#E39494) dan tosca (#82C8C5) sebagai accent saja (hover state, link, tag, border highlight) — bukan warna dominan.
-- green (#4ade80) dan yellow (#facc15) dipakai khusus untuk status/feedback (success, warning) terutama di Code Playground.
-- Typography harus punya karakter: pertimbangkan kombinasi monospace font (untuk elemen teknikal/terminal) dengan sans-serif yang distinctive untuk body text — bukan default system font.
-- Spacing harus generous, grid-based, dengan hierarchy yang jelas lewat ukuran & weight, bukan lewat warna mencolok.
+- `pink` & `tosca`: aksen saja (hover, link, border highlight, tag) — bukan warna dominan.
+- `green` & `yellow`: khusus status/feedback (success/warning), terutama di Code Playground.
+- Background tetap `#050505` (bukan pure black), supaya nuansa retro terasa "layar CRT lama" bukan flat design modern.
 
-## STRUKTUR NAVBAR
-Navbar berisi: Home, Projects, Blog, Code Playground, Contact Me
-- Sticky navbar, minimal, dengan active-state indicator yang subtle (underline atau dot, pakai accent color)
-- Responsive: hamburger/drawer menu di mobile
+### Tipografi
 
-## HALAMAN: HOME
-- TIDAK pakai hero section konvensional (tidak ada headline besar + CTA button + ilustrasi).
-- Pendekatan yang lebih personal & simplistik: bisa berupa intro singkat ala "log entry" atau "status line" (contoh: nama, role, lokasi, status ketersediaan kerja) yang terasa seperti developer profile, bukan landing page marketing.
-- Tampilkan ringkasan/preview: 2-3 project terbaru, 2-3 blog post terbaru, dan tech stack/skill yang dikuasai (bisa dalam bentuk list atau tag, jangan icon grid generic).
-- Boleh ada sedikit sentuhan playful yang konsisten dengan tema "code/terminal" (misal: status bar kecil, bukan elemen besar yang mendominasi).
+- Kombinasi **monospace** (elemen teknikal/terminal/label) + **serif/mincho-leaning sans** untuk body text yang punya karakter kuat — hindari default system font atau Inter polos. Pertimbangkan font dengan sedikit sentuhan "dot-matrix" atau serif tegas untuk judul, agar terasa seperti media cetak/dokumen teknis lama, bukan UI kit modern.
+- Ukuran teks body sedikit lebih kecil dari standar modern (14–15px base), line-height ketat tapi tetap nyaman baca — konsisten dengan kesan "dense information page".
 
-## HALAMAN: PROJECTS
-- Data project disimpan sebagai static data file (JSON atau TypeScript object) yang saya edit manual — buatkan struktur tipe data yang jelas (title, description, tech stack, link demo, link repo, image/thumbnail, status: ongoing/completed, featured: boolean).
-- Render sebagai grid/list dengan card minimalis, hover state pakai accent color border atau text color shift (jangan shadow heavy).
-- Bisa ada filter sederhana berdasarkan tech stack/tag.
+### Checklist anti-"terlihat AI" (wajib dicek di setiap halaman)
 
-## HALAMAN: BLOG
-- Konten artikel akan diintegrasikan dengan Headless CMS (saya belum final pilih provider — siapkan arsitektur fetching/data layer yang fleksibel, idealnya lewat satu abstraction layer/service function supaya nanti gampang ganti provider CMS-nya tanpa rombak banyak komponen).
-- Untuk sekarang, buatkan dengan dummy/mock data dulu (3-5 artikel palsu) supaya struktur halaman list + halaman detail artikel bisa langsung terlihat dan ditest.
-- Halaman list: card per artikel (title, excerpt, tanggal publish, reading time estimate, tag/category).
-- Halaman detail: typography yang nyaman dibaca (line-height, max-width content sekitar 65-75ch), syntax highlighting untuk code block (karena kemungkinan banyak artikel teknikal), table of contents opsional untuk artikel panjang.
+- [ ] Tidak ada gradient mesh atau glow di background
+- [ ] Tidak ada copy generik ("passionate developer", "turning ideas into reality")
+- [ ] Tidak ada icon set 3D/gradient colorful
+- [ ] Tidak ada spacing simetris berlebihan yang terasa "template landing page"
+- [ ] Semua angka/klaim (jumlah project, tahun pengalaman) adalah data asli, bukan placeholder yang dibiarkan
 
-## HALAMAN: CODE PLAYGROUND
-Konsep: terminal interaktif sebagai "fun zone" portofolio, kombinasi dua hal:
+---
 
-1. **Fake terminal dengan custom commands** (seperti CLI portfolio):
-   - Command dasar: `help`, `whoami`, `about`, `skills`, `projects`, `contact`, `clear`, `sudo hire-me` (easter egg lucu), `cat resume.txt` (link ke CV), `ls`, `social` (link socmed)
-   - Setiap command return output dengan styling yang sesuai theme (pakai --color-term-bg sebagai background terminal window, dengan warna text dari --green untuk prompt/success, --yellow untuk warning/info)
-   - Command history (bisa navigasi pakai arrow up/down)
-   - Tab autocomplete untuk command (nice to have)
+## 2. NAVBAR
 
-2. **Mini JS Playground**:
-   - Editor sederhana (textarea atau lightweight code editor — pertimbangkan library ringan seperti CodeMirror) di mana user bisa tulis & run JavaScript snippet sandbox, lalu lihat output/console.log result-nya di panel sebelah/bawah
-   - Harus aman (jangan ada akses ke browser API yang sensitive, jalankan di scope terbatas, bukan eval() polos — gunakan pendekatan yang lebih aman seperti Function constructor dengan scope terbatas atau web worker)
-   - Tampilan terminal window-style konsisten dengan fake terminal di atas (pakai --color-term-bg, border subtle)
+Struktur tetap: Home, Projects, Blog, Code Playground, Contact Me.
 
-Kedua mode ini bisa berupa tab switcher di dalam satu halaman Code Playground, atau side-by-side layout — desain sesuai yang paling clean.
+- Sticky, tapi tipis (bukan bar besar dengan padding lebar) — lebih mirip menu bar aplikasi/direktori lama.
+- Active-state pakai underline tipis atau dot kecil dengan warna aksen (pink/tosca).
+- Mobile: drawer/hamburger sederhana, tanpa animasi slide mewah — transisi cepat & instan lebih penting daripada animasi halus (selaras dengan tujuan load time).
 
-## HALAMAN: CONTACT ME
-- Form contact sederhana (nama, email, message) — gunakan pendekatan static-friendly (misal: integrasi dengan service form-handling seperti Formspree/Web3Forms, karena project ini Astro static-first) atau API route jika SSR diaktifkan.
-- Tampilkan juga alternative contact: email langsung, social media links (GitHub, LinkedIn, dll), dengan icon minimal monoline (bukan colorful icon set).
-- Styling tetap konsisten: terminal-ish feel boleh dipertahankan dikit (misal label form pakai `>` prefix ala command line) tapi tetap usable dan accessible.
+---
 
-## TECHNICAL & UX REQUIREMENTS TAMBAHAN
-- SEO: setiap halaman punya meta title, description, dan Open Graph tags yang proper (penting untuk blog & projects khususnya).
-- Performance: pertahankan keunggulan Astro — komponen interaktif (terminal, JS playground, filter project) di-load sebagai React island dengan `client:idle` atau `client:visible`, jangan hydrate semua jadi client-side app.
-- Accessibility: pastikan kontras warna teks terhadap background #050505 memenuhi WCAG AA minimal, semua interactive element (terminal, form, navbar) bisa diakses keyboard-only.
-- Responsive: mobile-first, terutama untuk Code Playground (terminal experience di mobile harus tetap usable, bisa pertimbangkan keyboard yang muncul tidak menutupi output).
-- Dark mode adalah satu-satunya mode (tidak perlu light mode toggle), tapi pastikan tidak ada elemen yang ketinggalan/hardcode warna luar token yang sudah didefinisikan.
-- 404 page custom yang konsisten dengan tema (misal: "command not found" style).
-- Favicon & metadata dasar (title, description) untuk keseluruhan site.
-- Struktur folder project Astro yang jelas: pisahkan `components/` (React islands vs Astro components), `content/` atau `data/` untuk projects.ts dan mock blog data, `lib/` untuk abstraction layer CMS fetching.
+## 3. HALAMAN: HOME — Fokus Konversi
 
-Tolong mulai dengan setup struktur project & design token dulu, baru implementasi per halaman, supaya saya bisa review tahap demi tahap.
+Tujuan utama halaman ini: **pengunjung dalam 5–10 detik pertama tahu (1) siapa saya, (2) bisa apa, (3) bagaimana cara menghubungi saya untuk kerja sama.**
+
+- **Tidak ada hero besar konvensional.** Tetap pendekatan "log entry / status line" seperti brief awal: nama, role, lokasi, status ketersediaan kerja (available for freelance / open to work).
+- Tambahkan **satu baris value proposition yang konkret dan spesifik** tepat di bawah status line, contoh arah: "Frontend developer — 1+ tahun pengalaman, spesialisasi React/Astro, sudah menyelesaikan N+ project untuk klien/organisasi." Ini yang membedakan dari sekadar bio kosong.
+- **Bukti kerja instan** (bukan testimoni palsu): ringkasan 2–3 project terbaru lengkap dengan tech stack singkat & link demo/repo langsung dari halaman Home, bukan cuma judul.
+- **Tech stack/skill** ditampilkan sebagai list/tag padat (bukan icon grid generik) — kelompokkan per kategori (Frontend, Tooling, Bahasa) agar terasa terstruktur seperti dokumentasi teknis.
+- **CTA kontak eksplisit** diletakkan tidak jauh dari atas halaman — bisa berupa baris kecil bergaya command line, misalnya format `> hubungi saya via email / whatsapp`, tetap dalam nuansa terminal tapi fungsinya jelas sebagai ajakan bertindak.
+- Preview blog (2–3 post terbaru) ditaruh di bagian bawah, sebagai sinyal bahwa saya aktif menulis/berbagi ilmu (menambah kredibilitas untuk yang mempertimbangkan menyewa).
+- Sentuhan playful ala terminal tetap boleh ada di footer/status bar kecil (bukan elemen dominan).
+
+---
+
+## 4. HALAMAN: PROJECTS
+
+- Data disimpan sebagai static data file TypeScript (`data/projects.ts`) dengan tipe eksplisit:
+  ```ts
+  interface Project {
+    title: string;
+    description: string;
+    techStack: string[];
+    demoUrl?: string;
+    repoUrl?: string;
+    thumbnail: string;
+    status: "ongoing" | "completed";
+    featured: boolean;
+    role?: string; // peran saya di project (relevan untuk hiring)
+    year: number;
+  }
+  ```
+- Render sebagai **list/grid padat** dengan card minimalis: border tipis, hover pakai shift warna aksen (border/text), bukan shadow.
+- Filter sederhana berdasarkan tech stack/tag.
+- Project dengan `featured: true` mendapat penanda kecil (bukan badge besar mencolok) — tetap kontras minimal.
+- Setiap card menonjolkan **peran & dampak**, bukan cuma deskripsi teknis, agar recruiter/klien langsung paham value yang saya berikan.
+
+---
+
+## 5. HALAMAN: BLOG
+
+- Abstraction layer untuk fetching CMS (`lib/cms/`) dengan interface generik supaya provider bisa diganti tanpa rombak komponen.
+- Mock data dulu (3–5 artikel dummy) untuk uji struktur list + detail.
+- List: card per artikel (title, excerpt, tanggal, reading time, tag).
+- Detail: max-width konten 65–75ch, line-height nyaman, syntax highlighting untuk code block, table of contents opsional untuk artikel panjang.
+- Layout list boleh lebih padat (mendekati arsip/direktori artikel lama) dibanding kartu besar bergambar dominan — foto/gambar thumbnail kecil saja, teks yang jadi fokus utama (selaras retro & load time).
+
+---
+
+## 6. HALAMAN: CODE PLAYGROUND
+
+Tetap dua mode: **Fake Terminal** (command CLI portfolio) dan **Mini JS Playground**.
+
+### Fake Terminal
+- Command: `help`, `whoami`, `about`, `skills`, `projects`, `contact`, `clear`, `sudo hire-me` (easter egg), `cat resume.txt`, `ls`, `social`.
+- Styling pakai `--color-term-bg`, `--green` untuk prompt/success, `--yellow` untuk warning/info.
+- Command history dengan navigasi arrow up/down.
+- Tab autocomplete (nice to have).
+
+### Mini JS Playground
+- Editor ringan (textarea atau library kecil seperti CodeMirror), eksekusi lewat scope terbatas (Function constructor terbatas atau web worker) — **bukan eval() polos**, tanpa akses browser API sensitif.
+- Output/console log tampil di panel sebelah/bawah, styling konsisten dengan fake terminal (`--color-term-bg`, border tipis).
+
+- Kedua mode dimuat sebagai React island dengan `client:visible` agar tidak membebani initial load — halaman ini yang paling berat, jadi harus paling ketat soal lazy-loading.
+
+---
+
+## 7. HALAMAN: CONTACT ME
+
+- Form sederhana (nama, email, message) via Formspree/Web3Forms (static-friendly) atau API route bila SSR diaktifkan.
+- Label form pakai prefix `>` ala command line, tetap accessible (label asosiatif, bukan cuma placeholder).
+- Alternative contact: email langsung, social links (GitHub, LinkedIn, dll) dengan icon monoline.
+- **Letakkan juga kalimat ajakan eksplisit untuk kerja sama** di atas form (bukan cuma "Contact Me" generik), misalnya framing seputar ketersediaan untuk project freelance/kontrak.
+
+---
+
+## 8. PERFORMA & RETENSI (metrik keberhasilan, bukan sekadar checklist)
+
+- Target **LCP < 2.5s** dan **CLS mendekati 0** di koneksi 4G rata-rata.
+- Komponen interaktif (terminal, JS playground, filter project) sebagai React island dengan `client:idle`/`client:visible` — tidak ada full client-side hydration.
+- Font di-subset dan di-preload hanya untuk weight yang benar-benar dipakai; hindari memuat seluruh family font jika hanya butuh 2 style.
+- Gambar project/thumbnail dikompresi & lazy-load, gunakan format modern (WebP/AVIF) dengan fallback.
+- **Retensi**: dorong pengunjung menjelajah lebih dari 1 halaman lewat internal link yang natural (mis. dari Home ke Projects/Blog, dari detail artikel ke artikel terkait), bukan pop-up atau modal yang mengganggu.
+- Elemen nostalgia seperti visitor counter/"last updated" bisa jadi micro-hook agar pengunjung penasaran kembali, tapi tidak boleh menghambat performa (fetch async, non-blocking).
+
+---
+
+## 9. TECHNICAL & UX REQUIREMENTS LAINNYA
+
+- SEO: meta title, description, Open Graph tiap halaman (krusial untuk Blog & Projects).
+- Accessibility: kontras teks vs `#050505` memenuhi WCAG AA, semua elemen interaktif (terminal, form, navbar) bisa diakses keyboard-only.
+- Responsive mobile-first, khususnya Code Playground — pastikan output tidak tertutup keyboard virtual.
+- Dark mode satu-satunya mode; audit agar tidak ada warna hardcode di luar token yang didefinisikan.
+- 404 custom bergaya "command not found", konsisten tema.
+- Favicon & metadata dasar situs.
+- Struktur folder jelas: `components/` (React islands vs Astro components), `data/` untuk `projects.ts` & mock blog data, `lib/` untuk abstraction layer CMS.
+
+---
+
+## 10. URUTAN PENGERJAAN
+
+Mulai dari setup struktur project & design token (termasuk checklist anti-AI-look di atas), lalu implementasi per halaman secara bertahap agar bisa direview satu per satu, dimulai dari **Home** (karena ini yang paling menentukan konversi awal pengunjung).

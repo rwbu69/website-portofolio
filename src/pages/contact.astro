@@ -1,97 +1,74 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
-import { EnvelopeIcon, MapPinIcon } from '@heroicons/react/24/outline';
-import { SocialIcons } from '../components/react/SocialIcons'; // Will create this next
+import { MapPinIcon } from '@heroicons/react/24/outline';
+import { SocialIcons } from '../components/react/SocialIcons';
 ---
 
 <Layout title="RWBU | Contact">
   <Navbar />
   
   <main class="max-w-4xl mx-auto px-6 py-12 w-full grow flex flex-col justify-center">
-    <header class="mb-12 border-l-2 border-tosca pl-6">
-      <h1 class="text-3xl md:text-4xl font-bold mb-4 tracking-tight">
-        <span class="text-tosca font-mono">/</span>contact
+    <header class="mb-10 border-b retro-border pb-4">
+      <h1 class="text-2xl md:text-3xl font-bold mb-2 tracking-tight text-text-main">
+        <span class="text-pink font-mono">/</span>contact
       </h1>
-      <p class="text-lg text-text-muted max-w-2xl">
+      <p class="text-base text-text-main max-w-2xl">
         Let's build something great together. Send me a message or find me on the web.
       </p>
     </header>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-      <!-- Contact Form -->
-      <section class="bg-[#0f172a]/30 border border-[#1a2333] p-6 rounded-sm">
-        <form class="space-y-6" action="mailto:sebastianhutagalung69@gmail.com" method="POST" enctype="text/plain">
-          <div class="space-y-2">
-            <label for="name" class="block text-sm font-mono text-text-muted">
-              <span class="text-pink">></span> Name
-            </label>
-            <input 
-              type="text" 
-              id="name" 
-              name="name" 
-              required
-              class="w-full bg-[#050505] border border-[#1a2333] rounded-sm px-4 py-2.5 text-text-main focus:outline-none focus:border-tosca transition-colors"
-            />
-          </div>
-          
-          <div class="space-y-2">
-            <label for="email" class="block text-sm font-mono text-text-muted">
-              <span class="text-pink">></span> Email
-            </label>
-            <input 
-              type="email" 
-              id="email" 
-              name="email" 
-              required
-              class="w-full bg-[#050505] border border-[#1a2333] rounded-sm px-4 py-2.5 text-text-main focus:outline-none focus:border-tosca transition-colors"
-            />
-          </div>
-          
-          <div class="space-y-2">
-            <label for="message" class="block text-sm font-mono text-text-muted">
-              <span class="text-pink">></span> Message
-            </label>
-            <textarea 
-              id="message" 
-              name="message" 
-              rows="5"
-              required
-              class="w-full bg-[#050505] border border-[#1a2333] rounded-sm px-4 py-2.5 text-text-main focus:outline-none focus:border-tosca transition-colors resize-y"
-            ></textarea>
-          </div>
-          
-          <button 
-            type="submit"
-            class="w-full bg-tosca/10 border border-tosca text-tosca hover:bg-tosca hover:text-[#050505] font-mono py-3 rounded-sm transition-colors"
-          >
-            SEND
-          </button>
-        </form>
-      </section>
-      
-      <!-- Contact Info -->
+      <!-- Contact Info & Direct Email -->
       <section class="space-y-8">
         <div>
-          <h2 class="text-xl font-bold mb-6 flex items-center gap-2">
-            <span class="text-tosca font-mono">#</span> Direct_Line
+          <h2 class="text-xl font-bold mb-4 flex items-center gap-2 font-mono border-b retro-border pb-1 inline-block">
+            Availability Status
           </h2>
-            <div class="flex items-center gap-4 p-4 border border-[#1a2333] rounded-sm">
-              <div class="bg-[#0f172a] p-2 rounded-sm">
-                <MapPinIcon className="w-6 h-6" />
-              </div>
-              <div>
-                <p class="text-sm text-text-muted font-mono mb-1">Location</p>
-                <p>Yogyakarta, Indonesia</p>
-              </div>
+          <div class="p-4 bg-white retro-border text-sm">
+            <p class="mb-4">
+              I am currently <strong class="text-green">OPEN</strong> for freelance projects, contract work, or open source collaboration. 
+            </p>
+            <p class="mb-6 text-text-muted">
+              If you have a project idea or need help on the frontend side, feel free to contact me via email or WhatsApp.
+            </p>
+            
+            <div class="flex flex-col gap-4 font-mono mt-2">
+              <a href="mailto:sebastianhutagalung69@gmail.com" class="block w-full text-center bg-pink text-white text-base font-bold py-3 px-6 retro-shadow border-2 border-text-main">
+                > EMAIL ME
+              </a>
+              <a href="https://wa.me/6285172244992?text=I%20would%20like%20to%20order%20a%20website" target="_blank" rel="noopener noreferrer" class="block w-full text-center bg-green text-white text-base font-bold py-3 px-6 retro-shadow border-2 border-text-main">
+                > WHATSAPP ME
+              </a>
             </div>
+          </div>
+        </div>
+      </section>
+      
+      <!-- Social & Location -->
+      <section class="space-y-8">
+        <div>
+          <h2 class="text-xl font-bold mb-4 flex items-center gap-2 font-mono border-b retro-border pb-1 inline-block">
+            Direct Line
+          </h2>
+          <div class="flex items-center gap-4 p-4 bg-white retro-border">
+            <div class="bg-gray-100 p-2 border border-gray-200">
+              <MapPinIcon className="w-6 h-6 text-text-main" />
+            </div>
+            <div>
+              <p class="text-xs text-text-muted font-mono mb-1 uppercase tracking-widest">Location</p>
+              <p class="text-sm font-medium">Yogyakarta, Indonesia</p>
+            </div>
+          </div>
         </div>
         
         <div>
-          <h2 class="text-xl font-bold mb-6 flex items-center gap-2">
-            <span class="text-tosca font-mono">#</span> Socials
+          <h2 class="text-xl font-bold mb-4 flex items-center gap-2 font-mono border-b retro-border pb-1 inline-block">
+            Socials
           </h2>
-          <SocialIcons client:visible />
+          <div class="p-4 bg-white retro-border">
+            <SocialIcons />
+          </div>
         </div>
       </section>
     </div>

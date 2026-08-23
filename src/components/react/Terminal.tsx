@@ -32,7 +32,7 @@ export default function Terminal() {
 
     const newHistory: CommandOutput[] = [
       ...history,
-      { id: Date.now().toString() + 'i', type: 'input', text: `~/rwbu $ ${trimmedCmd}` }
+      { id: Date.now().toString() + 'i', type: 'input', text: `> ${trimmedCmd}` }
     ];
 
     const args = trimmedCmd.split(' ');
@@ -67,7 +67,7 @@ export default function Terminal() {
           <div>
             {allProjects.map((p, i) => (
               <div key={i} className="mb-2">
-                <span className="text-tosca">{p.title}</span> <span className="text-xs">({p.status})</span>
+                <span className="text-pink font-bold">{p.title}</span> <span className="text-xs">({p.status})</span>
                 <br />
                 <span className="text-text-muted">{p.type}</span>
               </div>
@@ -132,17 +132,19 @@ export default function Terminal() {
 
   return (
     <div 
-      className="bg-[var(--color-term-bg)] border border-[#1a2333] rounded-sm font-mono text-sm h-[500px] flex flex-col overflow-hidden backdrop-blur-md shadow-2xl"
+      className="bg-white border retro-border font-mono text-sm h-[500px] flex flex-col overflow-hidden"
       onClick={() => inputRef.current?.focus()}
     >
       {/* Terminal Header */}
-      <div className="bg-[#0f172a] px-4 py-2 border-b border-[#1a2333] flex items-center gap-2">
-        <div className="flex gap-2">
-          <div className="w-3 h-3 rounded-full bg-pink"></div>
-          <div className="w-3 h-3 rounded-full bg-yellow"></div>
-          <div className="w-3 h-3 rounded-full bg-green"></div>
+      <div className="bg-gray-100 px-4 py-2 border-b retro-border flex items-center justify-between">
+        <div className="text-text-main font-bold text-xs uppercase tracking-widest">
+          PORTFOLIO.EXE
         </div>
-        <div className="ml-4 text-text-muted text-xs">rwbu@portfolio: ~</div>
+        <div className="flex gap-1">
+          <div className="w-3 h-3 bg-gray-300 border border-gray-400 flex items-center justify-center text-[8px]">_</div>
+          <div className="w-3 h-3 bg-gray-300 border border-gray-400 flex items-center justify-center text-[8px]">□</div>
+          <div className="w-3 h-3 bg-pink text-white border border-pink flex items-center justify-center text-[8px]">x</div>
+        </div>
       </div>
 
       {/* Terminal Body */}
@@ -164,14 +166,14 @@ export default function Terminal() {
         
         {/* Input Line */}
         <div className="flex items-center text-text-main mt-4">
-          <span className="text-tosca mr-2">~/rwbu $</span>
+          <span className="text-pink font-bold mr-2">{'>'}</span>
           <input
             ref={inputRef}
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
-            className="flex-grow bg-transparent outline-none border-none caret-tosca"
+            className="flex-grow bg-transparent outline-none border-none caret-pink"
             autoComplete="off"
             spellCheck="false"
           />

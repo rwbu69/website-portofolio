@@ -9,24 +9,23 @@ const navLinks = [
   { name: 'Contact Me', href: '/contact' },
 ];
 
-// In Astro, we can get current path to highlight active state
 const currentPath = Astro.url.pathname;
 ---
 
-<header class="sticky top-0 z-50 w-full bg-[#050505]/90 backdrop-blur-sm border-b border-[#1a2333]">
-  <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-    <a href="/" class="text-xl font-bold font-mono text-tosca hover:text-pink transition-colors">
+<header class="sticky top-0 z-50 w-full bg-[#f8f9fa] border-b retro-border">
+  <div class="max-w-4xl mx-auto px-6 h-12 flex items-center justify-between">
+    <a href="/" class="text-lg font-bold font-mono text-text-main hover:text-pink transition-colors">
       <span class="text-pink">~</span>/rwbu<span class="animate-pulse">_</span>
     </a>
 
     <!-- Desktop Navigation -->
-    <nav class="hidden md:flex items-center gap-8">
+    <nav class="hidden md:flex items-center gap-6">
       {navLinks.map(link => {
         const isActive = currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href));
         return (
           <a 
             href={link.href} 
-            class={`relative text-sm font-medium transition-colors hover:text-tosca ${isActive ? 'text-tosca' : 'text-text-muted'}`}
+            class={`relative text-sm font-mono transition-colors hover:text-pink ${isActive ? 'text-pink border-b-2 border-pink' : 'text-text-muted'}`}
           >
             {link.name}
           </a>
@@ -35,7 +34,7 @@ const currentPath = Astro.url.pathname;
     </nav>
 
     <!-- Mobile Menu Island -->
-    <div class="md:hidden">
+    <div class="md:hidden flex items-center">
       <MobileMenu client:load currentPath={currentPath} navLinks={navLinks} />
     </div>
   </div>

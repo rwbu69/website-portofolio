@@ -1,60 +1,45 @@
 import React, { useState } from 'react';
 import Terminal from './Terminal';
 import JSPlayground from './JSPlayground';
-import { motion, AnimatePresence } from 'framer-motion';
 
 export default function PlaygroundTabs() {
   const [activeTab, setActiveTab] = useState<'terminal' | 'js'>('terminal');
 
   return (
     <div className="w-full">
-      <div className="flex gap-4 mb-6">
+      <div className="flex gap-6 mb-6 border-b retro-border">
         <button
           onClick={() => setActiveTab('terminal')}
           className={`px-4 py-2 font-mono text-sm border-b-2 transition-colors ${
             activeTab === 'terminal' 
-              ? 'border-tosca text-tosca' 
-              : 'border-transparent text-text-muted hover:text-text-main'
+              ? 'border-pink text-pink' 
+              : 'border-transparent text-text-muted hover:text-pink'
           }`}
         >
-          CLI_Terminal
+          CLI Terminal
         </button>
         <button
           onClick={() => setActiveTab('js')}
           className={`px-4 py-2 font-mono text-sm border-b-2 transition-colors ${
             activeTab === 'js' 
-              ? 'border-tosca text-tosca' 
-              : 'border-transparent text-text-muted hover:text-text-main'
+              ? 'border-pink text-pink' 
+              : 'border-transparent text-text-muted hover:text-pink'
           }`}
         >
-          JS_Sandbox
+          JS Sandbox
         </button>
       </div>
 
       <div className="relative">
-        <AnimatePresence mode="wait">
-          {activeTab === 'terminal' ? (
-            <motion.div
-              key="terminal"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.2 }}
-            >
-              <Terminal />
-            </motion.div>
-          ) : (
-            <motion.div
-              key="js"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.2 }}
-            >
-              <JSPlayground />
-            </motion.div>
-          )}
-        </AnimatePresence>
+        {activeTab === 'terminal' ? (
+          <div>
+            <Terminal />
+          </div>
+        ) : (
+          <div>
+            <JSPlayground />
+          </div>
+        )}
       </div>
     </div>
   );

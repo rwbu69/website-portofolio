@@ -81,12 +81,12 @@ export default function JSPlayground() {
   return (
     <div className="flex flex-col lg:flex-row gap-4 h-[500px]">
       {/* Editor Panel */}
-      <div className="flex-1 flex flex-col bg-[var(--color-term-bg)] border border-[#1a2333] rounded-sm overflow-hidden backdrop-blur-md shadow-2xl">
-        <div className="bg-[#0f172a] px-4 py-2 border-b border-[#1a2333] flex justify-between items-center">
-          <span className="text-xs text-text-muted font-mono">script.js</span>
+      <div className="flex-1 flex flex-col bg-white border retro-border overflow-hidden">
+        <div className="bg-gray-100 px-4 py-2 border-b retro-border flex justify-between items-center">
+          <span className="text-xs text-text-main font-bold uppercase tracking-widest font-mono">script.js</span>
           <button 
             onClick={executeCode}
-            className="text-xs px-3 py-1 bg-tosca/10 text-tosca hover:bg-tosca hover:text-[#050505] transition-colors font-mono rounded-sm"
+            className="text-xs px-2 py-0.5 border border-pink text-pink hover:bg-pink hover:text-white transition-colors font-mono"
           >
             Run Code
           </button>
@@ -101,28 +101,28 @@ export default function JSPlayground() {
       </div>
 
       {/* Output Panel */}
-      <div className="flex-1 flex flex-col bg-[var(--color-term-bg)] border border-[#1a2333] rounded-sm overflow-hidden backdrop-blur-md shadow-2xl">
-        <div className="bg-[#0f172a] px-4 py-2 border-b border-[#1a2333] flex justify-between items-center">
-          <span className="text-xs text-text-muted font-mono">Console Output</span>
+      <div className="flex-1 flex flex-col bg-white border retro-border overflow-hidden">
+        <div className="bg-gray-100 px-4 py-2 border-b retro-border flex justify-between items-center">
+          <span className="text-xs text-text-main font-bold uppercase tracking-widest font-mono">Console Output</span>
           <button 
             onClick={() => setLogs([])}
-            className="text-xs px-3 py-1 bg-transparent text-text-muted hover:text-pink transition-colors font-mono"
+            className="text-xs px-2 py-0.5 bg-transparent text-text-muted border border-transparent hover:border-gray-400 transition-colors font-mono"
           >
             Clear
           </button>
         </div>
-        <div className="flex-grow p-4 overflow-y-auto font-mono text-sm custom-scrollbar bg-[#020617]/50">
+        <div className="flex-grow p-4 overflow-y-auto font-mono text-sm custom-scrollbar bg-gray-50">
           {logs.length === 0 ? (
             <div className="text-text-muted italic opacity-50">No output to display</div>
           ) : (
             logs.map(log => (
               <div 
                 key={log.id} 
-                className={`mb-1 pb-1 border-b border-[#1a2333]/30 whitespace-pre-wrap break-all ${
-                  log.type === 'error' ? 'text-pink' :
-                  log.type === 'warn' ? 'text-yellow' :
+                className={`mb-1 pb-1 border-b border-gray-200 whitespace-pre-wrap break-all ${
+                  log.type === 'error' ? 'text-pink font-bold' :
+                  log.type === 'warn' ? 'text-yellow font-bold' :
                   log.type === 'info' ? 'text-tosca' :
-                  'text-[#e2e8f0]'
+                  'text-text-main'
                 }`}
               >
                 <span className="text-xs text-text-muted mr-2">

@@ -1,59 +1,57 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import Navbar from '../../components/Navbar.astro';
-import { getCollection } from 'astro:content';
+import { getPosts } from '../../lib/cms';
 
-const posts = await getCollection('blog');
-// Sort posts by date descending
-posts.sort((a, b) => new Date(b.data.publishDate).valueOf() - new Date(a.data.publishDate).valueOf());
+const posts = await getPosts();
 ---
 
-<Layout title="RWBU | Blog">
+<Layout title="RWBU | Blog & Notes">
   <Navbar />
   
-  <main class="max-w-4xl mx-auto px-6 py-12 w-full grow flex flex-col">
-    <header class="mb-12 border-l-2 border-tosca pl-6">
-      <h1 class="text-3xl md:text-4xl font-bold mb-4 tracking-tight">
-        <span class="text-tosca font-mono">/</span>blog
+  <main class="max-w-4xl mx-auto px-6 py-12 w-full flex-grow">
+    <header class="mb-10 border-b retro-border pb-4">
+      <h1 class="text-2xl md:text-3xl font-bold mb-2 tracking-tight text-text-main">
+        <span class="text-pink font-mono">/</span>blog
       </h1>
-      <p class="text-lg text-text-muted max-w-2xl">
-        Thoughts on software development, design, and building things for the web.
+      <p class="text-base text-text-main max-w-2xl">
+        Kumpulan catatan, tutorial, dan hasil eksplorasi terkait web development dan teknologi.
       </p>
     </header>
 
-    <div class="space-y-8">
-      {posts.map(post => (
-        <article class="p-6 bg-[#0f172a]/30 border border-[#1a2333] hover:border-tosca transition-colors rounded-sm group">
-          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
-            <div class="flex items-center gap-4 text-xs font-mono text-text-muted">
-              <span>{post.data.publishDate}</span>
-              <span class="text-[#1a2333]">|</span>
-              <span>{post.data.readingTime}</span>
-            </div>
-            <div class="flex flex-wrap gap-2">
-              {post.data.tags.map((tag: string) => (
-                <span class="text-xs text-tosca bg-tosca/10 px-2 py-1 rounded-sm">
-                  {tag}
+    <div class="space-y-6">
+      {posts.map((post) => (
+        <article class="p-5 bg-white retro-border hover:border-pink transition-colors group">
+          <div class="flex flex-col md:flex-row md:items-baseline gap-2 md:gap-4 mb-2">
+            <time class="text-sm font-mono text-text-muted shrink-0 w-32">
+              {post.publishDate}
+            </time>
+            <h2 class="text-xl font-bold group-hover:text-pink transition-colors">
+              <a href={`/blog/${post.id}`} class="after:absolute after:inset-0 relative">{post.title}</a>
+            </h2>
+          </div>
+          
+          <p class="text-sm text-text-main mb-4 md:ml-36">
+            {post.excerpt}
+          </p>
+          
+          {post.tags && post.tags.length > 0 && (
+            <div class="flex flex-wrap gap-2 md:ml-36">
+              {post.tags.map((tag: string) => (
+                <span class="text-xs font-mono px-2 py-0.5 bg-gray-50 border border-gray-200 text-text-muted">
+                  #{tag}
                 </span>
               ))}
             </div>
-          </div>
-          
-          <h2 class="text-2xl font-bold mb-3 group-hover:text-pink transition-colors">
-            <a href={`/blog/${post.id}`} class="block">
-              {post.data.title}
-            </a>
-          </h2>
-          
-          <p class="text-text-muted mb-6 leading-relaxed">
-            {post.data.excerpt}
-          </p>
-          
-          <a href={`/blog/${post.id}`} class="inline-flex items-center gap-2 text-sm font-mono text-tosca group-hover:text-pink transition-colors">
-            Read article ->
-          </a>
+          )}
         </article>
       ))}
+      
+      {posts.length === 0 && (
+        <div class="text-center py-12 text-text-muted font-mono">
+          &gt; No posts found.
+        </div>
+      )}
     </div>
   </main>
 </Layout>

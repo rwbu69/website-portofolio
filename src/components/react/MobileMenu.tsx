@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { motion, AnimatePresence } from 'framer-motion';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 
 interface NavLink {
@@ -33,110 +32,92 @@ export default function MobileMenu({ currentPath, navLinks }: MobileMenuProps) {
     };
   }, [isOpen]);
 
-  const menuContent = (
-    <AnimatePresence>
-      {isOpen && (
-        <motion.div
-          key="fullscreen-menu"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.2 }}
-          style={{
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            zIndex: 999999, // Super high z-index
-            backgroundColor: '#050505',
-            display: 'flex',
-            flexDirection: 'column',
-          }}
+  const menuContent = isOpen ? (
+    <div
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        zIndex: 999999,
+        backgroundColor: '#f8f9fa',
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+    >
+      {/* Header row */}
+      <div style={{
+        height: 48,
+        paddingLeft: 24,
+        paddingRight: 24,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        borderBottom: '1px solid #d1d5db',
+      }}>
+        <a href="/" style={{
+          fontSize: 18,
+          fontWeight: 700,
+          fontFamily: 'monospace',
+          color: '#111827',
+          textDecoration: 'none',
+        }}>
+          <span style={{ color: '#E39494' }}>~</span>/rwbu_
+        </a>
+        <button 
+          onClick={() => setIsOpen(false)}
+          style={{ color: '#111827', padding: 8, background: 'none', border: 'none', cursor: 'pointer' }}
+          aria-label="Close Menu"
         >
-          {/* Header row */}
-          <div style={{
-            height: 64,
-            paddingLeft: 24,
-            paddingRight: 24,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            borderBottom: '1px solid #1a2333',
-          }}>
-            <a href="/" style={{
-              fontSize: 20,
-              fontWeight: 700,
-              fontFamily: 'monospace',
-              color: '#2dd4bf',
-              textDecoration: 'none',
-            }}>
-              <span style={{ color: '#f472b6' }}>~</span>/rwbu_
-            </a>
-            <button 
+          <XMarkIcon style={{ width: 24, height: 24 }} />
+        </button>
+      </div>
+
+      {/* Navigation links */}
+      <nav style={{
+        flex: 1,
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
+        paddingTop: 40,
+        paddingLeft: 40,
+        paddingRight: 40,
+        gap: 16,
+      }}>
+        {navLinks.map((link, i) => {
+          const isActive = currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href));
+          return (
+            <a
+              key={link.name}
+              href={link.href}
+              style={{
+                padding: '8px 0',
+                fontSize: 20,
+                fontWeight: 500,
+                fontFamily: 'monospace',
+                color: isActive ? '#E39494' : '#111827',
+                textDecoration: 'none',
+                borderBottom: isActive ? '2px solid #E39494' : 'none',
+                display: 'inline-block',
+                width: 'fit-content'
+              }}
               onClick={() => setIsOpen(false)}
-              style={{ color: '#e2e8f0', padding: 8, background: 'none', border: 'none', cursor: 'pointer' }}
-              aria-label="Close Menu"
             >
-              <XMarkIcon style={{ width: 24, height: 24 }} />
-            </button>
-          </div>
-
-          {/* Navigation links */}
-          <nav style={{
-            flex: 1,
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            paddingLeft: 40,
-            paddingRight: 40,
-            gap: 8,
-          }}>
-            {navLinks.map((link, i) => {
-              const isActive = currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href));
-              return (
-                <motion.a
-                  key={link.name}
-                  href={link.href}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.05 * i, duration: 0.25 }}
-                  style={{
-                    padding: '12px 0',
-                    fontSize: 24,
-                    fontWeight: 500,
-                    color: isActive ? '#2dd4bf' : '#e2e8f0',
-                    textDecoration: 'none',
-                  }}
-                  onClick={() => setIsOpen(false)}
-                >
-                  <span style={{ fontFamily: 'monospace', color: '#f472b6', marginRight: 12, fontSize: 18 }}>{'>'}</span>
-                  {link.name}
-                </motion.a>
-              );
-            })}
-          </nav>
-
-          {/* Footer */}
-          <div style={{
-            paddingLeft: 40,
-            paddingRight: 40,
-            paddingTop: 24,
-            paddingBottom: 24,
-            borderTop: '1px solid #1a2333',
-          }}>
-            <p style={{ fontSize: 12, fontFamily: 'monospace', color: '#475569', margin: 0 }}>© 2025 RWBU. All rights reserved.</p>
-          </div>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  );
+              <span style={{ color: '#E39494', marginRight: 12, fontSize: 16 }}>{'>'}</span>
+              {link.name}
+            </a>
+          );
+        })}
+      </nav>
+    </div>
+  ) : null;
 
   return (
     <>
       <button 
         onClick={() => setIsOpen(true)}
-        style={{ color: '#e2e8f0', padding: '8px', background: 'none', border: 'none', cursor: 'pointer' }}
+        style={{ color: '#111827', padding: '8px', background: 'none', border: 'none', cursor: 'pointer' }}
         aria-label="Open Menu"
       >
         <Bars3Icon style={{ width: 24, height: 24 }} />
