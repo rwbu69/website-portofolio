@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import Navbar from '../../components/Navbar.astro';
+import PageHeader from '../../components/PageHeader.astro';
 import { getPosts } from '../../lib/cms';
 
 const posts = await getPosts();
@@ -10,20 +11,16 @@ const posts = await getPosts();
   <Navbar />
   
   <main class="max-w-4xl mx-auto px-6 py-12 w-full flex-grow">
-    <header class="mb-10 border-b retro-border pb-4">
-      <h1 class="text-2xl md:text-3xl font-bold mb-2 tracking-tight text-text-main">
-        <span class="text-pink font-mono">/</span>blog
-      </h1>
-      <p class="text-base text-text-main max-w-2xl">
-        Kumpulan catatan, tutorial, dan hasil eksplorasi terkait web development dan teknologi.
-      </p>
-    </header>
+    <PageHeader 
+      title="Blog & Notes" 
+      description="A collection of notes, tutorials, and explorations related to web development and technology." 
+    />
 
     <div class="space-y-6">
       {posts.map((post) => (
-        <article class="p-5 bg-white retro-border hover:border-pink transition-colors group">
+        <article class="p-5 bg-white border border-gray-200 hover:border-pink transition-colors group rounded-sm shadow-sm">
           <div class="flex flex-col md:flex-row md:items-baseline gap-2 md:gap-4 mb-2">
-            <time class="text-sm font-mono text-text-muted shrink-0 w-32">
+            <time class="text-sm font-sans text-text-muted shrink-0 w-32">
               {post.publishDate}
             </time>
             <h2 class="text-xl font-bold group-hover:text-pink transition-colors">
@@ -38,7 +35,7 @@ const posts = await getPosts();
           {post.tags && post.tags.length > 0 && (
             <div class="flex flex-wrap gap-2 md:ml-36">
               {post.tags.map((tag: string) => (
-                <span class="text-xs font-mono px-2 py-0.5 bg-gray-50 border border-gray-200 text-text-muted">
+                <span class="text-xs font-sans px-2 py-0.5 bg-gray-50 border border-gray-200 text-text-muted rounded-sm">
                   #{tag}
                 </span>
               ))}
@@ -48,8 +45,8 @@ const posts = await getPosts();
       ))}
       
       {posts.length === 0 && (
-        <div class="text-center py-12 text-text-muted font-mono">
-          &gt; No posts found.
+        <div class="text-center py-12 text-text-muted font-sans">
+          No posts found.
         </div>
       )}
     </div>

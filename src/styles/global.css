@@ -35,15 +35,6 @@ body {
   overflow-x: hidden;
 }
 
-/* Reset all border radii to 0 for the blocky retro feel */
-* {
-  border-radius: 0 !important;
-}
-
-/* Exception for small badges if needed (2-4px) */
-.rounded-badge {
-  border-radius: 2px !important;
-}
 
 /* Base Hard Borders for brutalist feel */
 .retro-border {
@@ -69,30 +60,11 @@ body {
   font-family: var(--font-sans);
 }
 
-/* Custom Scrollbar - Retro Style */
-::-webkit-scrollbar { width: 12px; }
-::-webkit-scrollbar-track { 
-  background: var(--bg-color); 
-  border-left: 1px solid var(--text-muted);
+/* Hide scrollbar for clean aesthetic */
+::-webkit-scrollbar { 
+  display: none; 
 }
-::-webkit-scrollbar-thumb { 
-  background: var(--text-muted); 
-  border: 1px solid var(--bg-color);
+* { 
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
-::-webkit-scrollbar-thumb:hover { background: var(--text-main); }
-
-/* Utility Classes for specific theme colors */
-.text-pink { color: var(--pink); }
-.text-tosca { color: var(--tosca); }
-.text-green { color: var(--green); }
-.text-yellow { color: var(--yellow); }
-
-.bg-pink { background-color: var(--pink); }
-.bg-tosca { background-color: var(--tosca); }
-.bg-green { background-color: var(--green); }
-.bg-yellow { background-color: var(--yellow); }
-
-.border-pink { border-color: var(--pink); }
-.border-tosca { border-color: var(--tosca); }
-.border-green { border-color: var(--green); }
-.border-yellow { border-color: var(--yellow); }

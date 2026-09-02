@@ -11,7 +11,7 @@ export const experience = [
     role: "Web Developer",
     company: "PT MultiIntegra Digital",
     location: "Rawamangun, East Jakarta",
-    duration: "1 tahun"
+    duration: "1 year"
   },
   {
     role: "Freelance Web Developer",

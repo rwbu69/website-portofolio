@@ -1,21 +1,18 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
+import PageHeader from '../components/PageHeader.astro';
 import PlaygroundTabs from '../components/react/PlaygroundTabs';
 ---
 
 <Layout title="RWBU | Code Playground">
   <Navbar />
   
-  <main class="max-w-6xl mx-auto px-6 py-12 w-full flex-grow flex flex-col">
-    <header class="mb-8 border-b retro-border pb-4">
-      <h1 class="text-2xl md:text-3xl font-bold mb-2 tracking-tight text-text-main">
-        <span class="text-pink font-mono">/</span>playground
-      </h1>
-      <p class="text-base text-text-main max-w-2xl">
-        A fun interactive zone. Play around with the fake terminal or write some JavaScript in the sandbox.
-      </p>
-    </header>
+  <main class="max-w-4xl mx-auto px-6 py-12 w-full flex-grow flex flex-col">
+    <PageHeader 
+      title="Playground" 
+      description="A fun interactive zone. Play around with the fake terminal or write some JavaScript in the sandbox." 
+    />
 
     <div class="flex-grow">
       <PlaygroundTabs client:load />

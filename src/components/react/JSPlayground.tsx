@@ -81,12 +81,12 @@ export default function JSPlayground() {
   return (
     <div className="flex flex-col lg:flex-row gap-4 h-[500px]">
       {/* Editor Panel */}
-      <div className="flex-1 flex flex-col bg-white border retro-border overflow-hidden">
-        <div className="bg-gray-100 px-4 py-2 border-b retro-border flex justify-between items-center">
-          <span className="text-xs text-text-main font-bold uppercase tracking-widest font-mono">script.js</span>
+      <div className="flex-1 flex flex-col bg-white border border-gray-200 rounded-sm shadow-sm overflow-hidden">
+        <div className="bg-gray-50 px-4 py-2 border-b border-gray-200 flex justify-between items-center">
+          <span className="text-xs text-text-main font-bold uppercase tracking-widest font-sans">script.js</span>
           <button 
             onClick={executeCode}
-            className="text-xs px-2 py-0.5 border border-pink text-pink hover:bg-pink hover:text-white transition-colors font-mono"
+            className="text-xs px-3 py-1 border border-gray-200 text-text-muted hover:border-pink hover:text-pink transition-colors rounded-sm font-medium"
           >
             Run Code
           </button>
@@ -101,12 +101,12 @@ export default function JSPlayground() {
       </div>
 
       {/* Output Panel */}
-      <div className="flex-1 flex flex-col bg-white border retro-border overflow-hidden">
-        <div className="bg-gray-100 px-4 py-2 border-b retro-border flex justify-between items-center">
-          <span className="text-xs text-text-main font-bold uppercase tracking-widest font-mono">Console Output</span>
+      <div className="flex-1 flex flex-col bg-white border border-gray-200 rounded-sm shadow-sm overflow-hidden">
+        <div className="bg-gray-50 px-4 py-2 border-b border-gray-200 flex justify-between items-center">
+          <span className="text-xs text-text-main font-bold uppercase tracking-widest font-sans">Console Output</span>
           <button 
             onClick={() => setLogs([])}
-            className="text-xs px-2 py-0.5 bg-transparent text-text-muted border border-transparent hover:border-gray-400 transition-colors font-mono"
+            className="text-xs px-3 py-1 bg-transparent text-text-muted border border-gray-200 hover:border-pink hover:text-pink transition-colors rounded-sm font-medium"
           >
             Clear
           </button>

@@ -10,7 +10,7 @@ interface CommandOutput {
 
 export default function Terminal() {
   const [history, setHistory] = useState<CommandOutput[]>([
-    { id: '1', type: 'output', text: `Welcome to ${identity.alias} Terminal [Version 1.0.0]` },
+    { id: '1', type: 'output', text: `Welcome to ${identity.alias} CLI.` },
     { id: '2', type: 'output', text: 'Type "help" for a list of available commands.' }
   ]);
   const [input, setInput] = useState('');
@@ -132,18 +132,18 @@ export default function Terminal() {
 
   return (
     <div 
-      className="bg-white border retro-border font-mono text-sm h-[500px] flex flex-col overflow-hidden"
+      className="bg-white border border-gray-200 rounded-sm shadow-sm font-mono text-sm h-[500px] flex flex-col overflow-hidden"
       onClick={() => inputRef.current?.focus()}
     >
       {/* Terminal Header */}
-      <div className="bg-gray-100 px-4 py-2 border-b retro-border flex items-center justify-between">
-        <div className="text-text-main font-bold text-xs uppercase tracking-widest">
-          PORTFOLIO.EXE
+      <div className="bg-gray-50 px-4 py-3 border-b border-gray-200 flex items-center gap-3">
+        <div className="flex gap-1.5">
+          <div className="w-3 h-3 rounded-full bg-pink"></div>
+          <div className="w-3 h-3 rounded-full bg-yellow"></div>
+          <div className="w-3 h-3 rounded-full bg-green"></div>
         </div>
-        <div className="flex gap-1">
-          <div className="w-3 h-3 bg-gray-300 border border-gray-400 flex items-center justify-center text-[8px]">_</div>
-          <div className="w-3 h-3 bg-gray-300 border border-gray-400 flex items-center justify-center text-[8px]">□</div>
-          <div className="w-3 h-3 bg-pink text-white border border-pink flex items-center justify-center text-[8px]">x</div>
+        <div className="text-text-muted font-sans text-xs">
+          guest@portfolio:~
         </div>
       </div>
 

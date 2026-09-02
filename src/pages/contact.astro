@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
+import PageHeader from '../components/PageHeader.astro';
 import { MapPinIcon } from '@heroicons/react/24/outline';
 import { SocialIcons } from '../components/react/SocialIcons';
 ---
@@ -9,23 +10,19 @@ import { SocialIcons } from '../components/react/SocialIcons';
   <Navbar />
   
   <main class="max-w-4xl mx-auto px-6 py-12 w-full grow flex flex-col justify-center">
-    <header class="mb-10 border-b retro-border pb-4">
-      <h1 class="text-2xl md:text-3xl font-bold mb-2 tracking-tight text-text-main">
-        <span class="text-pink font-mono">/</span>contact
-      </h1>
-      <p class="text-base text-text-main max-w-2xl">
-        Let's build something great together. Send me a message or find me on the web.
-      </p>
-    </header>
+    <PageHeader 
+      title="Contact" 
+      description="Let's build something great together. Send me a message or find me on the web." 
+    />
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
       <!-- Contact Info & Direct Email -->
       <section class="space-y-8">
         <div>
-          <h2 class="text-xl font-bold mb-4 flex items-center gap-2 font-mono border-b retro-border pb-1 inline-block">
+          <h2 class="text-xl font-bold mb-4 flex items-center gap-2 font-serif border-b border-gray-200 pb-1 inline-block">
             Availability Status
           </h2>
-          <div class="p-4 bg-white retro-border text-sm">
+          <div class="p-4 bg-white border border-gray-200 rounded-sm text-sm">
             <p class="mb-4">
               I am currently <strong class="text-green">OPEN</strong> for freelance projects, contract work, or open source collaboration. 
             </p>
@@ -33,12 +30,12 @@ import { SocialIcons } from '../components/react/SocialIcons';
               If you have a project idea or need help on the frontend side, feel free to contact me via email or WhatsApp.
             </p>
             
-            <div class="flex flex-col gap-4 font-mono mt-2">
-              <a href="mailto:sebastianhutagalung69@gmail.com" class="block w-full text-center bg-pink text-white text-base font-bold py-3 px-6 retro-shadow border-2 border-text-main">
-                > EMAIL ME
+            <div class="flex flex-col gap-4 font-serif mt-2">
+              <a href="mailto:sebastianhutagalung69@gmail.com" class="block w-full text-center bg-pink text-white text-base font-bold py-3 px-6 border border-pink hover:bg-pink/90 hover:-translate-y-0.5 shadow-sm hover:shadow-md transition-all rounded-sm">
+                Email Me
               </a>
-              <a href="https://wa.me/6285172244992?text=I%20would%20like%20to%20order%20a%20website" target="_blank" rel="noopener noreferrer" class="block w-full text-center bg-green text-white text-base font-bold py-3 px-6 retro-shadow border-2 border-text-main">
-                > WHATSAPP ME
+              <a href="https://wa.me/6285172244992?text=I%20would%20like%20to%20order%20a%20website" target="_blank" rel="noopener noreferrer" class="block w-full text-center bg-green text-white text-base font-bold py-3 px-6 border border-green hover:bg-green/90 hover:-translate-y-0.5 shadow-sm hover:shadow-md transition-all rounded-sm">
+                WhatsApp Me
               </a>
             </div>
           </div>
@@ -48,25 +45,25 @@ import { SocialIcons } from '../components/react/SocialIcons';
       <!-- Social & Location -->
       <section class="space-y-8">
         <div>
-          <h2 class="text-xl font-bold mb-4 flex items-center gap-2 font-mono border-b retro-border pb-1 inline-block">
+          <h2 class="text-xl font-bold mb-4 flex items-center gap-2 font-serif border-b border-gray-200 pb-1 inline-block">
             Direct Line
           </h2>
-          <div class="flex items-center gap-4 p-4 bg-white retro-border">
-            <div class="bg-gray-100 p-2 border border-gray-200">
+          <div class="flex items-center gap-4 p-4 bg-white border border-gray-200 rounded-sm">
+            <div class="bg-gray-50 p-2 border border-gray-200 rounded-sm">
               <MapPinIcon className="w-6 h-6 text-text-main" />
             </div>
             <div>
-              <p class="text-xs text-text-muted font-mono mb-1 uppercase tracking-widest">Location</p>
+              <p class="text-xs text-text-muted font-sans mb-1 tracking-wider uppercase">Location</p>
               <p class="text-sm font-medium">Yogyakarta, Indonesia</p>
             </div>
           </div>
         </div>
         
         <div>
-          <h2 class="text-xl font-bold mb-4 flex items-center gap-2 font-mono border-b retro-border pb-1 inline-block">
+          <h2 class="text-xl font-bold mb-4 flex items-center gap-2 font-serif border-b border-gray-200 pb-1 inline-block">
             Socials
           </h2>
-          <div class="p-4 bg-white retro-border">
+          <div class="p-4 bg-white border border-gray-200 rounded-sm">
             <SocialIcons />
           </div>
         </div>
