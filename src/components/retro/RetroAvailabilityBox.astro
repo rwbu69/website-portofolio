@@ -2,63 +2,63 @@
 import { contactDetails } from '../../data/profile';
 ---
 
-<div class="win95-alert retro-ad-box" role="region" aria-label="Special Talent Offer & Inquiries">
+<div class="win95-alert win95-offer-box" role="region" aria-label="Special Talent Offer & Inquiries">
   <!-- Windows 95 System Titlebar -->
   <div class="win95-titlebar mono">
-    <span class="ad-titlebar-text">★★★ CONGRATULATIONS_VISITOR_98.EXE ★★★</span>
+    <span class="offer-titlebar-text">★★★ CONGRATULATIONS_VISITOR_98.EXE ★★★</span>
     <div class="win95-controls" aria-hidden="true">
       <span class="win95-btn">?</span>
       <span class="win95-btn" onclick="alert('ERROR: Cannot close! Developer opportunity is too good to miss! 😉')">X</span>
     </div>
   </div>
 
-  <!-- 90s Clickbait Ad Body -->
-  <div class="win95-body ad-body">
+  <!-- 90s Promotional Offer Body -->
+  <div class="win95-body win95-offer-body">
     <!-- Blinking Promotional Badge -->
-    <div class="ad-badge-wrap">
-      <span class="ad-badge mono retro-blink">★ YOU HAVE BEEN SELECTED! ★</span>
+    <div class="offer-badge-wrap">
+      <span class="offer-badge mono retro-blink">★ YOU HAVE BEEN SELECTED! ★</span>
     </div>
 
-    <!-- Clickbait Main Headline -->
-    <div class="ad-headline">
+    <!-- Main Headline -->
+    <div class="offer-headline">
       CLAIM (1) FULL-STACK DEVELOPER TODAY!
     </div>
 
-    <div class="ad-subhead mono">
+    <div class="offer-subhead mono">
       🚨 HOT LOCAL ENGINEER IN INDONESIA READY FOR HIRE 🚨
     </div>
 
-    <!-- Clickbait Bullet Points -->
-    <div class="ad-bullets mono">
-      <div class="ad-bullet-item">
-        <span class="ad-icon">✓</span> <b>0% AGENCY FEES!</b> Direct developer transmission!
+    <!-- Bullet Points -->
+    <div class="offer-bullets mono">
+      <div class="offer-bullet-item">
+        <span class="offer-icon">✓</span> <b>0% AGENCY FEES!</b> Direct developer transmission!
       </div>
-      <div class="ad-bullet-item">
-        <span class="ad-icon">✓</span> <b>OPEN FOR:</b> Freelance, Internships &amp; Roles!
+      <div class="offer-bullet-item">
+        <span class="offer-icon">✓</span> <b>OPEN FOR:</b> Freelance, Internships &amp; Roles!
       </div>
-      <div class="ad-bullet-item">
-        <span class="ad-icon">✓</span> <b>ARSENAL:</b> TypeScript, Tauri, Astro, Svelte, AI &amp; Python!
+      <div class="offer-bullet-item">
+        <span class="offer-icon">✓</span> <b>ARSENAL:</b> TypeScript, Tauri, Astro, Svelte, AI &amp; Python!
       </div>
     </div>
 
     <!-- Decorative Wavy Line Divider -->
     <div class="wavy-line" aria-hidden="true"></div>
 
-    <!-- 90s Clickbait Action Buttons -->
+    <!-- Retro Action Buttons -->
     <div class="win95-actions">
-      <a class="win95-action-btn ad-btn ad-btn-email mono" href={`mailto:${contactDetails.email}`} title="Send an Email">
+      <a class="win95-action-btn offer-btn offer-btn-email mono" href={`mailto:${contactDetails.email}`} title="Send an Email">
         <span class="btn-hand">👉</span> [ CLICK HERE TO SEND DIRECT EMAIL! ] <span class="btn-hand">👈</span>
       </a>
-      <a class="win95-action-btn ad-btn ad-btn-wa mono" href={contactDetails.whatsappUrl} target="_blank" rel="noopener noreferrer" title="Open WhatsApp Chat">
+      <a class="win95-action-btn offer-btn offer-btn-wa mono" href={contactDetails.whatsappUrl} target="_blank" rel="noopener noreferrer" title="Open WhatsApp Chat">
         <span class="btn-zap">⚡</span> [ INSTANT WHATSAPP HOTLINE ] <span class="btn-zap">⚡</span>
       </a>
-      <a class="win95-action-btn ad-btn ad-btn-gh mono" href={contactDetails.githubUrl} target="_blank" rel="noopener noreferrer" title="View GitHub Profile">
+      <a class="win95-action-btn offer-btn offer-btn-gh mono" href={contactDetails.githubUrl} target="_blank" rel="noopener noreferrer" title="View GitHub Profile">
         <span class="btn-star">⭐</span> [ UNLOCK FREE SOURCE CODE (GITHUB) ] <span class="btn-star">⭐</span>
       </a>
     </div>
 
     <!-- Retro Guarantee Footnote -->
-    <div class="ad-footnote mono">
+    <div class="offer-footnote mono">
       * 100% Risk-Free Inquiry • SLA: Human Response &lt; 24h!
     </div>
   </div>

@@ -16,54 +16,202 @@ const posts = await getPosts();
       </p>
     </div>
 
-    <!-- Articles Table -->
-    <table border="2" cellpadding="10" cellspacing="0" width="100%" class="facts" style="border: 3px solid #0b6e8a; width: 100%; border-collapse: collapse; background: #e0f4fa; font-size: 2vh;">
-      <thead>
-        <tr bgcolor="#cbeaf4" style="text-align: left; font-weight: bold; color: #0b6e8a; border-bottom: 2px solid #0b6e8a;">
-          <th style="border: 2px solid #0b6e8a; padding: 8px 12px; width: 130px;" class="mono">Date</th>
-          <th style="border: 2px solid #0b6e8a; padding: 8px 12px;">Article Details</th>
-          <th style="border: 2px solid #0b6e8a; padding: 8px 12px; width: 110px; text-align: center;" class="mono">Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        {posts.map((post) => (
-          <tr style="background: #ffffff;">
-            <td style="border: 2px solid #0b6e8a; padding: 10px 12px; vertical-align: top; font-weight: bold; color: #5b3a9e;" class="mono">
-              {post.publishDate}
-            </td>
-            <td style="border: 2px solid #0b6e8a; padding: 10px 12px; vertical-align: top;">
-              <a href={`/blog/${post.id}`} style="font-size: 2.4vh; font-weight: bold; color: #0b6e8a; display: block; margin-bottom: 4px; text-decoration: underline;">
-                {post.title}
-              </a>
-              <p style="margin: 0 0 8px 0; font-size: 1.9vh; line-height: 1.35; color: #222222;">
-                {post.excerpt}
-              </p>
-              {post.tags && post.tags.length > 0 && (
-                <div style="display: flex; flex-wrap: wrap; gap: 6px;" class="mono">
-                  {post.tags.map((tag: string) => (
-                    <span style="padding: 2px 6px; background: #e6f7ec; border: 1px solid #1b7a3a; color: #1b7a3a; font-size: 1.6vh; font-weight: bold;">
-                      #{tag}
-                    </span>
-                  ))}
-                </div>
-              )}
-            </td>
-            <td style="border: 2px solid #0b6e8a; padding: 10px 12px; vertical-align: middle; text-align: center;" class="mono">
-              <a href={`/blog/${post.id}`} style="display: inline-block; padding: 4px 10px; border: 3px outset #0b6e8a; background: #ffffff; color: #0b6e8a; font-weight: bold; text-decoration: none; font-size: 1.8vh;">
-                [ Read -&gt; ]
-              </a>
-            </td>
+    <!-- Articles Table Wrapper -->
+    <div class="blog-table-wrap">
+      <table border="2" cellpadding="10" cellspacing="0" width="100%" class="blog-table">
+        <thead>
+          <tr class="blog-head-row">
+            <th class="col-date mono">Date</th>
+            <th class="col-details">Article Details</th>
+            <th class="col-action mono">Action</th>
           </tr>
-        ))}
+        </thead>
+        <tbody>
+          {posts.map((post) => (
+            <tr style="background: #ffffff;">
+              <td class="col-date-cell mono">
+                {post.publishDate}
+              </td>
+              <td class="col-details-cell">
+                <a href={`/blog/${post.id}`} class="blog-title-link">
+                  {post.title}
+                </a>
+                <p class="blog-excerpt">
+                  {post.excerpt}
+                </p>
+                {post.tags && post.tags.length > 0 && (
+                  <div class="blog-tags mono">
+                    {post.tags.map((tag: string) => (
+                      <span class="blog-tag">
+                        #{tag}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </td>
+              <td class="col-action-cell mono">
+                <a href={`/blog/${post.id}`} class="blog-read-btn">
+                  [ READ ]
+                </a>
+              </td>
+            </tr>
+          ))}
 
-        {posts.length === 0 && (
-          <tr>
-            <td colspan="3" style="border: 2px solid #0b6e8a; padding: 24px; text-align: center; color: #a61e4d;" class="mono">
-              No weblog posts published yet. Check back soon!
-            </td>
-          </tr>
-        )}
-      </tbody>
-    </table>
+          {posts.length === 0 && (
+            <tr>
+              <td colspan="3" class="empty-blog-cell mono">
+                No weblog posts published yet. Check back soon!
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+    </div>
   </div>
 </RetroScreenLayout>
+
+<style>
+  .blog-table-wrap {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .blog-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: auto !important;
+    height: auto !important;
+    background: #e0f4fa;
+    border: 3px solid #0b6e8a;
+    font-size: clamp(12px, 1.8vh, 15px);
+  }
+
+  .blog-table th,
+  .blog-table td {
+    border: 2px solid #0b6e8a;
+  }
+
+  .blog-head-row {
+    background-color: #cbeaf4;
+  }
+
+  .col-date {
+    width: 130px;
+    padding: 8px 12px;
+    text-align: left;
+    color: #0b6e8a;
+    white-space: nowrap;
+  }
+
+  .col-details {
+    padding: 8px 12px;
+    text-align: left;
+    color: #0b6e8a;
+  }
+
+  .col-action {
+    width: 1%;
+    padding: 8px 16px;
+    text-align: center;
+    color: #0b6e8a;
+    white-space: nowrap;
+  }
+
+  .col-date-cell {
+    padding: 10px 12px;
+    vertical-align: top;
+    font-weight: bold;
+    color: #5b3a9e;
+    white-space: nowrap;
+  }
+
+  .col-details-cell {
+    padding: 10px 12px;
+    vertical-align: top;
+  }
+
+  .blog-title-link {
+    font-size: clamp(15px, 2.3vh, 19px);
+    font-weight: bold;
+    color: #0b6e8a;
+    display: block;
+    margin-bottom: 4px;
+    text-decoration: underline;
+  }
+
+  .blog-excerpt {
+    margin: 0 0 8px 0;
+    font-size: clamp(12px, 1.8vh, 15px);
+    line-height: 1.35;
+    color: #222222;
+  }
+
+  .blog-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .blog-tag {
+    padding: 2px 6px;
+    background: #e6f7ec;
+    border: 1px solid #1b7a3a;
+    color: #1b7a3a;
+    font-size: clamp(10px, 1.5vh, 12px);
+    font-weight: bold;
+  }
+
+  .col-action-cell {
+    padding: 10px 16px;
+    vertical-align: middle;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .blog-read-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 12px;
+    border: 3px outset #0b6e8a;
+    background: #ffffff;
+    color: #0b6e8a;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: clamp(11px, 1.6vh, 14px);
+    white-space: nowrap;
+    cursor: pointer;
+    box-shadow: 1px 1px 0px rgba(0, 0, 0, 0.15);
+    user-select: none;
+    -webkit-user-select: none;
+    font-family: "Courier New", Courier, monospace;
+    transition: background-color 0.1s, color 0.1s;
+    box-sizing: border-box;
+  }
+
+  .blog-read-btn:hover {
+    background: #0b6e8a;
+    color: #ffffff;
+  }
+
+  .blog-read-btn:active {
+    border-style: inset;
+    background: #085268;
+    color: #ffffff;
+  }
+
+  .empty-blog-cell {
+    padding: 24px;
+    text-align: center;
+    color: #a61e4d;
+  }
+
+  @media (max-width: 768px) {
+    .blog-read-btn {
+      padding: 6px 12px;
+      font-size: 12px;
+      min-height: 36px;
+    }
+  }
+</style>
