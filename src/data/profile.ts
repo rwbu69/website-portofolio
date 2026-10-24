@@ -13,8 +13,9 @@ export const identity = {
 };
 
 export const contactDetails = {
-  email: "sebastianvyhutagalung@gmail.com",
-  whatsappUrl: "https://wa.me/6281234567890",
+  email: "sebastianhutagalung69@gmail.com",
+  phone: "+6285172244992",
+  whatsappUrl: "https://wa.me/6285172244992",
   githubUrl: "https://github.com/rwbu69",
   linkedinUrl: "https://www.linkedin.com/in/sebastianvyhutagalung/",
   instagramUrl: "https://www.instagram.com/shunshunrwbu",

@@ -1,0 +1,858 @@
+/* ====================================================================
+   RWBU Retro 1990s Web 1.0 Design System
+   Exact visual fidelity to example.html with removed vertical dividers
+   ==================================================================== */
+
+:root {
+  --canvas-bg: #ffffff;
+  --text-main: #222222;
+
+  /* Pink Leading Palette */
+  --pink-banner: #ffc2d9;
+  --pink-title: #a61e4d;
+  --pink-border: #d6336c;
+  --pink-active: #d6003f;
+
+  /* Pastel Supporting Colors */
+  --blue-bg: #e0f4fa;
+  --blue-border: #0b6e8a;
+
+  --purple-bg: #f0eaff;
+  --purple-border: #5b3a9e;
+
+  --yellow-bg: #fff3b0;
+  --yellow-border: #b8860b;
+
+  --green-bg: #e6f7ec;
+  --green-main: #1b7a3a;
+
+  --border-grey: #555555;
+}
+
+* {
+  box-sizing: border-box;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and legacy Edge */
+}
+
+*::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera, Edge */
+  width: 0;
+  height: 0;
+}
+
+html {
+  margin: 0;
+  padding: 0;
+  background: var(--canvas-bg);
+  color: var(--text-main);
+  font-family: "Times New Roman", Times, Georgia, serif;
+  font-size: clamp(11px, 1.7vh, 17px);
+  line-height: 1.25;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--canvas-bg);
+  color: var(--text-main);
+  font-family: "Times New Roman", Times, Georgia, serif;
+  font-size: clamp(11px, 1.7vh, 17px);
+  line-height: 1.25;
+}
+
+/* Single-screen layout constraint ONLY on Home Page */
+html.single-screen,
+body.single-screen {
+  height: 100%;
+  max-height: 100vh;
+  overflow: hidden;
+}
+
+/* Subpages: standard unconstrained document scrolling */
+html.subpage-html {
+  height: auto !important;
+  min-height: 100vh !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+}
+
+body.subpage-body {
+  height: auto !important;
+  min-height: 100vh !important;
+  overflow-y: visible !important;
+  overflow-x: hidden !important;
+}
+
+a { color: var(--pink-title); }
+a:visited { color: var(--purple-border); }
+a:active { color: var(--pink-active); }
+
+.mono { font-family: "Courier New", Courier, monospace; }
+
+/* --------------------------------------------------------------------
+   100vh Single-Screen Page Container (Home Page)
+   -------------------------------------------------------------------- */
+#page {
+  height: 100vh;
+  max-height: 100vh;
+  display: grid;
+  grid-template-rows: auto auto 1fr 1.25fr;
+  overflow: hidden;
+  width: 100%;
+  max-width: 100%;
+}
+#page > * { min-width: 0; min-height: 0; }
+
+/* --------------------------------------------------------------------
+   Row 1: Continuous Seamless Scrolling Marquee Banner
+   -------------------------------------------------------------------- */
+.retro-ticker-wrap {
+  background: var(--pink-banner);
+  border-bottom: 3px solid var(--pink-border);
+  overflow: hidden;
+  white-space: nowrap;
+  font-weight: bold;
+  font-size: clamp(12px, 2vh, 17px);
+  padding: 0.35vh 0;
+  display: block;
+  width: 100%;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.retro-ticker-track {
+  display: inline-flex;
+  white-space: nowrap;
+  will-change: transform;
+  animation: retro-ticker-loop 35s linear infinite;
+}
+
+.retro-ticker-item {
+  display: inline-flex;
+  align-items: center;
+  padding-right: 3rem;
+  color: #000000;
+}
+
+.retro-ticker-star {
+  color: var(--pink-title);
+  margin: 0 0.8rem;
+  font-size: 1.1em;
+}
+
+@keyframes retro-ticker-loop {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+marquee.retro-marquee {
+  background: var(--pink-banner);
+  border-bottom: 3px solid var(--pink-border);
+  font-weight: bold;
+  font-size: clamp(12px, 2vh, 17px);
+  padding: 0.3vh 0;
+  display: block;
+}
+
+/* --------------------------------------------------------------------
+   Row 2: Top Title + Tagline + Outset Nav Buttons
+   -------------------------------------------------------------------- */
+#top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1vw;
+  background: var(--blue-bg);
+  border-bottom: 3px solid var(--blue-border);
+  padding: 0.6vh 1.2vw;
+  overflow: hidden;
+}
+#top h1 {
+  margin: 0;
+  font-size: clamp(18px, 3.4vh, 30px);
+  color: var(--pink-title);
+  text-decoration: underline;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+#top .tag {
+  color: var(--purple-border);
+  font-style: italic;
+  font-weight: bold;
+  font-size: clamp(11px, 2vh, 16px);
+  white-space: nowrap;
+}
+#nav {
+  display: flex;
+  flex-shrink: 0;
+}
+#nav a {
+  border: 3px outset var(--blue-border);
+  background: #ffffff;
+  padding: 0.4vh 0.7vw;
+  font-weight: bold;
+  font-size: clamp(11px, 1.9vh, 16px);
+  margin-left: 0.3vw;
+  text-decoration: none;
+  color: var(--pink-title);
+  white-space: nowrap;
+}
+#nav a:active {
+  border-style: inset;
+}
+#nav a.active {
+  border-style: inset;
+  background: var(--blue-bg);
+  color: var(--blue-border);
+}
+
+/* --------------------------------------------------------------------
+   Row 3: Hero Section (#hero) — Strict 5-Column Alignment (20vw 60vw 20vw)
+   -------------------------------------------------------------------- */
+#hero {
+  display: grid;
+  grid-template-columns: 25% 50% 25%;
+  width: 100%;
+  max-width: 100%;
+  border-bottom: 4px solid var(--pink-border);
+  min-height: 0;
+  overflow: hidden;
+}
+#hero > div { min-width: 0; min-height: 0; overflow: hidden; width: 100%; }
+
+/* Photo Column (Col 1: 20%) */
+.photo {
+  display: flex;
+  flex-direction: column;
+  background: #fff5f9;
+  min-width: 0;
+}
+.photo .frame {
+  flex: 1;
+  position: relative;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-weight: bold;
+  color: var(--pink-title);
+}
+.photo img {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+.photo small {
+  text-align: center;
+  font-weight: bold;
+  color: var(--purple-border);
+  padding: 0.3vh 0;
+  font-size: clamp(10px, 1.6vh, 14px);
+  background: #ffffff;
+  border-top: 3px solid var(--pink-border);
+}
+
+/* About Column (Cols 2-4: 60%) */
+.about {
+  display: flex;
+  flex-direction: column;
+  padding: 0.8vh 1.2vw;
+  background: #ffffff;
+  min-width: 0;
+}
+.about h2 {
+  margin: 0;
+  font-size: clamp(18px, 4.2vh, 36px);
+  color: var(--pink-title);
+  text-decoration: underline;
+  line-height: 1.1;
+}
+.about .name {
+  font-weight: bold;
+  color: var(--purple-border);
+  font-size: clamp(11px, 1.9vh, 16px);
+  margin-top: 0.2vh;
+}
+.about .role {
+  font-weight: bold;
+  color: var(--blue-border);
+  font-size: clamp(13px, 2.2vh, 19px);
+  margin: 0.3vh 0;
+}
+.about p {
+  margin: 0.2vh 0 0.5vh 0;
+  font-size: clamp(11px, 1.9vh, 16px);
+  line-height: 1.25;
+}
+.facts-wrap {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+}
+table.facts {
+  width: 100%;
+  height: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  border: 3px solid var(--blue-border);
+  font-size: clamp(10px, 1.8vh, 15px);
+}
+table.facts td {
+  border: 2px solid var(--blue-border);
+  padding: 0.1vh 0.6vw;
+  line-height: 1.2;
+}
+table.facts td:first-child {
+  background: var(--blue-bg);
+  font-weight: bold;
+  width: 25%;
+  color: var(--blue-border);
+  white-space: nowrap;
+}
+
+/* --------------------------------------------------------------------
+   Status Slot: Fake 1990s Virus Alert Dialog Box
+   -------------------------------------------------------------------- */
+.status {
+  display: flex;
+  flex-direction: column;
+  background: var(--yellow-bg);
+  overflow: hidden;
+  min-width: 0;
+}
+
+.win95-alert {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #fff3b0;
+  border: 3px solid var(--yellow-border);
+  overflow: hidden;
+  animation: retro-pulse 1.5s ease-in-out infinite alternate;
+  min-width: 0;
+}
+@keyframes retro-pulse {
+  from { border-color: var(--yellow-border); }
+  to { border-color: var(--pink-border); }
+}
+
+.win95-titlebar {
+  background: #000080;
+  color: #ffffff;
+  padding: 0.2vh 0.5vw;
+  font-size: clamp(10px, 1.6vh, 14px);
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.win95-controls {
+  display: flex;
+  gap: 2px;
+}
+.win95-btn {
+  background: #c0c0c0;
+  color: #000000;
+  border: 2px outset #ffffff;
+  font-size: 11px;
+  font-weight: bold;
+  padding: 0 3px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.win95-body {
+  flex: 1;
+  padding: 0.6vh 0.6vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 0;
+}
+.win95-head {
+  display: flex;
+  align-items: center;
+  gap: 0.3vw;
+  font-weight: bold;
+  color: var(--pink-title);
+  font-size: clamp(11px, 1.8vh, 16px);
+  line-height: 1.15;
+}
+.win95-head .icon {
+  font-size: clamp(16px, 2.4vh, 22px);
+}
+.win95-msg {
+  font-size: clamp(10px, 1.7vh, 14px);
+  color: #222222;
+  margin: 0.2vh 0;
+  line-height: 1.2;
+}
+.win95-msg b {
+  color: #7a1236;
+}
+
+/* Wavy Divider inside Dialog */
+.wavy-line {
+  height: 8px;
+  margin: 0.3vh 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='8' viewBox='0 0 40 8'><path d='M0 4 Q10 0 20 4 T40 4' fill='none' stroke='%23d6336c' stroke-width='2'/></svg>");
+  background-repeat: repeat-x;
+  background-size: 40px 8px;
+  animation: slide 1s linear infinite;
+}
+@keyframes slide { to { background-position-x: 40px; } }
+
+.win95-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4vh;
+  margin-top: 0.2vh;
+}
+.win95-action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3vw;
+  border: 3px outset var(--yellow-border);
+  background: #ffffff;
+  color: var(--pink-title);
+  font-weight: bold;
+  font-size: clamp(10px, 1.7vh, 14px);
+  text-decoration: none;
+  padding: 0.3vh 0.3vw;
+  white-space: nowrap;
+}
+.win95-action-btn:active {
+  border-style: inset;
+}
+
+/* --------------------------------------------------------------------
+   Row 4: Projects Section (#projects) — No Vertical Dividers
+   -------------------------------------------------------------------- */
+#projects {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+}
+#projects .head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 0.4vh 1.2vw;
+  background: var(--purple-bg);
+  border-bottom: 3px solid var(--purple-border);
+}
+#projects h2 {
+  margin: 0;
+  font-size: clamp(16px, 3vh, 26px);
+  color: var(--purple-border);
+  text-decoration: underline;
+}
+#projects .head a {
+  font-size: clamp(11px, 1.9vh, 16px);
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.cards {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 25%);
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+/* Notice: NO VERTICAL DIVIDERS on .card */
+.card {
+  display: flex;
+  flex-direction: column;
+  padding: 0.6vh 0.6vw;
+  overflow: hidden;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.shot {
+  flex: 1;
+  min-height: 6vh;
+  position: relative;
+  margin-bottom: 0.4vh;
+  border: 2px solid var(--border-grey);
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-weight: bold;
+  font-size: clamp(10px, 1.6vh, 14px);
+  color: var(--border-grey);
+  overflow: hidden;
+}
+.shot img {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+
+.ascii-preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(45deg, #f8f9fa, #f8f9fa 10px, #e9ecef 10px, #e9ecef 20px);
+  padding: 0.3vh 0.4vw;
+  color: #333333;
+}
+.ascii-preview .badge {
+  background: var(--pink-title);
+  color: #ffffff;
+  padding: 1px 4px;
+  font-size: clamp(9px, 1.3vh, 12px);
+  font-weight: bold;
+  margin-bottom: 2px;
+}
+.ascii-preview .sub {
+  font-size: clamp(9px, 1.3vh, 12px);
+  color: #555555;
+}
+
+.card h3 {
+  margin: 0;
+  font-size: clamp(12px, 2.1vh, 17px);
+  color: var(--blue-border);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.15;
+}
+.card h3 a {
+  color: var(--blue-border);
+  text-decoration: underline;
+}
+.live {
+  color: var(--green-main);
+  font-weight: bold;
+  font-size: clamp(10px, 1.6vh, 14px);
+}
+.card .meta {
+  font-style: italic;
+  font-size: clamp(9px, 1.5vh, 13px);
+  margin: 0.2vh 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.card p {
+  margin: 0.1vh 0;
+  font-size: clamp(10px, 1.6vh, 14px);
+  line-height: 1.2;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.card .tech {
+  font-size: clamp(9px, 1.5vh, 13px);
+  border-top: 1px dashed var(--border-grey);
+  padding-top: 0.2vh;
+  margin-top: 0.2vh;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.card .tech b { color: var(--text-main); }
+.card .tech span { color: var(--green-main); font-weight: bold; }
+
+.c1 { background: #f0eaff; }
+.c2 { background: #e6f7ec; }
+.c3 { background: #e0f4fa; }
+.c4 { background: #fff3b0; }
+/* --------------------------------------------------------------------
+   Subpages Layout (#subpage) — Allows Natural Document Scrolling
+   -------------------------------------------------------------------- */
+#subpage {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: visible !important;
+}
+#subpage-content {
+  flex: 1;
+  width: 100%;
+  padding: 1.5vh 1.5vw;
+  background: #ffffff;
+  overflow: visible !important;
+}
+
+/* --------------------------------------------------------------------
+   90s Clickbait Popup Ad Styling (.retro-ad-box)
+   -------------------------------------------------------------------- */
+.retro-ad-box {
+  background: #fff3b0;
+  border: 3px solid #b8860b;
+  animation: retro-pulse 1.2s ease-in-out infinite alternate;
+}
+
+.ad-titlebar-text {
+  font-size: clamp(9px, 1.4vh, 12px);
+  letter-spacing: 0.5px;
+  color: #ffffff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ad-body {
+  padding: 0.5vh 0.6vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.3vh;
+}
+
+.ad-badge-wrap {
+  text-align: center;
+  margin: 0;
+}
+
+.ad-badge {
+  display: inline-block;
+  background: #a61e4d;
+  color: #ffffff;
+  font-weight: bold;
+  font-size: clamp(9px, 1.3vh, 12px);
+  padding: 1px 6px;
+  border: 2px outset #ffc2d9;
+}
+
+.retro-blink {
+  animation: retro-blink 1s steps(2, start) infinite;
+}
+@keyframes retro-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+.ad-headline {
+  text-align: center;
+  font-size: clamp(12px, 2vh, 17px);
+  font-weight: 900;
+  color: #a61e4d;
+  line-height: 1.15;
+  text-decoration: underline;
+  margin: 0.1vh 0;
+}
+
+.ad-subhead {
+  text-align: center;
+  font-size: clamp(8px, 1.3vh, 11px);
+  font-weight: bold;
+  color: #000080;
+  background: #e0f4fa;
+  border: 1px dashed #0b6e8a;
+  padding: 1px 3px;
+  line-height: 1.2;
+}
+
+.ad-bullets {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2vh;
+  font-size: clamp(8.5px, 1.35vh, 12px);
+  color: #222222;
+  margin: 0.1vh 0;
+}
+
+.ad-bullet-item {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  line-height: 1.2;
+}
+
+.ad-icon {
+  color: #1b7a3a;
+  font-weight: bold;
+}
+
+.ad-btn {
+  border: 3px outset #d6336c !important;
+  color: #a61e4d !important;
+  background: #ffffff !important;
+  font-size: clamp(9px, 1.45vh, 13px) !important;
+  padding: 0.3vh 0.4vw !important;
+  text-align: center;
+  font-weight: bold;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ad-btn:hover {
+  background: #ffe6f0 !important;
+  color: #d6003f !important;
+}
+.ad-btn:active {
+  border-style: inset !important;
+  background: #ffc2d9 !important;
+}
+
+.ad-btn-wa {
+  border-color: #1b7a3a !important;
+  color: #1b7a3a !important;
+}
+.ad-btn-wa:hover {
+  background: #e6f7ec !important;
+}
+
+.ad-btn-gh {
+  border-color: #5b3a9e !important;
+  color: #5b3a9e !important;
+}
+.ad-btn-gh:hover {
+  background: #f0eaff !important;
+}
+
+.ad-footnote {
+  text-align: center;
+  font-size: clamp(8px, 1.15vh, 10px);
+  color: #555555;
+  margin-top: 0.1vh;
+  line-height: 1.1;
+}
+
+/* --------------------------------------------------------------------
+   Reduced Motion
+   -------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .wavy-line, .win95-alert, marquee.retro-marquee, .retro-ticker-track, .retro-blink {
+    animation: none !important;
+  }
+}
+
+/* --------------------------------------------------------------------
+   Mobile Cascade (< 900px)
+   -------------------------------------------------------------------- */
+@media (max-width: 900px) {
+  html, body {
+    overflow: auto;
+    height: auto;
+    font-size: 16px;
+  }
+  #page {
+    height: auto;
+    max-height: none;
+    display: block;
+    overflow: visible;
+  }
+  marquee.retro-marquee {
+    font-size: 14px;
+    padding: 6px 0;
+  }
+  #top {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 14px;
+    gap: 8px;
+  }
+  #top h1 { font-size: 26px; }
+  #top .tag { display: none; }
+  #nav {
+    flex-wrap: wrap;
+    gap: 6px;
+    width: 100%;
+  }
+  #nav a {
+    margin-left: 0;
+    font-size: 15px;
+    padding: 6px 10px;
+  }
+  #hero {
+    display: block;
+  }
+  .photo .frame {
+    height: 40vh;
+  }
+  .about {
+    padding: 14px;
+  }
+  .about h2 { font-size: 28px; }
+  .about .name { font-size: 16px; }
+  .about .role { font-size: 18px; }
+  .about p {
+    font-size: 16px;
+    display: block;
+  }
+  table.facts {
+    height: auto;
+    font-size: 14px;
+    margin-top: 10px;
+  }
+  table.facts td {
+    padding: 6px 8px;
+  }
+  .status {
+    padding: 10px;
+  }
+  .win95-alert {
+    animation: none;
+  }
+  .win95-action-btn {
+    padding: 10px 12px;
+    font-size: 16px;
+  }
+  #projects .head {
+    padding: 10px 14px;
+  }
+  #projects h2 { font-size: 24px; }
+  .cards {
+    display: block;
+  }
+  .card {
+    border-bottom: 3px solid var(--border-grey);
+    padding: 16px 14px;
+  }
+  .shot {
+    height: 25vh;
+    flex: none;
+  }
+  .card h3 { font-size: 22px; }
+  .card .meta { font-size: 14px; }
+  .card p {
+    font-size: 15px;
+    display: block;
+  }
+  .card .tech { font-size: 14px; }
+  #foot {
+    font-size: 14px;
+    padding: 10px 0;
+  }
+}
