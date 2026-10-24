@@ -1,6 +1,5 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import Navbar from '../../components/Navbar.astro';
+import RetroScreenLayout from '../../layouts/RetroScreenLayout.astro';
 import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -15,41 +14,48 @@ const { post } = Astro.props;
 const { Content } = await render(post);
 ---
 
-<Layout title={`RWBU | ${post.data.title}`}>
-  <Navbar />
-  
-  <main class="max-w-4xl mx-auto px-6 py-12 w-full grow">
-    <a href="/blog" class="inline-flex items-center gap-2 text-sm font-sans text-text-muted hover:text-pink transition-colors mb-8">
-      ← Back to blogs
-    </a>
+<RetroScreenLayout title={`RWBU | ${post.data.title}`} activeNav="blog">
+  <div style="width: 100%;">
+    <!-- Back Link & Header -->
+    <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 3px solid #d6336c; padding-bottom: 1vh; margin-bottom: 1.5vh;" class="mono">
+      <a href="/blog" style="border: 3px outset #d6336c; background: #ffffff; color: #a61e4d; padding: 4px 10px; font-weight: bold; text-decoration: none;">
+        &lt;- Return to Blog Index
+      </a>
+      <span style="color: #5b3a9e; font-weight: bold; font-family: serif;">
+        Published: {post.data.publishDate} | Read: {post.data.readingTime}
+      </span>
+    </div>
 
-    <header class="mb-12">
-      <div class="flex items-center gap-4 text-xs font-sans text-text-muted mb-6">
-        <span>{post.data.publishDate}</span>
-        <span class="text-gray-300">|</span>
-        <span>{post.data.readingTime}</span>
-      </div>
-      
-      <h1 class="text-3xl md:text-4xl font-bold mb-6 tracking-tight leading-tight text-text-main font-serif">
+    <header style="margin-bottom: 1.5vh;">
+      <h1 style="font-size: 4.5vh; color: #a61e4d; text-decoration: underline; margin: 0 0 0.8vh 0; line-height: 1.2;">
         {post.data.title}
       </h1>
-      
-      <div class="flex flex-wrap gap-2 pb-8 border-b border-gray-200">
-        {post.data.tags.map((tag: string) => (
-          <span class="text-xs font-sans px-2 py-0.5 bg-gray-50 border border-gray-200 text-text-muted rounded-sm">
-            #{tag}
-          </span>
-        ))}
-      </div>
+
+      {post.data.tags && post.data.tags.length > 0 && (
+        <div style="display: flex; flex-wrap: wrap; gap: 6px;" class="mono">
+          <span style="color: #5b3a9e; font-weight: bold;">Tags:</span>
+          {post.data.tags.map((tag: string) => (
+            <span style="padding: 2px 6px; background: #e6f7ec; border: 1px solid #1b7a3a; color: #1b7a3a; font-weight: bold; font-size: 1.6vh;">
+              #{tag}
+            </span>
+          ))}
+        </div>
+      )}
     </header>
 
-    <article class="prose prose-slate max-w-none 
-      prose-headings:font-bold prose-headings:font-sans prose-headings:tracking-tight 
-      prose-a:text-pink hover:prose-a:text-tosca prose-a:transition-colors prose-a:no-underline hover:prose-a:underline
-      prose-code:text-pink prose-code:bg-gray-100 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-sm prose-code:font-mono
-      prose-pre:bg-gray-50 prose-pre:border prose-pre:border-gray-200 prose-pre:text-text-main prose-pre:rounded-sm
-      prose-p:font-serif prose-p:leading-relaxed prose-p:text-text-main text-[15px]">
+    <!-- Article Content Box -->
+    <article style="background: #ffffff; border: 3px solid #5b3a9e; padding: 2vh 2vw; margin-bottom: 2vh; font-size: 2.2vh; line-height: 1.5;">
       <Content />
     </article>
-  </main>
-</Layout>
+
+    <!-- Bottom Navigation -->
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1.5vh;" class="mono">
+      <a href="/blog" style="border: 3px outset #0b6e8a; background: #ffffff; color: #0b6e8a; padding: 6px 14px; font-weight: bold; text-decoration: none;">
+        &lt;- Back to Weblog
+      </a>
+      <a href="/contact" style="border: 3px outset #5b3a9e; background: #ffffff; color: #5b3a9e; padding: 6px 14px; font-weight: bold; text-decoration: none;">
+        Send Feedback via Contact -&gt;
+      </a>
+    </div>
+  </div>
+</RetroScreenLayout>

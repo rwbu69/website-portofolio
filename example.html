@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RWBU's Home Page</title>
+<style>
+  html, body { margin: 0; height: 100%; overflow: hidden; }
+  body {
+    background: #ffffff;
+    color: #222222;
+    font-family: "Times New Roman", Times, serif;
+    font-size: clamp(12px, 1.9vh, 20px);
+    line-height: 1.3;
+  }
+  a { color: #a61e4d; }
+  a:visited { color: #5b3a9e; }
+  a:active { color: #d6003f; }
+  .mono { font-family: "Courier New", Courier, monospace; }
+
+  /* the whole page is one screen, split into rows */
+  #page {
+    height: 100vh;
+    display: grid;
+    grid-template-rows: auto auto 1fr 1.15fr auto;
+  }
+  #page > * { min-width: 0; min-height: 0; }
+
+  /* row 1: scrolling banner */
+  marquee {
+    background: #ffc2d9;
+    border-bottom: 3px solid #d6336c;
+    font-weight: bold;
+    font-size: 2.2vh;
+    padding: 0.4vh 0;
+  }
+
+  /* row 2: title + tagline + nav */
+  #top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5vw;
+    background: #e0f4fa;
+    border-bottom: 3px solid #0b6e8a;
+    padding: 0.8vh 1.2vw;
+  }
+  #top h1 {
+    margin: 0;
+    font-size: 4vh;
+    color: #a61e4d;
+    text-decoration: underline;
+    white-space: nowrap;
+  }
+  #top .tag { color: #5b3a9e; font-style: italic; font-weight: bold; font-size: 2.3vh; }
+  #nav { display: flex; }
+  #nav a {
+    border: 3px outset #0b6e8a;
+    background: #ffffff;
+    padding: 0.5vh 1vw;
+    font-weight: bold;
+    font-size: 2.3vh;
+    margin-left: 0.4vw;
+  }
+
+  /* row 3: photo | about | status */
+  #hero {
+    display: grid;
+    grid-template-columns: 22vw 1fr 27vw;
+    border-bottom: 4px solid #d6336c;
+  }
+  #hero > div { overflow: hidden; }
+
+  .photo {
+    display: flex;
+    flex-direction: column;
+    background: #fff5f9;
+    border-right: 3px solid #d6336c;
+  }
+  .photo .frame {
+    flex: 1;
+    position: relative;
+    min-height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-weight: bold;
+    color: #a61e4d;
+  }
+  .photo img {
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: top;
+  }
+  .photo small {
+    text-align: center;
+    font-weight: bold;
+    color: #5b3a9e;
+    padding: 0.4vh 0;
+    background: #ffffff;
+    border-top: 3px solid #d6336c;
+  }
+
+  .about {
+    display: flex;
+    flex-direction: column;
+    padding: 1.2vh 1.4vw;
+    background: #ffffff;
+  }
+  .about h2 {
+    margin: 0;
+    font-size: 5vh;
+    color: #a61e4d;
+    text-decoration: underline;
+  }
+  .about .name { font-weight: bold; color: #5b3a9e; font-size: 2.3vh; margin-top: 0.4vh; }
+  .about .role { font-weight: bold; color: #0b6e8a; font-size: 2.6vh; margin: 0.6vh 0; }
+  .about p { margin: 0.4vh 0 1vh 0; font-size: 2.5vh; }
+  .facts-wrap { flex: 1; min-height: 0; }
+  table.facts {
+    width: 100%;
+    height: 100%;
+    border-collapse: collapse;
+    border: 3px solid #0b6e8a;
+    font-size: 2.2vh;
+  }
+  table.facts td { border: 2px solid #0b6e8a; padding: 0 0.8vw; }
+  table.facts td:first-child { background: #e0f4fa; font-weight: bold; width: 28%; color: #0b6e8a; }
+
+  /* status box */
+  .status {
+    display: flex;
+    flex-direction: column;
+    background: #fff3b0;
+    border-left: 3px solid #b8860b;
+    padding: 1.2vh 1.2vw;
+  }
+  .status .label { font-weight: bold; font-size: 2.2vh; letter-spacing: 1px; }
+
+  /* animated wavy lines + waving text */
+  .wavy-line {
+    height: 12px;
+    margin: 0.6vh 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='12' viewBox='0 0 40 12'><path d='M0 6 Q10 0 20 6 T40 6' fill='none' stroke='%23d6336c' stroke-width='2.5'/></svg>");
+    background-repeat: repeat-x;
+    background-size: 40px 12px;
+    animation: slide 1s linear infinite;
+  }
+  .wavy-line.alt { animation-direction: reverse; filter: hue-rotate(200deg); }
+  @keyframes slide { to { background-position-x: 40px; } }
+
+  .status .now {
+    font-weight: bold;
+    font-size: 3vh;
+    color: #7a1236;
+    text-align: center;
+    margin: 0.4vh 0 0.4vh 0;
+  }
+  .wave-word { display: inline-block; white-space: nowrap; }
+  .wave-word span {
+    display: inline-block;
+    animation: wave 1.2s ease-in-out infinite;
+  }
+  @keyframes wave {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-0.9vh); }
+  }
+
+  .status a.btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-top: 1vh;
+    border: 4px outset #b8860b;
+    background: #ffffff;
+    font-weight: bold;
+    font-size: 3vh;
+    text-decoration: none;
+    color: #a61e4d;
+  }
+  .status a.btn:first-of-type { margin-top: 0.6vh; }
+  .status a.btn:active { border-style: inset; }
+
+  /* row 4: projects */
+  #projects { display: flex; flex-direction: column; }
+  #projects .head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding: 0.6vh 1.2vw;
+    background: #f0eaff;
+    border-bottom: 3px solid #5b3a9e;
+  }
+  #projects h2 { margin: 0; font-size: 3.6vh; color: #5b3a9e; text-decoration: underline; }
+  #projects .head a { font-size: 2.2vh; font-weight: bold; }
+  .cards { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(5, 1fr); }
+  .card {
+    display: flex;
+    flex-direction: column;
+    padding: 1vh 0.9vw;
+    border-right: 3px solid #555555;
+    overflow: hidden;
+  }
+  .card:last-child { border-right: 0; }
+
+  /* project image: stretches to fill whatever space the text leaves */
+  .shot {
+    flex: 1;
+    min-height: 8vh;
+    position: relative;
+    margin-bottom: 0.8vh;
+    border: 3px solid #555555;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-weight: bold;
+    font-size: 2vh;
+    color: #555555;
+    overflow: hidden;
+  }
+  .shot img {
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: top;
+  }
+
+  .card h3 { margin: 0; font-size: 2.8vh; color: #0b6e8a; }
+  .card h3 a { color: #0b6e8a; }
+  .live { color: #1b7a3a; font-weight: bold; font-size: 2vh; }
+  .card .meta { font-style: italic; font-size: 2vh; margin: 0.4vh 0; }
+  .card p { margin: 0.3vh 0; font-size: 2vh; }
+  .card .tech { font-size: 2vh; border-top: 2px dashed #555555; padding-top: 0.5vh; margin-top: 0.4vh; }
+  .card .tech b { color: #222222; }
+  .card .tech span { color: #1b7a3a; font-weight: bold; }
+  .c1 { background: #f0eaff; }
+  .c2 { background: #e6f7ec; }
+  .c3 { background: #e0f4fa; }
+  .c4 { background: #fff3b0; }
+  .c5 { background: #ffe0ec; }
+
+  /* row 5: footer */
+  #foot {
+    background: #ffc2d9;
+    border-top: 3px solid #d6336c;
+    text-align: center;
+    font-size: 1.8vh;
+    font-weight: bold;
+    padding: 0.5vh 0;
+  }
+
+  /* respect people who turn animations off */
+  @media (prefers-reduced-motion: reduce) {
+    .wavy-line, .wave-word span { animation: none; }
+  }
+
+  /* small screens: allow scrolling instead of squashing */
+  @media (max-width: 900px) {
+    html, body { overflow: auto; height: auto; }
+    #page { height: auto; display: block; }
+    #top { flex-direction: column; align-items: flex-start; }
+    #top .tag { display: none; }
+    #nav { flex-wrap: wrap; }
+    #hero { display: block; }
+    .photo .frame { height: 50vh; }
+    .status a.btn { padding: 1.5vh 0; }
+    .cards { display: block; }
+    .card { border-right: 0; border-bottom: 3px solid #555555; }
+    .shot { height: 25vh; flex: none; }
+    table.facts { height: auto; }
+    table.facts td { padding: 0.5vh 0.8vw; }
+  }
+</style>
+</head>
+<body>
+<div id="page">
+
+  <marquee>*** Welcome to RWBU's Home Page! *** Currently open for freelance work! *** Thanks for visiting! ***</marquee>
+
+  <div id="top">
+    <h1>RWBU's Home Page</h1>
+    <span class="tag">Web Developer / Otaku / Based in Indonesia</span>
+    <div id="nav">
+      <a href="#">Home</a>
+      <a href="#">Projects</a>
+      <a href="#">Blog</a>
+      <a href="#">Guestbook</a>
+      <a href="#">Contact Me</a>
+    </div>
+  </div>
+
+  <div id="hero">
+    <div class="photo">
+      <div class="frame">
+        [ YOUR PHOTO HERE ]
+        <!-- Put your picture next to this file and name it photo.jpg -->
+        <img src="photo.jpg" alt="" onerror="this.style.display='none'">
+      </div>
+      <small>(that's me)</small>
+    </div>
+
+    <div class="about">
+      <h2>Hello, I'm RWBU!</h2>
+      <div class="name mono">Sebastian Vay Yosafat Pardamean Hutagalung</div>
+      <div class="role">Web Developer / Otaku / Based in Indonesia</div>
+      <p>
+        A front end developer currently pursuing a Computer Science degree at
+        Universitas Kristen Immanuel. Interested in web animations, prompt engineering,
+        and new static frameworks. Mostly works alongside AI to streamline
+        development workflow and deliver quickly.
+      </p>
+      <div class="facts-wrap">
+        <table class="facts">
+          <tr><td>Studying</td><td>Computer Science, Universitas Kristen Immanuel</td></tr>
+          <tr><td>Interests</td><td>Web animations, prompt engineering, static frameworks</td></tr>
+          <tr><td>Works with</td><td>AI-assisted workflow</td></tr>
+          <tr><td>Location</td><td>Indonesia</td></tr>
+          <tr><td>Available for</td><td>Freelance web development</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="status">
+      <div class="label mono">CURRENT STATUS:</div>
+      <div class="wavy-line"></div>
+      <div class="now wave">Currently active / open for freelance work</div>
+      <div class="wavy-line alt"></div>
+      <a class="btn mono" href="mailto:you@example.com">[ Send Email ]</a>
+      <a class="btn mono" href="https://wa.me/620000000000">[ WhatsApp Chat ]</a>
+      <a class="btn mono" href="https://github.com/rwbu69">[ GitHub Profile ]</a>
+    </div>
+  </div>
+
+  <div id="projects">
+    <div class="head">
+      <h2>Recent Projects</h2>
+      <a class="mono" href="#">[ View All Projects (6) -&gt; ]</a>
+    </div>
+    <div class="cards">
+
+      <!-- Each project image goes in the "images" folder next to this file.
+           Change the file name in src to use your own picture. -->
+
+      <div class="card c1">
+        <div class="shot">[ IMAGE ]<img src="images/proposalarena.png" alt="ProposalArena" onerror="this.style.display='none'"></div>
+        <h3><a href="#">ProposalArena</a> <span class="live mono">[LIVE]</span></h3>
+        <div class="meta">Role: Fullstack &amp; AI Engineer | Year: 2024</div>
+        <p>Local-first thesis proposal defense simulator for academic proposals.</p>
+        <div class="tech"><b>Tech:</b> <span>(add yours)</span></div>
+      </div>
+
+      <div class="card c2">
+        <div class="shot">[ IMAGE ]<img src="images/retroda.png" alt="Retroda Website" onerror="this.style.display='none'"></div>
+        <h3><a href="#">Retroda Website</a> <span class="live mono">[LIVE]</span></h3>
+        <div class="meta">Role: Fullstack Developer | Year: 2024</div>
+        <p>Company profile website for Retroda, a vintage car rental business in the Jabodetabek area.</p>
+        <div class="tech"><b>Tech:</b> <span>Astro, TailwindCSS, TypeScript, Keystatic</span></div>
+      </div>
+
+      <div class="card c3">
+        <div class="shot">[ IMAGE ]<img src="images/comipara.png" alt="Comipara 6 Interactive Map" onerror="this.style.display='none'"></div>
+        <h3><a href="#">Comipara 6 Interactive Map</a> <span class="live mono">[LIVE]</span></h3>
+        <div class="meta">Role: Frontend &amp; Pathfinding Developer | Year: 2024</div>
+        <p>Collaborative project with 2 other people. Shortest-path navigation in native JavaScript.</p>
+        <div class="tech"><b>Tech:</b> <span>JavaScript, Pathfinding Algorithm</span></div>
+      </div>
+
+      <div class="card c4">
+        <div class="shot">[ IMAGE ]<img src="images/noachanassist.png" alt="noachanassist" onerror="this.style.display='none'"></div>
+        <h3><a href="#">noachanassist</a></h3>
+        <div class="meta">Category: ai</div>
+        <p>Desktop AI companion with hybrid memory and an agentic workflow.</p>
+        <div class="tech"><b>Tech:</b> <span>(add yours)</span></div>
+      </div>
+
+      <div class="card c5">
+        <div class="shot">[ IMAGE ]<img src="images/yokai.png" alt="Yokai Website" onerror="this.style.display='none'"></div>
+        <h3><a href="#">Yokai Website</a></h3>
+        <div class="meta">Category: web</div>
+        <p>Portfolio and performance website for the team Yokai.</p>
+        <div class="tech"><b>Tech:</b> <span>Astro, Sanity</span></div>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="foot" class="mono">Best viewed with any browser. Made by RWBU. Last updated: October 2026.</div>
+
+</div>
+
+<script>
+  /* Splits the status text into letters so each one can bob up and down like a wave */
+  document.querySelectorAll('.wave').forEach(function (el) {
+    var words = el.textContent.trim().split(' ');
+    var n = 0;
+    el.textContent = '';
+    words.forEach(function (word, w) {
+      var group = document.createElement('span');
+      group.className = 'wave-word';
+      word.split('').forEach(function (ch) {
+        var s = document.createElement('span');
+        s.textContent = ch;
+        s.style.animationDelay = (n++ * 0.08) + 's';
+        group.appendChild(s);
+      });
+      el.appendChild(group);
+      if (w < words.length - 1) { el.appendChild(document.createTextNode(' ')); n++; }
+    });
+  });
+</script>
+</body>
+</html>

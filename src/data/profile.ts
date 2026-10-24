@@ -1,25 +1,27 @@
 export const identity = {
   fullName: "Sebastian Vay Yosafat Pardamean Hutagalung",
   alias: "RWBU",
-  role: "Front End Developer",
-  bioShort: "A front end developer pursuing a CS degree. Interested in web animations, prompt engineering, and static frameworks.",
-  bioLong: "A front end developer currently pursuing a Computer Science degree at Universitas Kristen Immanuel. Interested in web animations, prompt engineering, and new static frameworks. Mostly works alongside AI to streamline development workflow and deliver quickly."
+  role: "Software Developer",
+  tagline: "Software Developer · Based in Indonesia",
+  status: "Open for freelance contracts, internships, and engineering roles",
+  location: "Indonesia (UTC+7)",
+  studying: "Computer Science, Universitas Kristen Immanuel",
+  interests: "Web animations, prompt engineering, static frameworks",
+  workflow: "VS Code, Claude, and other things",
+  bioShort: "A software developer pursuing a CS degree at UKRIM. Interested in web animations, prompt engineering, and static frameworks.",
+  bioLong: "A developer currently pursuing a Computer Science degree at Universitas Kristen Immanuel. Interested in web animations, prompt engineering, and new static frameworks. Works with modern AI tooling to streamline development workflows and deliver reliable software."
 };
 
-export const experience = [
-  {
-    role: "Web Developer",
-    company: "PT MultiIntegra Digital",
-    location: "Rawamangun, East Jakarta",
-    duration: "1 year"
-  },
-  {
-    role: "Freelance Web Developer",
-    company: "Self-employed",
-    location: "Remote",
-    duration: "Currently active/open for freelance work"
-  }
-];
+export const contactDetails = {
+  email: "sebastianhutagalung69@gmail.com",
+  phone: "+6285172244992",
+  whatsappUrl: "https://wa.me/6285172244992",
+  githubUrl: "https://github.com/rwbu69",
+  linkedinUrl: "https://www.linkedin.com/in/sebastianvyhutagalung/",
+  instagramUrl: "https://www.instagram.com/shunshunrwbu",
+  timezone: "UTC+7 (Western Indonesia Time)",
+  responseTime: "Within 24-48 hours"
+};
 
 export const socials = [
   {
@@ -38,24 +40,3 @@ export const socials = [
     iconPath: "M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"
   }
 ];
-
-export const skillsGrouped = [
-  {
-    category: "Frontend",
-    skills: ["JavaScript (Vanilla)", "TypeScript", "TailwindCSS"]
-  },
-  {
-    category: "Backend/Framework",
-    skills: ["Laravel", "PHP"]
-  },
-  {
-    category: "Frameworks",
-    skills: ["Astro"]
-  },
-  {
-    category: "Misc",
-    skills: ["CLI Tooling (FFmpeg, yt-dlp)"]
-  }
-];
-
-export const allSkillsFlat = skillsGrouped.flatMap(g => g.skills);

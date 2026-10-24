@@ -1,73 +1,112 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Navbar from '../components/Navbar.astro';
-import PageHeader from '../components/PageHeader.astro';
-import { MapPinIcon } from '@heroicons/react/24/outline';
-import { SocialIcons } from '../components/react/SocialIcons';
+import RetroScreenLayout from '../layouts/RetroScreenLayout.astro';
+import { socials, identity, contactDetails } from '../data/profile';
 ---
 
-<Layout title="RWBU | Contact">
-  <Navbar />
-  
-  <main class="max-w-4xl mx-auto px-6 py-12 w-full grow flex flex-col justify-center">
-    <PageHeader 
-      title="Contact" 
-      description="Let's build something great together. Send me a message or find me on the web." 
-    />
-
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-      <!-- Contact Info & Direct Email -->
-      <section class="space-y-8">
-        <div>
-          <h2 class="text-xl font-bold mb-4 flex items-center gap-2 font-serif border-b border-gray-200 pb-1 inline-block">
-            Availability Status
-          </h2>
-          <div class="p-4 bg-white border border-gray-200 rounded-sm text-sm">
-            <p class="mb-4">
-              I am currently <strong class="text-green">OPEN</strong> for freelance projects, contract work, or open source collaboration. 
-            </p>
-            <p class="mb-6 text-text-muted">
-              If you have a project idea or need help on the frontend side, feel free to contact me via email or WhatsApp.
-            </p>
-            
-            <div class="flex flex-col gap-4 font-serif mt-2">
-              <a href="mailto:sebastianhutagalung69@gmail.com" class="block w-full text-center bg-pink text-white text-base font-bold py-3 px-6 border border-pink hover:bg-pink/90 hover:-translate-y-0.5 shadow-sm hover:shadow-md transition-all rounded-sm">
-                Email Me
-              </a>
-              <a href="https://wa.me/6285172244992?text=I%20would%20like%20to%20order%20a%20website" target="_blank" rel="noopener noreferrer" class="block w-full text-center bg-green text-white text-base font-bold py-3 px-6 border border-green hover:bg-green/90 hover:-translate-y-0.5 shadow-sm hover:shadow-md transition-all rounded-sm">
-                WhatsApp Me
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-      
-      <!-- Social & Location -->
-      <section class="space-y-8">
-        <div>
-          <h2 class="text-xl font-bold mb-4 flex items-center gap-2 font-serif border-b border-gray-200 pb-1 inline-block">
-            Direct Line
-          </h2>
-          <div class="flex items-center gap-4 p-4 bg-white border border-gray-200 rounded-sm">
-            <div class="bg-gray-50 p-2 border border-gray-200 rounded-sm">
-              <MapPinIcon className="w-6 h-6 text-text-main" />
-            </div>
-            <div>
-              <p class="text-xs text-text-muted font-sans mb-1 tracking-wider uppercase">Location</p>
-              <p class="text-sm font-medium">Yogyakarta, Indonesia</p>
-            </div>
-          </div>
-        </div>
-        
-        <div>
-          <h2 class="text-xl font-bold mb-4 flex items-center gap-2 font-serif border-b border-gray-200 pb-1 inline-block">
-            Socials
-          </h2>
-          <div class="p-4 bg-white border border-gray-200 rounded-sm">
-            <SocialIcons />
-          </div>
-        </div>
-      </section>
+<RetroScreenLayout title="RWBU | Contact Directory" activeNav="contact">
+  <div style="width: 100%;">
+    <div style="border-bottom: 3px solid #d6336c; padding-bottom: 1.2vh; margin-bottom: 2vh;">
+      <h2 style="font-size: 3.8vh; color: #a61e4d; text-decoration: underline; margin: 0 0 0.5vh 0;">
+        Contact Information &amp; Switchboard
+      </h2>
+      <p style="font-size: 2.1vh; margin: 0.4vh 0; line-height: 1.4;">
+        I am currently active and open for freelance contracts, internship roles, and developer work. Choose your preferred communication channel below.
+      </p>
     </div>
-  </main>
-</Layout>
+
+    <!-- Quick Action Availability Box -->
+    <div style="background: #fff3b0; border: 3px solid #b8860b; padding: 1.5vh 2vw; margin-bottom: 2.5vh; text-align: center;">
+      <div style="font-size: 1.8vh; font-weight: bold; color: #b8860b; margin-bottom: 4px;" class="mono">
+        CURRENT AVAILABILITY STATUS:
+      </div>
+      <div style="font-size: 2.6vh; font-weight: bold; color: #a61e4d; margin-bottom: 1.2vh;">
+        Open for freelance contracts, internship roles, and work
+      </div>
+      <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;" class="mono">
+        <a
+          href={`mailto:${contactDetails.email}`}
+          style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border: 3px outset #d6336c; background: #ffffff; color: #a61e4d; font-weight: bold; text-decoration: none; font-size: 1.9vh;"
+        >
+          <span aria-hidden="true">✉️</span> [ Send Direct Email ]
+        </a>
+        <a
+          href={contactDetails.whatsappUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border: 3px outset #1b7a3a; background: #ffffff; color: #1b7a3a; font-weight: bold; text-decoration: none; font-size: 1.9vh;"
+        >
+          <span aria-hidden="true">💬</span> [ Open WhatsApp Chat ({contactDetails.phone}) ]
+        </a>
+      </div>
+    </div>
+
+    <!-- Direct Communication Directory Table -->
+    <div style="margin-bottom: 2.5vh;">
+      <h3 style="font-size: 2.8vh; color: #0b6e8a; text-decoration: underline; margin: 0 0 1vh 0;">
+        Direct Communication Directory
+      </h3>
+      <table border="2" cellpadding="8" cellspacing="0" width="100%" class="facts" style="border: 3px solid #0b6e8a; width: 100%; border-collapse: collapse; background: #e0f4fa; font-size: 2vh;">
+        <tbody>
+          <tr>
+            <td style="font-weight: bold; background: #ffffff; border: 2px solid #0b6e8a; width: 35%; color: #0b6e8a;">Personal Name:</td>
+            <td style="border: 2px solid #0b6e8a; background: #ffffff;">{identity.fullName}</td>
+          </tr>
+          <tr>
+            <td style="font-weight: bold; background: #ffffff; border: 2px solid #0b6e8a; color: #0b6e8a;">Developer Handle:</td>
+            <td style="border: 2px solid #0b6e8a; background: #ffffff; font-weight: bold; color: #a61e4d;" class="mono">RWBU</td>
+          </tr>
+          <tr>
+            <td style="font-weight: bold; background: #ffffff; border: 2px solid #0b6e8a; color: #0b6e8a;">Primary Email:</td>
+            <td style="border: 2px solid #0b6e8a; background: #ffffff;" class="mono">
+              <a href={`mailto:${contactDetails.email}`} style="font-weight: bold; color: #a61e4d; text-decoration: underline;">
+                {contactDetails.email}
+              </a>
+            </td>
+          </tr>
+          <tr>
+            <td style="font-weight: bold; background: #ffffff; border: 2px solid #0b6e8a; color: #0b6e8a;">Phone / WhatsApp:</td>
+            <td style="border: 2px solid #0b6e8a; background: #ffffff;" class="mono">
+              <a href={contactDetails.whatsappUrl} target="_blank" rel="noopener noreferrer" style="color: #1b7a3a; font-weight: bold; text-decoration: underline;">
+                {contactDetails.phone} (Direct WhatsApp Chat) ↗
+              </a>
+            </td>
+          </tr>
+          <tr>
+            <td style="font-weight: bold; background: #ffffff; border: 2px solid #0b6e8a; color: #0b6e8a;">Timezone &amp; Base:</td>
+            <td style="border: 2px solid #0b6e8a; background: #ffffff;">{identity.location} ({contactDetails.timezone})</td>
+          </tr>
+          <tr>
+            <td style="font-weight: bold; background: #ffffff; border: 2px solid #0b6e8a; color: #0b6e8a;">Response Expectation:</td>
+            <td style="border: 2px solid #0b6e8a; background: #ffffff;">{contactDetails.responseTime}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Official Social Network Profiles -->
+    <div>
+      <h3 style="font-size: 2.8vh; color: #5b3a9e; text-decoration: underline; margin: 0 0 1vh 0;">
+        Official Social Network Profiles
+      </h3>
+      <table border="2" cellpadding="8" cellspacing="0" width="100%" class="facts" style="border: 3px solid #5b3a9e; width: 100%; border-collapse: collapse; background: #f0eaff; font-size: 2vh;">
+        <tbody>
+          {socials.map((social) => (
+            <tr style="background: #ffffff;">
+              <td style="font-weight: bold; border: 2px solid #5b3a9e; width: 35%; color: #5b3a9e;">{social.name}:</td>
+              <td style="border: 2px solid #5b3a9e;" class="mono">
+                <a
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style="font-weight: bold; color: #a61e4d; text-decoration: underline;"
+                >
+                  {social.url} ↗
+                </a>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</RetroScreenLayout>

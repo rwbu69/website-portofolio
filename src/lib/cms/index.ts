@@ -21,9 +21,3 @@ export async function getPosts(): Promise<BlogPost[]> {
     tags: post.data.tags || [],
   })).sort((a, b) => new Date(b.publishDate).valueOf() - new Date(a.publishDate).valueOf());
 }
-
-export async function getPostBySlug(slug: string) {
-  const posts = await getCollection('blog');
-  const post = posts.find(p => p.id === slug);
-  return post;
-}

@@ -1,0 +1,137 @@
+---
+import '../styles/retro.css';
+import { ClientRouter } from 'astro:transitions';
+
+interface Props {
+  title: string;
+  description?: string;
+  activeNav?: 'home' | 'projects' | 'blog' | 'contact';
+  isSingleScreen?: boolean;
+}
+
+const {
+  title,
+  description = "RWBU's Portfolio — Software Developer based in Indonesia",
+  activeNav = 'home',
+  isSingleScreen = false,
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || Astro.url.origin);
+---
+
+<!doctype html>
+<html lang="en" class={isSingleScreen ? 'single-screen' : 'subpage-html'}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+    <ClientRouter />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+
+    <!-- Persistent Global Timestamp-Synchronized Ticker Script -->
+    <script is:inline>
+      function syncRunningTicker() {
+        const track = document.getElementById('retro-ticker-track');
+        if (track) {
+          const duration = 35000;
+          const elapsed = Date.now() % duration;
+          track.style.animationDelay = `-${elapsed}ms`;
+        }
+      }
+      syncRunningTicker();
+      document.addEventListener('astro:page-load', syncRunningTicker);
+    </script>
+  </head>
+  <body class={isSingleScreen ? 'single-screen' : 'subpage-body'}>
+    {isSingleScreen ? (
+      <div id="page">
+        <!-- Row 1: Continuous Seamless Scrolling Marquee Banner (Never Restarts) -->
+        <div class="retro-ticker-wrap" transition:persist="top-running-ticker">
+          <div class="retro-ticker-track" id="retro-ticker-track">
+            <span class="retro-ticker-item">
+              Welcome to RWBU's Portfolio — Software Developer based in Indonesia — Open for freelance contracts, internships, and engineering roles
+              <span class="retro-ticker-star">★</span>
+            </span>
+            <span class="retro-ticker-item">
+              Welcome to RWBU's Portfolio — Software Developer based in Indonesia — Open for freelance contracts, internships, and engineering roles
+              <span class="retro-ticker-star">★</span>
+            </span>
+            <span class="retro-ticker-item">
+              Welcome to RWBU's Portfolio — Software Developer based in Indonesia — Open for freelance contracts, internships, and engineering roles
+              <span class="retro-ticker-star">★</span>
+            </span>
+            <span class="retro-ticker-item">
+              Welcome to RWBU's Portfolio — Software Developer based in Indonesia — Open for freelance contracts, internships, and engineering roles
+              <span class="retro-ticker-star">★</span>
+            </span>
+          </div>
+        </div>
+
+        <!-- Row 2: Top Title + Tagline + Nav (No Otaku, No Guestbook) -->
+        <div id="top">
+          <h1><a href="/" style="color: inherit; text-decoration: underline;">RWBU's Portfolio</a></h1>
+          <span class="tag">Software Developer · Indonesia</span>
+          <nav id="nav" aria-label="Main Navigation">
+            <a href="/" class={activeNav === 'home' ? 'active' : ''}>Home</a>
+            <a href="/projects" class={activeNav === 'projects' ? 'active' : ''}>Projects</a>
+            <a href="/blog" class={activeNav === 'blog' ? 'active' : ''}>Blog</a>
+            <a href="/contact" class={activeNav === 'contact' ? 'active' : ''}>Contact Me</a>
+          </nav>
+        </div>
+
+        <!-- Main 100vh Content Slot (Hero + Projects Row) -->
+        <slot />
+      </div>
+    ) : (
+      <div id="subpage">
+        <!-- Row 1: Continuous Seamless Scrolling Marquee Banner (Never Restarts) -->
+        <div class="retro-ticker-wrap" transition:persist="top-running-ticker">
+          <div class="retro-ticker-track" id="retro-ticker-track">
+            <span class="retro-ticker-item">
+              Welcome to RWBU's Portfolio — Software Developer based in Indonesia — Open for freelance contracts, internships, and engineering roles
+              <span class="retro-ticker-star">★</span>
+            </span>
+            <span class="retro-ticker-item">
+              Welcome to RWBU's Portfolio — Software Developer based in Indonesia — Open for freelance contracts, internships, and engineering roles
+              <span class="retro-ticker-star">★</span>
+            </span>
+            <span class="retro-ticker-item">
+              Welcome to RWBU's Portfolio — Software Developer based in Indonesia — Open for freelance contracts, internships, and engineering roles
+              <span class="retro-ticker-star">★</span>
+            </span>
+            <span class="retro-ticker-item">
+              Welcome to RWBU's Portfolio — Software Developer based in Indonesia — Open for freelance contracts, internships, and engineering roles
+              <span class="retro-ticker-star">★</span>
+            </span>
+          </div>
+        </div>
+
+        <!-- Row 2: Top Title + Tagline + Nav -->
+        <div id="top">
+          <h1><a href="/" style="color: inherit; text-decoration: underline;">RWBU's Portfolio</a></h1>
+          <span class="tag">Software Developer · Indonesia</span>
+          <nav id="nav" aria-label="Main Navigation">
+            <a href="/" class={activeNav === 'home' ? 'active' : ''}>Home</a>
+            <a href="/projects" class={activeNav === 'projects' ? 'active' : ''}>Projects</a>
+            <a href="/blog" class={activeNav === 'blog' ? 'active' : ''}>Blog</a>
+            <a href="/contact" class={activeNav === 'contact' ? 'active' : ''}>Contact Me</a>
+          </nav>
+        </div>
+
+        <!-- Subpage Content Slot (Scrollable) -->
+        <main id="subpage-content">
+          <slot />
+        </main>
+      </div>
+    )}
+  </body>
+</html>

@@ -1,0 +1,69 @@
+---
+import RetroScreenLayout from '../layouts/RetroScreenLayout.astro';
+---
+
+<RetroScreenLayout title="RWBU | Guestbook (Maintenance)" activeNav="guestbook">
+  <div style="width: 100%;">
+    <div style="border-bottom: 3px solid #d6336c; padding-bottom: 1.2vh; margin-bottom: 2vh;">
+      <h2 style="font-size: 3.8vh; color: #a61e4d; text-decoration: underline; margin: 0 0 0.5vh 0;">
+        RWBU's Official Visitor Guestbook
+      </h2>
+      <p style="font-size: 2.1vh; margin: 0.4vh 0; line-height: 1.4;">
+        A public ledger for fellow developers, otaku, and travelers of the World Wide Web to leave their signature and greetings.
+      </p>
+    </div>
+
+    <!-- Retro 1990s Under Construction / Maintenance Box -->
+    <div style="background: #fff3b0; border: 4px dashed #b8860b; padding: 2vh 2vw; margin-bottom: 3vh;">
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 1vh;">
+        <span style="font-size: 3.5vh;" aria-hidden="true">🚧</span>
+        <h3 style="margin: 0; font-size: 3vh; color: #7a1236; text-decoration: underline;">
+          ARCHIVE STATUS: TAPE DRIVE MAINTENANCE
+        </h3>
+      </div>
+      <p style="font-size: 2.1vh; line-height: 1.4; margin: 0.5vh 0 1vh 0;">
+        Greetings, web traveler! Our magnetic guestbook storage drive is currently offline for routine tape head cleaning and calibration. 
+        Dynamic live guestbook submissions will be re-enabled in an upcoming update!
+      </p>
+      <div style="background: #ffffff; border: 2px solid #b8860b; padding: 1vh 1.2vw; font-size: 2vh; line-height: 1.35;" class="mono">
+        <b>[!] In the meantime:</b> If you want to say hello, discuss a project, or drop feedback, please beam a transmission through the <a href="/contact" style="color: #a61e4d; font-weight: bold; text-decoration: underline;">[ Contact Me Switchboard ]</a>!
+      </div>
+    </div>
+
+    <!-- Sample Archived Guestbook Entries Preview -->
+    <div style="border: 3px solid #0b6e8a; background: #e0f4fa; padding: 1.5vh 1.5vw;">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 2px solid #0b6e8a; padding-bottom: 0.8vh; margin-bottom: 1.5vh;">
+        <h4 style="margin: 0; font-size: 2.6vh; color: #0b6e8a; text-decoration: underline;">
+          Archived Logbook Transmissions (Sample Preview)
+        </h4>
+        <span class="mono" style="font-size: 1.8vh; font-weight: bold; color: #5b3a9e;">
+          Total Signatures: 42
+        </span>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 1.5vh;">
+        <!-- Entry 1 -->
+        <div style="background: #ffffff; border: 2px solid #0b6e8a; padding: 1vh 1.2vw;">
+          <div style="display: flex; justify-content: space-between; border-bottom: 1px dashed #0b6e8a; padding-bottom: 0.4vh; margin-bottom: 0.6vh;" class="mono">
+            <span style="font-weight: bold; color: #a61e4d;">From: retro_surfer_99</span>
+            <span style="color: #555555; font-size: 1.7vh;">Date: October 24, 2026</span>
+          </div>
+          <p style="margin: 0; font-size: 2vh; line-height: 1.35;">
+            "Awesome retro aesthetic! Loved the ProposalArena and ElToolkit utilities. Keep up the great programming work from Indonesia!"
+          </p>
+        </div>
+
+        <!-- Entry 2 -->
+        <div style="background: #ffffff; border: 2px solid #0b6e8a; padding: 1vh 1.2vw;">
+          <div style="display: flex; justify-content: space-between; border-bottom: 1px dashed #0b6e8a; padding-bottom: 0.4vh; margin-bottom: 0.6vh;" class="mono">
+            <span style="font-weight: bold; color: #a61e4d;">From: wotagei_fan_jogja</span>
+            <span style="color: #555555; font-size: 1.7vh;">Date: October 18, 2026</span>
+          </div>
+          <p style="margin: 0; font-size: 2vh; line-height: 1.35;">
+            "The Yokai Web Studio performance website is fire! Good luck with your CS studies at UKRIM!"
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</RetroScreenLayout>

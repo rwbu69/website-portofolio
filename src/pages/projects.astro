@@ -1,20 +1,21 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Navbar from '../components/Navbar.astro';
-import PageHeader from '../components/PageHeader.astro';
-import ProjectFilter from '../components/react/ProjectFilter';
-import { projects, tools } from '../data/projects';
+import RetroScreenLayout from '../layouts/RetroScreenLayout.astro';
+import RetroProjectList from '../components/retro/RetroProjectList.astro';
+import { projects } from '../data/projects';
 ---
 
-<Layout title="RWBU | Projects">
-  <Navbar />
-  
-  <main class="max-w-4xl mx-auto px-6 py-12 w-full flex-grow">
-    <PageHeader 
-      title="Projects" 
-      description="A collection of my work, experiments, and open-source contributions. Filter by technology to explore specific stacks." 
-    />
+<RetroScreenLayout title="RWBU | Projects Directory" activeNav="projects">
+  <div style="width: 100%;">
+    <div style="border-bottom: 3px solid #d6336c; padding-bottom: 1.2vh; margin-bottom: 2vh;">
+      <h2 style="font-size: 3.8vh; color: #a61e4d; text-decoration: underline; margin: 0 0 0.5vh 0;">
+        Project Archives &amp; Deployments
+      </h2>
+      <p style="font-size: 2.1vh; margin: 0.4vh 0; line-height: 1.4;">
+        A catalog of production web applications, algorithmic tools, desktop software, and AI experiments developed by RWBU. Use the category tabs below to browse by field.
+      </p>
+    </div>
 
-    <ProjectFilter client:load projects={projects} tools={tools} />
-  </main>
-</Layout>
+    <!-- Interactive Filter and Explorer (Server-Rendered Static Astro Component) -->
+    <RetroProjectList projects={projects} />
+  </div>
+</RetroScreenLayout>

@@ -1,0 +1,292 @@
+---
+import type { Project } from '../../data/projects';
+
+interface Props {
+  projects: Project[];
+}
+
+const { projects } = Astro.props;
+
+const categories = [
+  { id: 'all', label: `All Projects (${projects.length})` },
+  { id: 'website', label: 'Web Applications (4)' },
+  { id: 'tool', label: 'Desktop Utilities (2)' },
+  { id: 'ai', label: 'AI Systems (1)' },
+];
+
+const getTheme = (type: string, title: string) => {
+  if (title.toLowerCase().includes('comipara') || type === 'website') {
+    return {
+      bg: '#e0f4fa',
+      border: '#0b6e8a',
+      titleColor: '#0b6e8a',
+    };
+  }
+  if (title.toLowerCase().includes('retroda') || type === 'tool' || type === 'desktop' || type === 'ai') {
+    return {
+      bg: '#f0eaff',
+      border: '#5b3a9e',
+      titleColor: '#5b3a9e',
+    };
+  }
+  return {
+    bg: '#e6f7ec',
+    border: '#1b7a3a',
+    titleColor: '#1b7a3a',
+  };
+};
+---
+
+<div style="display: flex; flex-direction: column; gap: 20px;">
+  <!-- Authentic Retro Filter Bar -->
+  <table border="2" cellpadding="8" cellspacing="0" width="100%" class="facts" style="border: 3px solid #0b6e8a; width: 100%; border-collapse: collapse; background: #e0f4fa; font-size: 2vh;">
+    <tbody>
+      <tr>
+        <td style="font-weight: bold; background: #ffffff; border: 2px solid #0b6e8a; width: 130px; color: #0b6e8a;">
+          Filter Category:
+        </td>
+        <td style="border: 2px solid #0b6e8a;">
+          <div style="display: flex; flex-wrap: wrap; gap: 8px;" class="mono">
+            {categories.map((c, i) => (
+              <button
+                type="button"
+                data-cat={c.id}
+                class={`cat-filter-btn ${i === 0 ? 'active-filter' : ''}`}
+                aria-pressed={i === 0 ? 'true' : 'false'}
+              >
+                {c.label}
+              </button>
+            ))}
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Filter Counter -->
+  <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 2px solid #d6336c; padding-bottom: 6px; font-size: 1.9vh;" class="mono">
+    <span style="color: #5b3a9e; font-weight: bold;">
+      Catalog Records: Showing <span id="visible-count">{projects.length}</span> of {projects.length} verified projects
+    </span>
+    <button
+      type="button"
+      id="reset-filter-btn"
+      class="reset-filter-action mono"
+    >
+      [ Reset Filters ]
+    </button>
+  </div>
+
+  <!-- Projects Dossier List -->
+  <div style="display: flex; flex-direction: column; gap: 20px;" id="projects-container">
+    {projects.map((project) => {
+      const theme = getTheme(project.type, project.title);
+      // Normalize 'desktop' to 'tool' for category filtering
+      const filterType = project.type === 'desktop' ? 'tool' : project.type;
+      return (
+        <div
+          class="project-card-item"
+          data-type={filterType}
+          style={`background-color: ${theme.bg}; border: 3px solid ${theme.border}; padding: 16px 20px;`}
+        >
+          <!-- Card Header -->
+          <div style={`display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; border-bottom: 2px solid ${theme.border}; padding-bottom: 8px; margin-bottom: 12px;`}>
+            <h3 style={`font-size: 2.8vh; margin: 0; color: ${theme.titleColor}; text-decoration: underline;`}>
+              <a href={project.demoLink || project.repoLink || '#'} target="_blank" rel="noopener noreferrer" style={`color: ${theme.titleColor};`}>
+                {project.title}
+              </a>
+            </h3>
+
+            <div>
+              {project.status === 'live' ? (
+                <span class="mono" style="font-size: 1.7vh; font-weight: bold; color: #1b7a3a; background: #e6f7ec; border: 1px solid #1b7a3a; padding: 2px 8px;">
+                  [LIVE DEMO]
+                </span>
+              ) : (
+                <span class="mono" style="font-size: 1.7vh; font-weight: bold; color: #5b3a9e; background: #ffffff; border: 1px solid #5b3a9e; padding: 2px 8px;">
+                  [{project.status.toUpperCase()}]
+                </span>
+              )}
+            </div>
+          </div>
+
+          <!-- Metadata -->
+          <div style="font-size: 1.9vh; font-style: italic; color: #5b3a9e; margin-bottom: 12px;">
+            Role: <b>{project.role}</b> | Year: {project.year} | Category: {project.type}
+          </div>
+
+          <!-- Main Content Body -->
+          <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 16px; margin-bottom: 14px;">
+            {project.image ? (
+              <div style="width: 220px; flex-shrink: 0;">
+                <div style={`border: 2px solid ${theme.border}; background: #ffffff; overflow: hidden; height: 130px; display: flex; align-items: center; justify-content: center;`}>
+                  <img
+                    src={project.image}
+                    alt={`${project.title} preview screenshot`}
+                    style="width: 100%; height: 100%; object-fit: cover; object-position: top; display: block;"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+            ) : (
+              <div style="width: 220px; flex-shrink: 0;">
+                <div style={`border: 2px solid ${theme.border}; background: repeating-linear-gradient(45deg, #f8f9fa, #f8f9fa 10px, #e9ecef 10px, #e9ecef 20px); height: 130px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 8px; text-align: center;`} class="mono">
+                  <span style="background: #a61e4d; color: #ffffff; padding: 2px 6px; font-size: 1.5vh; font-weight: bold; margin-bottom: 4px;">
+                    [ LIVE SITE ]
+                  </span>
+                  <span style="font-size: 1.6vh; color: #333333; font-weight: bold;">{project.title}</span>
+                  <span style="font-size: 1.4vh; color: #555555;">Live at retroda.id ↗</span>
+                </div>
+              </div>
+            )}
+
+            <div style="flex: 1; min-width: 260px;">
+              <p style="margin: 0 0 10px 0; font-size: 2.1vh; line-height: 1.45; color: #222222;">
+                {project.description}
+              </p>
+
+              <!-- Tech Badges -->
+              <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: 1.8vh;">
+                <b style="color: #1b7a3a;">Tech Stack:</b>
+                {project.tech.map((t) => (
+                  <span class="mono" style="padding: 2px 6px; background: #ffffff; border: 1px solid #1b7a3a; color: #1b7a3a; font-weight: bold; font-size: 1.6vh;">
+                    {t}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <!-- Outbound Action Links -->
+          <div style={`display: flex; flex-wrap: wrap; gap: 10px; border-top: 2px solid ${theme.border}; padding-top: 10px;`} class="mono">
+            {project.demoLink && (
+              <a
+                href={project.demoLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={`display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; border: 3px outset ${theme.border}; background: #ffffff; color: ${theme.titleColor}; font-weight: bold; text-decoration: none; font-size: 1.8vh;`}
+              >
+                <span>↗</span> [ Launch Live Demo ]
+              </a>
+            )}
+
+            {project.repoLink && (
+              <a
+                href={project.repoLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={`display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; border: 3px outset ${theme.border}; background: #ffffff; color: ${theme.titleColor}; font-weight: bold; text-decoration: none; font-size: 1.8vh;`}
+              >
+                <span>🐙</span> [ View GitHub Repository ]
+              </a>
+            )}
+          </div>
+        </div>
+      );
+    })}
+  </div>
+</div>
+
+<style is:global>
+  .cat-filter-btn {
+    padding: 5px 12px;
+    font-weight: bold;
+    font-size: clamp(12px, 1.8vh, 16px);
+    border: 3px outset #0b6e8a;
+    background: #ffffff;
+    color: #0b6e8a;
+    cursor: pointer;
+    font-family: "Courier New", Courier, monospace;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  .cat-filter-btn:hover {
+    background: #e0f4fa;
+  }
+  .cat-filter-btn:active,
+  .cat-filter-btn.active-filter {
+    border-style: inset !important;
+    background: #0b6e8a !important;
+    color: #ffffff !important;
+  }
+
+  .reset-filter-action {
+    background: none;
+    border: none;
+    color: #a61e4d;
+    font-weight: bold;
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: clamp(12px, 1.8vh, 16px);
+    font-family: "Courier New", Courier, monospace;
+  }
+  .reset-filter-action:hover {
+    color: #d6003f;
+  }
+</style>
+
+<script is:inline>
+  function initRetroProjectFilters() {
+    const buttons = document.querySelectorAll('.cat-filter-btn');
+    const cards = document.querySelectorAll('.project-card-item');
+    const countEl = document.getElementById('visible-count');
+    const resetBtn = document.getElementById('reset-filter-btn');
+
+    if (!buttons || buttons.length === 0) return;
+
+    function applyCategoryFilter(cat) {
+      let visibleCount = 0;
+
+      buttons.forEach(btn => {
+        const isMatch = btn.getAttribute('data-cat') === cat;
+        if (isMatch) {
+          btn.classList.add('active-filter');
+          btn.setAttribute('aria-pressed', 'true');
+        } else {
+          btn.classList.remove('active-filter');
+          btn.setAttribute('aria-pressed', 'false');
+        }
+      });
+
+      cards.forEach(card => {
+        const type = card.getAttribute('data-type');
+        if (cat === 'all' || type === cat) {
+          card.style.display = 'block';
+          visibleCount++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      if (countEl) {
+        countEl.textContent = visibleCount.toString();
+      }
+    }
+
+    buttons.forEach(btn => {
+      btn.onclick = (e) => {
+        e.preventDefault();
+        const cat = btn.getAttribute('data-cat');
+        applyCategoryFilter(cat);
+      };
+    });
+
+    if (resetBtn) {
+      resetBtn.onclick = (e) => {
+        e.preventDefault();
+        applyCategoryFilter('all');
+      };
+    }
+  }
+
+  // Bind immediately, on DOM ready, and upon Astro ClientRouter navigation
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initRetroProjectFilters);
+  } else {
+    initRetroProjectFilters();
+  }
+  document.addEventListener('astro:page-load', initRetroProjectFilters);
+</script>
