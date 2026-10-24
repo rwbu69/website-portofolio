@@ -1,35 +1,66 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Navbar from '../components/Navbar.astro';
+import RetroScreenLayout from '../layouts/RetroScreenLayout.astro';
 ---
 
-<Layout title="404 | Command Not Found">
-  <Navbar />
-  
-  <main class="max-w-4xl mx-auto px-6 py-24 w-full flex-grow flex flex-col items-center justify-center text-center">
-    <div class="inline-block p-10 bg-white border border-gray-200 rounded-sm relative shadow-sm">
-      <div class="absolute top-0 left-0 w-full h-1 bg-pink rounded-t-sm"></div>
-      
-      <div class="text-6xl font-bold font-serif text-pink mb-4 flex items-center justify-center gap-4">
-        <span>404</span>
-      </div>
-      
-      <h1 class="text-2xl md:text-3xl font-bold mb-4 text-text-main font-serif">
-        Page Not Found
-      </h1>
-      
-      <p class="text-text-muted mb-8 max-w-md mx-auto">
-        The page you are looking for has been moved, deleted, or never existed in the first place.
+<RetroScreenLayout title="404 - File Not Found | RWBU's Home Page">
+  <div style="max-width: 900px; margin: 0 auto; padding: 1.5vh 1vw;">
+    <div style="border-bottom: 3px solid #d6336c; padding-bottom: 1.2vh; margin-bottom: 2vh;">
+      <h2 style="font-size: 3.8vh; color: #d6003f; text-decoration: underline; margin: 0 0 0.5vh 0;">
+        HTTP 404 - Object / File Not Found
+      </h2>
+      <p style="font-size: 2.1vh; margin: 0.4vh 0; line-height: 1.4;">
+        The requested document or resource was not located on this web server. The link you clicked may be outdated, or the page may have been relocated.
       </p>
-      
-      <div class="flex gap-4 justify-center">
-        <a href="/" class="px-6 py-2 bg-pink border border-pink text-white hover:bg-pink/90 hover:-translate-y-0.5 shadow-sm hover:shadow-md transition-all rounded-sm font-medium">
-          Return Home
+    </div>
+
+    <!-- Diagnostic Table -->
+    <div style="margin-bottom: 2.5vh;">
+      <table border="2" cellpadding="8" cellspacing="0" width="100%" class="facts" style="border: 3px solid #b8860b; width: 100%; border-collapse: collapse; background: #fff3b0; font-size: 2vh;" class="mono">
+        <thead>
+          <tr bgcolor="#ffeaa7" style="text-align: left; font-weight: bold; color: #b8860b;">
+            <th colspan="2" style="border: 2px solid #b8860b; padding: 8px 12px;">Server Diagnostic Information</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-weight: bold; background: #ffffff; border: 2px solid #b8860b; width: 35%; color: #b8860b;">Status Code:</td>
+            <td style="border: 2px solid #b8860b; background: #ffffff; color: #d6003f; font-weight: bold;">404 NOT FOUND</td>
+          </tr>
+          <tr>
+            <td style="font-weight: bold; background: #ffffff; border: 2px solid #b8860b; color: #b8860b;">Web Engine:</td>
+            <td style="border: 2px solid #b8860b; background: #ffffff;">Astro 6 / Bun Static Server</td>
+          </tr>
+          <tr>
+            <td style="font-weight: bold; background: #ffffff; border: 2px solid #b8860b; color: #b8860b;">Host System:</td>
+            <td style="border: 2px solid #b8860b; background: #ffffff;">RWBU Personal Web Node (Indonesia)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Safe Navigation Directory -->
+    <div style="border: 3px solid #0b6e8a; background: #e0f4fa; padding: 2vh 2vw;">
+      <div style="font-size: 2.4vh; font-weight: bold; color: #0b6e8a; border-bottom: 2px solid #0b6e8a; padding-bottom: 6px; margin-bottom: 1.5vh;">
+        SAFE NAVIGATION DIRECTORY
+      </div>
+      <p style="font-size: 2vh; margin: 0 0 1.5vh 0;">
+        You can return to safe ground using any of the following verified links:
+      </p>
+
+      <div style="display: flex; flex-wrap: wrap; gap: 10px;" class="mono">
+        <a href="/" style="padding: 6px 14px; border: 3px outset #0b6e8a; background: #ffffff; color: #0b6e8a; font-weight: bold; text-decoration: none; font-size: 1.9vh;">
+          [ &lt;- Return to Home Page ]
         </a>
-        <button onclick="window.history.back()" class="px-6 py-2 bg-white border border-gray-300 text-text-muted hover:border-pink hover:text-pink transition-colors rounded-sm font-medium">
-          Go Back
-        </button>
+        <a href="/projects" style="padding: 6px 14px; border: 3px outset #0b6e8a; background: #ffffff; color: #0b6e8a; font-weight: bold; text-decoration: none; font-size: 1.9vh;">
+          [ Browse Projects Directory ]
+        </a>
+        <a href="/blog" style="padding: 6px 14px; border: 3px outset #0b6e8a; background: #ffffff; color: #0b6e8a; font-weight: bold; text-decoration: none; font-size: 1.9vh;">
+          [ Read Weblog &amp; Notes ]
+        </a>
+        <a href="/contact" style="padding: 6px 14px; border: 3px outset #0b6e8a; background: #ffffff; color: #0b6e8a; font-weight: bold; text-decoration: none; font-size: 1.9vh;">
+          [ Contact Administrator ]
+        </a>
       </div>
     </div>
-  </main>
-</Layout>
+  </div>
+</RetroScreenLayout>

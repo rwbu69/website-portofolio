@@ -1,127 +1,120 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import Navbar from "../components/Navbar.astro";
-import { getFeaturedProjects } from "../data/projects";
-import { getCollection } from "astro:content";
-import { identity, experience, allSkillsFlat } from "../data/profile";
-import TechIcon from "../components/react/TechIcon";
-import ProjectCard from "../components/react/ProjectCard";
+import RetroScreenLayout from '../layouts/RetroScreenLayout.astro';
+import RetroAvailabilityBox from '../components/retro/RetroAvailabilityBox.astro';
+import { identity } from '../data/profile';
+import { getFeaturedProjects } from '../data/projects';
 
 const featuredProjects = getFeaturedProjects();
-const allPosts = await getCollection("blog");
-const latestPosts = allPosts
-  .sort(
-    (a, b) =>
-      new Date(b.data.publishDate).valueOf() -
-      new Date(a.data.publishDate).valueOf(),
-  )
-  .slice(0, 3);
-
-const skills = allSkillsFlat;
-const currentStatus =
-  experience.find((exp) => exp.role.toLowerCase().includes("freelance"))
-    ?.duration || "Available for freelance / open to work";
 ---
 
-<Layout title={`RWBU | ${identity.role}`}>
-  <Navbar />
-
-  <main class="max-w-4xl mx-auto px-6 py-12 w-full grow">
-    <!-- Introduction Section -->
-    <header class="mb-14 border-b border-gray-200 pb-10">
-      <div class="mb-6">
-        <h1 class="text-3xl md:text-4xl font-serif font-bold text-text-main mb-2">
-          Hello, I'm {identity.alias}!
-        </h1>
-        <p class="text-sm font-mono text-text-muted">
-          Hello! / Web Developer / Otaku / Based in Indonesia
-        </p>
+<RetroScreenLayout title="RWBU's Portfolio" activeNav="home" isSingleScreen={true}>
+  <!-- ROW 3: Photo (25%) | About & Facts (50%) | Availability Box (25%) -->
+  <div id="hero">
+    <!-- Photo Frame (25% width) -->
+    <div class="photo">
+      <div class="frame">
+        [ PHOTO ]
+        <img
+          src="/projects/rwbu.jpg"
+          alt="Sebastian Vay Yosafat Pardamean Hutagalung (RWBU)"
+          onerror="this.style.display='none'"
+        />
       </div>
-      
-      <p class="text-lg mb-8 max-w-2xl font-serif leading-relaxed text-text-main">
-        A frontend developer with over a year of experience, specializing in React and Astro. I love crafting web experiences that are fast, accessible, and of course... look sweet! 
-      </p>
+      <small>(that's me)</small>
+    </div>
 
-      <div class="inline-flex items-center gap-3 mb-8 px-4 py-2 bg-white border border-gray-200 rounded-full shadow-sm text-sm font-serif">
-        <span class="relative flex h-2.5 w-2.5">
-          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green opacity-75"></span>
-          <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-green"></span>
-        </span>
-        <span class="text-text-muted">Current focus: <span class="text-text-main font-medium">{currentStatus}</span></span>
+    <!-- About RWBU (50% width) -->
+    <div class="about">
+      <h2>Hello, I'm RWBU!</h2>
+      <div class="name mono">{identity.fullName}</div>
+      <div class="role">{identity.tagline}</div>
+      <p>{identity.bioLong}</p>
+      <div class="facts-wrap">
+        <table class="facts">
+          <tbody>
+            <tr>
+              <td>Studying</td>
+              <td>{identity.studying}</td>
+            </tr>
+            <tr>
+              <td>Interests</td>
+              <td>{identity.interests}</td>
+            </tr>
+            <tr>
+              <td>Works with</td>
+              <td>{identity.workflow}</td>
+            </tr>
+            <tr>
+              <td>Location</td>
+              <td>{identity.location}</td>
+            </tr>
+            <tr>
+              <td>Available for</td>
+              <td>{identity.status}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
+    </div>
 
-      <!-- CTA Contact -->
-      <div class="font-serif mt-2 flex flex-col md:flex-row gap-4">
-        <a href="mailto:sebastianhutagalung69@gmail.com" class="bg-pink text-white text-base font-bold py-2 px-6 border border-pink hover:bg-pink/90 hover:-translate-y-0.5 shadow-sm hover:shadow-md transition-all text-center rounded-sm">
-          Send Email
-        </a>
-        <a href="https://wa.me/6285172244992?text=I%20would%20like%20to%20order%20a%20website" target="_blank" rel="noopener noreferrer" class="bg-green text-white text-base font-bold py-2 px-6 border border-green hover:bg-green/90 hover:-translate-y-0.5 shadow-sm hover:shadow-md transition-all text-center rounded-sm">
-          WhatsApp Chat
-        </a>
-      </div>
-    </header>
+    <!-- Professional Availability Slot (25% width) -->
+    <div class="status">
+      <RetroAvailabilityBox />
+    </div>
+  </div>
 
-    <div class="space-y-16">
-      <!-- Bukti Kerja / Projects Preview -->
-      <section>
-        <h2 class="text-2xl font-bold mb-6 font-serif text-text-main flex items-baseline gap-3">
-          Recent Projects
-        </h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
-          {featuredProjects.slice(0,4).map((project) => (
-            <ProjectCard project={project} />
-          ))}
-        </div>
-        <div class="mt-6 text-right">
-          <a href="/projects" class="text-sm font-serif text-text-muted hover:text-pink underline decoration-pink underline-offset-4 transition-colors">View all projects ➝</a>
-        </div>
-      </section>
+  <!-- ROW 4: Featured Projects Showcase (4 Columns) -->
+  <div id="projects">
+    <div class="head">
+      <h2>Featured Projects</h2>
+      <a class="mono" href="/projects">[ View All Projects (7) -&gt; ]</a>
+    </div>
 
-      <!-- Skills Directory -->
-      <section>
-        <h2 class="text-2xl font-bold mb-6 font-serif text-text-main flex items-baseline gap-3">
-          Technical Skills
-        </h2>
-        <div class="bg-white border border-gray-200 p-6 rounded-sm">
-          <div class="flex flex-wrap gap-3">
-            {skills.map((skill) => (
-              <span class="px-3 py-1 text-sm font-serif bg-gray-50 border border-gray-200 text-text-main hover:border-tosca hover:text-tosca transition-colors flex items-center gap-2 cursor-default rounded-sm">
-                <TechIcon tech={skill} className="w-4 h-4" />
-                {skill}
-              </span>
-            ))}
+    <div class="cards">
+      {featuredProjects.map((project) => (
+        <div class={`card ${project.colorClass}`}>
+          <div class="shot">
+            {project.image ? (
+              <img
+                src={project.image}
+                alt={project.title}
+                onerror="this.style.display='none'"
+              />
+            ) : (
+              <div class="ascii-preview mono">
+                <span class="badge">[ DEMO ]</span>
+                <span>{project.title}</span>
+                <span class="sub">Click to inspect ↗</span>
+              </div>
+            )}
+          </div>
+
+          <h3>
+            <a
+              href={project.demoLink || project.repoLink || '#'}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {project.title}
+            </a>{' '}
+            {project.demoLink ? (
+              <span class="live mono">[LIVE DEMO]</span>
+            ) : (
+              <span class="live mono" style="color: #0b6e8a;">[SOURCE CODE]</span>
+            )}
+          </h3>
+
+          <div class="meta">
+            Role: {project.role} | Year: {project.year}
+          </div>
+
+          <p>{project.description}</p>
+
+          <div class="tech">
+            <b>Tech:</b> <span>{project.tech.join(', ')}</span>
           </div>
         </div>
-      </section>
-
-      <!-- Blog Preview -->
-      <section>
-        <h2 class="text-2xl font-bold mb-6 font-serif text-text-main flex items-baseline gap-3">
-          Latest Notes
-        </h2>
-        <div class="bg-white border border-gray-200 rounded-sm overflow-hidden">
-          {latestPosts.map((post) => (
-            <article class="p-4 border-b border-gray-100 hover:bg-pink/5 transition-colors group relative last:border-0">
-              <div class="flex flex-col md:flex-row md:items-center gap-2 md:gap-4">
-                <p class="text-xs font-serif text-text-muted w-32 shrink-0">
-                  {post.data.publishDate}
-                </p>
-                <h3 class="font-bold font-serif text-lg group-hover:text-pink transition-colors">
-                  <a href={`/blog/${post.id}`} class="after:absolute after:inset-0">{post.data.title}</a>
-                </h3>
-              </div>
-            </article>
-          ))}
-          {latestPosts.length === 0 && (
-            <div class="p-8 text-center text-text-muted font-serif bg-gray-50">
-              No notes yet...
-            </div>
-          )}
-        </div>
-        <div class="mt-6 text-right">
-          <a href="/blog" class="text-sm font-serif text-text-muted hover:text-pink underline decoration-pink underline-offset-4 transition-colors">Read other posts ➝</a>
-        </div>
-      </section>
+      ))}
     </div>
-  </main>
-</Layout>
+  </div>
+</RetroScreenLayout>

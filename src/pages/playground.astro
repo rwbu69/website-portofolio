@@ -1,21 +1,4 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Navbar from '../components/Navbar.astro';
-import PageHeader from '../components/PageHeader.astro';
-import PlaygroundTabs from '../components/react/PlaygroundTabs';
+// The playground has been retired in favor of the authentic retro Guestbook
+return Astro.redirect('/guestbook');
 ---
-
-<Layout title="RWBU | Code Playground">
-  <Navbar />
-  
-  <main class="max-w-4xl mx-auto px-6 py-12 w-full flex-grow flex flex-col">
-    <PageHeader 
-      title="Playground" 
-      description="A fun interactive zone. Play around with the fake terminal or write some JavaScript in the sandbox." 
-    />
-
-    <div class="flex-grow">
-      <PlaygroundTabs client:load />
-    </div>
-  </main>
-</Layout>
