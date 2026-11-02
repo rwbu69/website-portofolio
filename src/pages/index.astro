@@ -1,13 +1,13 @@
 ---
-import RetroScreenLayout from '../layouts/RetroScreenLayout.astro';
-import RetroAvailabilityBox from '../components/retro/RetroAvailabilityBox.astro';
+import SiteLayout from '../layouts/SiteLayout.astro';
+import AvailabilityCard from '../components/site/AvailabilityCard.astro';
 import { identity } from '../data/profile';
 import { getFeaturedProjects } from '../data/projects';
 
 const featuredProjects = getFeaturedProjects();
 ---
 
-<RetroScreenLayout title="RWBU's Portfolio" activeNav="home" isSingleScreen={true}>
+<SiteLayout title="RWBU's Portfolio" activeNav="home" isSingleScreen={true}>
   <!-- ROW 3: Photo (25%) | About & Facts (50%) | Availability Box (25%) -->
   <div id="hero">
     <!-- Photo Frame (25% width) -->
@@ -59,7 +59,7 @@ const featuredProjects = getFeaturedProjects();
 
     <!-- Professional Availability Slot (25% width) -->
     <div class="status">
-      <RetroAvailabilityBox />
+      <AvailabilityCard />
     </div>
   </div>
 
@@ -117,4 +117,4 @@ const featuredProjects = getFeaturedProjects();
       ))}
     </div>
   </div>
-</RetroScreenLayout>
+</SiteLayout>

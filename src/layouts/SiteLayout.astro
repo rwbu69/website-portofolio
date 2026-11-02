@@ -1,5 +1,5 @@
 ---
-import '../styles/retro.css';
+import '../styles/site.css';
 import { ClientRouter } from 'astro:transitions';
 
 interface Props {
@@ -42,7 +42,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || Astro.url.origin)
     <!-- Persistent Global Timestamp-Synchronized Ticker Script -->
     <script is:inline>
       function syncRunningTicker() {
-        const track = document.getElementById('retro-ticker-track');
+        const track = document.getElementById('ticker-track');
         if (track) {
           const duration = 35000;
           const elapsed = Date.now() % duration;
@@ -57,23 +57,23 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || Astro.url.origin)
     {isSingleScreen ? (
       <div id="page">
         <!-- Row 1: Continuous Seamless Scrolling Marquee Banner (Never Restarts) -->
-        <div class="retro-ticker-wrap" transition:persist="top-running-ticker">
-          <div class="retro-ticker-track" id="retro-ticker-track">
-            <span class="retro-ticker-item">
-              Welcome to RWBU's Portfolio — Software Developer based in Indonesia — Open for freelance contracts, internships, and engineering roles
-              <span class="retro-ticker-star">★</span>
+        <div class="ticker-wrap" transition:persist="top-running-ticker">
+          <div class="ticker-track" id="ticker-track">
+            <span class="ticker-item">
+              Welcome to RWBU's Portfolio — soft interfaces, useful software, and tiny experiments
+              <span class="ticker-star">★</span>
             </span>
-            <span class="retro-ticker-item">
-              Welcome to RWBU's Portfolio — Software Developer based in Indonesia — Open for freelance contracts, internships, and engineering roles
-              <span class="retro-ticker-star">★</span>
+            <span class="ticker-item">
+              Welcome to RWBU's Portfolio — soft interfaces, useful software, and tiny experiments
+              <span class="ticker-star">★</span>
             </span>
-            <span class="retro-ticker-item">
-              Welcome to RWBU's Portfolio — Software Developer based in Indonesia — Open for freelance contracts, internships, and engineering roles
-              <span class="retro-ticker-star">★</span>
+            <span class="ticker-item">
+              Welcome to RWBU's Portfolio — soft interfaces, useful software, and tiny experiments
+              <span class="ticker-star">★</span>
             </span>
-            <span class="retro-ticker-item">
-              Welcome to RWBU's Portfolio — Software Developer based in Indonesia — Open for freelance contracts, internships, and engineering roles
-              <span class="retro-ticker-star">★</span>
+            <span class="ticker-item">
+              Welcome to RWBU's Portfolio — soft interfaces, useful software, and tiny experiments
+              <span class="ticker-star">★</span>
             </span>
           </div>
         </div>
@@ -101,23 +101,23 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || Astro.url.origin)
     ) : (
       <div id="subpage">
         <!-- Row 1: Continuous Seamless Scrolling Marquee Banner (Never Restarts) -->
-        <div class="retro-ticker-wrap" transition:persist="top-running-ticker">
-          <div class="retro-ticker-track" id="retro-ticker-track">
-            <span class="retro-ticker-item">
-              Welcome to RWBU's Portfolio — Software Developer based in Indonesia — Open for freelance contracts, internships, and engineering roles
-              <span class="retro-ticker-star">★</span>
+        <div class="ticker-wrap" transition:persist="top-running-ticker">
+          <div class="ticker-track" id="ticker-track">
+            <span class="ticker-item">
+              Welcome to RWBU's Portfolio — soft interfaces, useful software, and tiny experiments
+              <span class="ticker-star">★</span>
             </span>
-            <span class="retro-ticker-item">
-              Welcome to RWBU's Portfolio — Software Developer based in Indonesia — Open for freelance contracts, internships, and engineering roles
-              <span class="retro-ticker-star">★</span>
+            <span class="ticker-item">
+              Welcome to RWBU's Portfolio — soft interfaces, useful software, and tiny experiments
+              <span class="ticker-star">★</span>
             </span>
-            <span class="retro-ticker-item">
-              Welcome to RWBU's Portfolio — Software Developer based in Indonesia — Open for freelance contracts, internships, and engineering roles
-              <span class="retro-ticker-star">★</span>
+            <span class="ticker-item">
+              Welcome to RWBU's Portfolio — soft interfaces, useful software, and tiny experiments
+              <span class="ticker-star">★</span>
             </span>
-            <span class="retro-ticker-item">
-              Welcome to RWBU's Portfolio — Software Developer based in Indonesia — Open for freelance contracts, internships, and engineering roles
-              <span class="retro-ticker-star">★</span>
+            <span class="ticker-item">
+              Welcome to RWBU's Portfolio — soft interfaces, useful software, and tiny experiments
+              <span class="ticker-star">★</span>
             </span>
           </div>
         </div>

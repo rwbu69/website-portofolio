@@ -3,11 +3,11 @@ export const identity = {
   alias: "RWBU",
   role: "Software Developer",
   tagline: "Software Developer · Based in Indonesia",
-  status: "Open for freelance contracts, internships, and engineering roles",
+  status: "Open to selected projects and thoughtful collaborations",
   location: "Indonesia (UTC+7)",
   studying: "Computer Science, Universitas Kristen Immanuel",
   interests: "Web animations, prompt engineering, static frameworks",
-  workflow: "VS Code, Claude, and other things",
+  workflow: "TypeScript, Astro, Tauri, Svelte, and AI-assisted workflows",
   bioShort: "A software developer pursuing a CS degree at UKRIM. Interested in web animations, prompt engineering, and static frameworks.",
   bioLong: "A developer currently pursuing a Computer Science degree at Universitas Kristen Immanuel. Interested in web animations, prompt engineering, and new static frameworks. Works with modern AI tooling to streamline development workflows and deliver reliable software."
 };

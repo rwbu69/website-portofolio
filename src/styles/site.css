@@ -1,44 +1,59 @@
 /* ====================================================================
-   RWBU Retro 1990s Web 1.0 Design System
-   Exact visual fidelity to example.html with removed vertical dividers
+   RWBU soft Web 1.0 design system
    ==================================================================== */
 
 :root {
-  --canvas-bg: #ffffff;
-  --text-main: #222222;
+  --canvas-bg: #fffafd;
+  --text-main: #4a4050;
 
   /* Pink Leading Palette */
-  --pink-banner: #ffc2d9;
-  --pink-title: #a61e4d;
-  --pink-border: #d6336c;
-  --pink-active: #d6003f;
+  --pink-banner: #f8dce9;
+  --pink-title: #9a5272;
+  --pink-border: #d99ab8;
+  --pink-active: #bd5d88;
 
   /* Pastel Supporting Colors */
-  --blue-bg: #e0f4fa;
-  --blue-border: #0b6e8a;
+  --blue-bg: #e4f3f4;
+  --blue-border: #5b9da1;
 
-  --purple-bg: #f0eaff;
-  --purple-border: #5b3a9e;
+  --purple-bg: #f0eafa;
+  --purple-border: #8876a8;
 
-  --yellow-bg: #fff3b0;
-  --yellow-border: #b8860b;
+  --yellow-bg: #fff4d8;
+  --yellow-border: #c9a76b;
 
-  --green-bg: #e6f7ec;
-  --green-main: #1b7a3a;
+  --green-bg: #e8f4eb;
+  --green-main: #5e966d;
 
-  --border-grey: #555555;
+  --border-grey: #958b95;
 }
 
 * {
   box-sizing: border-box;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE and legacy Edge */
 }
 
-*::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera, Edge */
-  width: 0;
-  height: 0;
+html {
+  scrollbar-color: var(--pink-border) var(--pink-banner);
+  scrollbar-width: thin;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--pink-banner);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--pink-border);
+  border: 2px solid var(--pink-banner);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--pink-active);
 }
 
 html {
@@ -51,21 +66,14 @@ html {
   line-height: 1.25;
   overflow-x: hidden;
   overflow-y: auto;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
-html::-webkit-scrollbar,
-body::-webkit-scrollbar {
-  display: none;
-  width: 0;
-  height: 0;
 }
 
 body {
   margin: 0;
   padding: 0;
-  background: var(--canvas-bg);
+  background:
+    radial-gradient(circle at 10% 10%, rgba(248, 220, 233, 0.35), transparent 28rem),
+    var(--canvas-bg);
   color: var(--text-main);
   font-family: "Times New Roman", Times, Georgia, serif;
   font-size: clamp(11px, 1.7vh, 17px);
@@ -118,7 +126,7 @@ a:active { color: var(--pink-active); }
 /* --------------------------------------------------------------------
    Row 1: Continuous Seamless Scrolling Marquee Banner
    -------------------------------------------------------------------- */
-.retro-ticker-wrap {
+.ticker-wrap {
   background: var(--pink-banner);
   border-bottom: 3px solid var(--pink-border);
   overflow: hidden;
@@ -132,38 +140,29 @@ a:active { color: var(--pink-active); }
   box-sizing: border-box;
 }
 
-.retro-ticker-track {
+.ticker-track {
   display: inline-flex;
   white-space: nowrap;
   will-change: transform;
-  animation: retro-ticker-loop 35s linear infinite;
+  animation: ticker-loop 35s linear infinite;
 }
 
-.retro-ticker-item {
+.ticker-item {
   display: inline-flex;
   align-items: center;
   padding-right: 3rem;
   color: #000000;
 }
 
-.retro-ticker-star {
+.ticker-star {
   color: var(--pink-title);
   margin: 0 0.8rem;
   font-size: 1.1em;
 }
 
-@keyframes retro-ticker-loop {
+@keyframes ticker-loop {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
-}
-
-marquee.retro-marquee {
-  background: var(--pink-banner);
-  border-bottom: 3px solid var(--pink-border);
-  font-weight: bold;
-  font-size: clamp(12px, 2vh, 17px);
-  padding: 0.3vh 0;
-  display: block;
 }
 
 /* --------------------------------------------------------------------
@@ -341,7 +340,7 @@ table.facts td:first-child {
 }
 
 /* --------------------------------------------------------------------
-   Status Slot: Fake 1990s Virus Alert Dialog Box
+   Status Slot: Soft Windows-style availability card
    -------------------------------------------------------------------- */
 .status {
   display: flex;
@@ -351,23 +350,18 @@ table.facts td:first-child {
   min-width: 0;
 }
 
-.win95-alert {
+.availability-card {
   display: flex;
   flex-direction: column;
   height: 100%;
-  background: #fff3b0;
+  background: var(--yellow-bg);
   border: 3px solid var(--yellow-border);
   overflow: hidden;
-  animation: retro-pulse 1.5s ease-in-out infinite alternate;
   min-width: 0;
 }
-@keyframes retro-pulse {
-  from { border-color: var(--yellow-border); }
-  to { border-color: var(--pink-border); }
-}
 
-.win95-titlebar {
-  background: #000080;
+.window-titlebar {
+  background: var(--pink-title);
   color: #ffffff;
   padding: 0.2vh 0.5vw;
   font-size: clamp(10px, 1.6vh, 14px);
@@ -376,12 +370,12 @@ table.facts td:first-child {
   align-items: center;
   justify-content: space-between;
 }
-.win95-controls {
+.window-controls {
   display: flex;
   gap: 2px;
 }
-.win95-btn {
-  background: #c0c0c0;
+.window-btn {
+  background: #fffafd;
   color: #000000;
   border: 2px outset #ffffff;
   font-size: 11px;
@@ -391,7 +385,7 @@ table.facts td:first-child {
   cursor: pointer;
 }
 
-.win95-body {
+.window-body {
   flex: 1;
   padding: 0.6vh 0.6vw;
   display: flex;
@@ -399,28 +393,6 @@ table.facts td:first-child {
   justify-content: space-between;
   min-height: 0;
 }
-.win95-head {
-  display: flex;
-  align-items: center;
-  gap: 0.3vw;
-  font-weight: bold;
-  color: var(--pink-title);
-  font-size: clamp(11px, 1.8vh, 16px);
-  line-height: 1.15;
-}
-.win95-head .icon {
-  font-size: clamp(16px, 2.4vh, 22px);
-}
-.win95-msg {
-  font-size: clamp(10px, 1.7vh, 14px);
-  color: #222222;
-  margin: 0.2vh 0;
-  line-height: 1.2;
-}
-.win95-msg b {
-  color: #7a1236;
-}
-
 /* Wavy Divider inside Dialog */
 .wavy-line {
   height: 8px;
@@ -432,19 +404,19 @@ table.facts td:first-child {
 }
 @keyframes slide { to { background-position-x: 40px; } }
 
-.win95-actions {
+.availability-actions {
   display: flex;
   flex-direction: column;
   gap: 0.4vh;
   margin-top: 0.2vh;
 }
-.win95-action-btn {
+.window-action-btn {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.3vw;
-  border: 3px outset var(--yellow-border);
-  background: #ffffff;
+  border: 3px outset var(--pink-border);
+  background: #fffafd;
   color: var(--pink-title);
   font-weight: bold;
   font-size: clamp(10px, 1.7vh, 14px);
@@ -452,7 +424,7 @@ table.facts td:first-child {
   padding: 0.3vh 0.3vw;
   white-space: nowrap;
 }
-.win95-action-btn:active {
+.window-action-btn:active {
   border-style: inset;
 }
 
@@ -623,16 +595,7 @@ table.facts td:first-child {
   overflow: visible !important;
 }
 
-/* --------------------------------------------------------------------
-   90s Promotional Offer Box Styling (.win95-offer-box)
-   -------------------------------------------------------------------- */
-.win95-offer-box {
-  background: #fff3b0;
-  border: 3px solid #b8860b;
-  animation: retro-pulse 1.2s ease-in-out infinite alternate;
-}
-
-.offer-titlebar-text {
+.availability-title {
   font-size: clamp(9px, 1.4vh, 12px);
   letter-spacing: 0.5px;
   color: #ffffff;
@@ -641,134 +604,79 @@ table.facts td:first-child {
   text-overflow: ellipsis;
 }
 
-.win95-offer-body {
+.availability-body {
   padding: 0.5vh 0.6vw;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 0.3vh;
+  gap: 0.7vh;
 }
 
-.offer-badge-wrap {
-  text-align: center;
-  margin: 0;
-}
-
-.offer-badge {
-  display: inline-block;
-  background: #a61e4d;
-  color: #ffffff;
-  font-weight: bold;
+.availability-label {
+  color: var(--pink-title);
   font-size: clamp(9px, 1.3vh, 12px);
-  padding: 1px 6px;
-  border: 2px outset #ffc2d9;
+  font-weight: bold;
 }
 
-.retro-blink {
-  animation: retro-blink 1s steps(2, start) infinite;
-}
-@keyframes retro-blink {
-  0%, 49% { opacity: 1; }
-  50%, 100% { opacity: 0; }
-}
-
-.offer-headline {
-  text-align: center;
+.availability-headline {
   font-size: clamp(12px, 2vh, 17px);
   font-weight: 900;
-  color: #a61e4d;
+  color: var(--pink-title);
   line-height: 1.15;
-  text-decoration: underline;
   margin: 0.1vh 0;
 }
 
-.offer-subhead {
-  text-align: center;
+.availability-subhead {
   font-size: clamp(8px, 1.3vh, 11px);
-  font-weight: bold;
-  color: #000080;
+  color: var(--text-main);
   background: #e0f4fa;
-  border: 1px dashed #0b6e8a;
-  padding: 1px 3px;
+  border: 1px dashed var(--blue-border);
+  padding: 0.4vh 0.4vw;
   line-height: 1.2;
 }
 
-.offer-bullets {
-  display: flex;
-  flex-direction: column;
-  gap: 0.2vh;
+.availability-details {
+  display: grid;
+  gap: 0.35vh;
+  margin: 0;
   font-size: clamp(8.5px, 1.35vh, 12px);
-  color: #222222;
-  margin: 0.1vh 0;
 }
 
-.offer-bullet-item {
+.availability-details div {
   display: flex;
-  align-items: baseline;
-  gap: 4px;
-  line-height: 1.2;
+  justify-content: space-between;
+  gap: 0.5vw;
 }
 
-.offer-icon {
-  color: #1b7a3a;
+.availability-details dt {
+  color: var(--purple-border);
   font-weight: bold;
 }
 
-.offer-btn {
-  border: 3px outset #d6336c !important;
-  color: #a61e4d !important;
-  background: #ffffff !important;
-  font-size: clamp(9px, 1.45vh, 13px) !important;
-  padding: 0.3vh 0.4vw !important;
-  text-align: center;
-  font-weight: bold;
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.offer-btn:hover {
-  background: #ffe6f0 !important;
-  color: #d6003f !important;
-}
-.offer-btn:active {
-  border-style: inset !important;
-  background: #ffc2d9 !important;
+.availability-details dd {
+  margin: 0;
+  text-align: right;
 }
 
-.offer-btn-wa {
-  border-color: #1b7a3a !important;
-  color: #1b7a3a !important;
-}
-.offer-btn-wa:hover {
-  background: #e6f7ec !important;
+.availability-btn-email {
+  border-color: var(--pink-border);
+  color: var(--pink-title);
 }
 
-.offer-btn-gh {
-  border-color: #5b3a9e !important;
-  color: #5b3a9e !important;
-}
-.offer-btn-gh:hover {
-  background: #f0eaff !important;
+.availability-btn-gh {
+  border-color: var(--purple-border);
+  color: var(--purple-border);
 }
 
-.offer-footnote {
-  text-align: center;
-  font-size: clamp(8px, 1.15vh, 10px);
-  color: #555555;
-  margin-top: 0.1vh;
-  line-height: 1.1;
+.window-action-btn:hover {
+  background: var(--pink-banner);
 }
 
 /* --------------------------------------------------------------------
    Reduced Motion
    -------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
-  .wavy-line, .win95-alert, marquee.retro-marquee, .retro-ticker-track, .retro-blink {
+  .availability-card, .ticker-track {
     animation: none !important;
   }
 }
@@ -782,15 +690,27 @@ table.facts td:first-child {
     height: auto;
     font-size: 16px;
   }
+  html.single-screen,
+  body.single-screen {
+    height: auto;
+    max-height: none;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+  html {
+    scrollbar-width: none;
+  }
+  html::-webkit-scrollbar,
+  body::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+  }
   #page {
     height: auto;
     max-height: none;
     display: block;
     overflow: visible;
-  }
-  marquee.retro-marquee {
-    font-size: 14px;
-    padding: 6px 0;
   }
   #top {
     flex-direction: column;
@@ -823,9 +743,12 @@ table.facts td:first-child {
   }
   #hero {
     display: block;
+    overflow: visible;
   }
   .photo .frame {
-    height: 40vh;
+    flex: 0 0 auto;
+    height: clamp(240px, 40vh, 360px);
+    min-height: 240px;
   }
   .about {
     padding: 14px;
@@ -849,54 +772,38 @@ table.facts td:first-child {
     padding: 10px;
     height: auto;
   }
-  .win95-alert,
-  .win95-offer-box {
+  .availability-card {
     height: auto;
     overflow: visible;
     animation: none;
   }
-  .win95-titlebar {
+  .window-titlebar {
     padding: 4px 8px;
     font-size: 12px;
   }
-  .offer-titlebar-text {
+  .availability-title {
     font-size: 12px;
   }
-  .win95-offer-body {
+  .availability-body {
     padding: 12px 10px;
     gap: 8px;
     min-height: auto;
   }
-  .offer-badge {
-    font-size: 11px;
-    padding: 2px 8px;
-  }
-  .offer-headline {
+  .availability-headline {
     font-size: 17px;
     line-height: 1.25;
     margin: 4px 0;
   }
-  .offer-subhead {
+  .availability-subhead {
     font-size: 12px;
     padding: 4px 6px;
     line-height: 1.3;
   }
-  .offer-bullets {
-    font-size: 13px;
-    gap: 6px;
-    margin: 6px 0;
-  }
-  .offer-bullet-item {
-    line-height: 1.3;
-  }
-  .wavy-line {
-    margin: 6px 0;
-  }
-  .win95-actions {
+  .availability-actions {
     gap: 8px;
     margin-top: 4px;
   }
-  .win95-action-btn.offer-btn {
+  .window-action-btn {
     white-space: normal !important;
     padding: 9px 10px !important;
     font-size: 13px !important;
@@ -904,10 +811,6 @@ table.facts td:first-child {
     line-height: 1.3;
     text-align: center;
     box-sizing: border-box;
-  }
-  .offer-footnote {
-    font-size: 11px;
-    margin-top: 6px;
   }
   #projects .head {
     padding: 10px 14px;

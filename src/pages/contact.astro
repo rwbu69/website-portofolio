@@ -1,9 +1,9 @@
 ---
-import RetroScreenLayout from '../layouts/RetroScreenLayout.astro';
+import SiteLayout from '../layouts/SiteLayout.astro';
 import { socials, identity, contactDetails } from '../data/profile';
 ---
 
-<RetroScreenLayout title="RWBU | Contact Directory" activeNav="contact">
+<SiteLayout title="RWBU | Contact Directory" activeNav="contact">
   <div style="width: 100%;">
     <div style="border-bottom: 3px solid #d6336c; padding-bottom: 1.2vh; margin-bottom: 2vh;">
       <h2 style="font-size: 3.8vh; color: #a61e4d; text-decoration: underline; margin: 0 0 0.5vh 0;">
@@ -20,7 +20,7 @@ import { socials, identity, contactDetails } from '../data/profile';
         CURRENT AVAILABILITY STATUS:
       </div>
       <div style="font-size: 2.6vh; font-weight: bold; color: #a61e4d; margin-bottom: 1.2vh;">
-        Open for freelance contracts, internship roles, and work
+        Open to selected projects and thoughtful collaborations
       </div>
       <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;" class="mono">
         <a
@@ -109,4 +109,4 @@ import { socials, identity, contactDetails } from '../data/profile';
       </table>
     </div>
   </div>
-</RetroScreenLayout>
+</SiteLayout>
