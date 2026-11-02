@@ -1,27 +1,74 @@
-# Astro Starter Kit: Minimal
+# RWBU Portfolio
 
-```sh
-bun create astro@latest -- --template minimal
+Personal portfolio website for Sebastian Vay Yosafat Pardamean Hutagalung (RWBU), a software developer based in Indonesia.
+
+The site combines a soft pastel visual direction with nostalgic Web 1.0 details. It showcases selected web applications, desktop tools, AI experiments, writing, and contact information.
+
+## Tech stack
+
+- [Astro](https://astro.build/) for the site and static page generation
+- [React](https://react.dev/) for interactive islands
+- [Tailwind CSS](https://tailwindcss.com/) and custom CSS for styling
+- [Bun](https://bun.sh/) for package management and scripts
+- [Cloudflare Pages](https://pages.cloudflare.com/) for static deployment
+
+## Project structure
+
+```text
+src/
+├── components/site/   Reusable site and project components
+├── content/blog/      Blog posts
+├── data/              Profile and project data
+├── layouts/           Shared site layout
+├── lib/cms/           Content helpers
+├── pages/             Routes and API endpoints
+└── styles/            Global site styles
+
+public/projects/       Project screenshots and other public assets
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Project content is managed in [`src/data/projects.ts`](./src/data/projects.ts). Profile and contact details are managed in [`src/data/profile.ts`](./src/data/profile.ts).
 
-## Portfolio Project
+## Local development
 
-This is a developer portfolio built with Astro, React Islands, and TailwindCSS.
+Install dependencies:
 
-## Commands
+```sh
+bun install
+```
 
-All commands are run from the root of the project, using [Bun](https://bun.sh/) as the package manager:
+Start the development server:
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `bun install`             | Installs dependencies                            |
-| `bun run dev`             | Starts local dev server at `localhost:4321`      |
-| `bun run build`           | Build your production site to `./dist/`          |
-| `bun run preview`         | Preview your build locally, before deploying     |
-| `bunx --bun astro ...`    | Run CLI commands like `astro add`, `astro check` |
+```sh
+bun run dev
+```
 
-## 👀 Want to learn more?
+The site is available at `http://localhost:4321`.
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+## Production commands
+
+Build the static site:
+
+```sh
+bun run build
+```
+
+Preview the production build locally:
+
+```sh
+bun run preview
+```
+
+The generated site is written to `dist/`.
+
+## Deployment
+
+The project is configured for a static Cloudflare deployment. The Wrangler configuration serves the generated `dist/` directory.
+
+Before deploying, run:
+
+```sh
+bun run build
+```
+
+The canonical site URL is configured in [`astro.config.mjs`](./astro.config.mjs).
