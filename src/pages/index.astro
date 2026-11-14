@@ -1,120 +1,28 @@
 ---
 import SiteLayout from '../layouts/SiteLayout.astro';
-import AvailabilityCard from '../components/site/AvailabilityCard.astro';
-import { identity } from '../data/profile';
-import { getFeaturedProjects } from '../data/projects';
-
-const featuredProjects = getFeaturedProjects();
+import Navigation from '../components/Navigation.astro';
+import Hero from '../components/Hero.astro';
+import Projects from '../components/Projects.astro';
+import TechStack from '../components/TechStack.astro';
+import Contact from '../components/Contact.astro';
 ---
 
-<SiteLayout title="RWBU's Portfolio" activeNav="home" isSingleScreen={true}>
-  <!-- ROW 3: Photo (25%) | About & Facts (50%) | Availability Box (25%) -->
-  <div id="hero">
-    <!-- Photo Frame (25% width) -->
-    <div class="photo">
-      <div class="frame">
-        [ PHOTO ]
-        <img
-          src="/projects/rwbu.jpg"
-          alt="Sebastian Vay Yosafat Pardamean Hutagalung (RWBU)"
-          onerror="this.style.display='none'"
-        />
-      </div>
-      <small>(that's me)</small>
-    </div>
+<SiteLayout>
+  <!-- Minimal Floating Navigation Bar with Pink Progress Indicator -->
+  <Navigation />
 
-    <!-- About RWBU (50% width) -->
-    <div class="about">
-      <h2>Hello, I'm RWBU!</h2>
-      <div class="name mono">{identity.fullName}</div>
-      <div class="role">{identity.tagline}</div>
-      <p>{identity.bioLong}</p>
-      <div class="facts-wrap">
-        <table class="facts">
-          <tbody>
-            <tr>
-              <td>Studying</td>
-              <td>{identity.studying}</td>
-            </tr>
-            <tr>
-              <td>Interests</td>
-              <td>{identity.interests}</td>
-            </tr>
-            <tr>
-              <td>Works with</td>
-              <td>{identity.workflow}</td>
-            </tr>
-            <tr>
-              <td>Location</td>
-              <td>{identity.location}</td>
-            </tr>
-            <tr>
-              <td>Available for</td>
-              <td>{identity.status}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+  <!-- Single-Page Sequential Content Flow -->
+  <main id="main-content">
+    <!-- Section 0: Introduction & Identity -->
+    <Hero />
 
-    <!-- Professional Availability Slot (25% width) -->
-    <div class="status">
-      <AvailabilityCard />
-    </div>
-  </div>
+    <!-- Section 1: Featured & Other Projects Showcase -->
+    <Projects />
 
-  <!-- ROW 4: Featured Projects Showcase (4 Columns) -->
-  <div id="projects">
-    <div class="head">
-      <h2>Featured Projects</h2>
-      <a class="mono" href="/projects">[ View All Projects (7) -&gt; ]</a>
-    </div>
+    <!-- Section 2: Grouped Technical Stack & Workflows -->
+    <TechStack />
 
-    <div class="cards">
-      {featuredProjects.map((project) => (
-        <div class={`card ${project.colorClass}`}>
-          <div class="shot">
-            {project.image ? (
-              <img
-                src={project.image}
-                alt={project.title}
-                onerror="this.style.display='none'"
-              />
-            ) : (
-              <div class="ascii-preview mono">
-                <span class="badge">[ DEMO ]</span>
-                <span>{project.title}</span>
-                <span class="sub">Click to inspect ↗</span>
-              </div>
-            )}
-          </div>
-
-          <h3>
-            <a
-              href={project.demoLink || project.repoLink || '#'}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {project.title}
-            </a>{' '}
-            {project.demoLink ? (
-              <span class="live mono">[LIVE DEMO]</span>
-            ) : (
-              <span class="live mono" style="color: #0b6e8a;">[SOURCE CODE]</span>
-            )}
-          </h3>
-
-          <div class="meta">
-            Role: {project.role} | Year: {project.year}
-          </div>
-
-          <p>{project.description}</p>
-
-          <div class="tech">
-            <b>Tech:</b> <span>{project.tech.join(', ')}</span>
-          </div>
-        </div>
-      ))}
-    </div>
-  </div>
+    <!-- Section 3: Direct Contact Channels & Footer -->
+    <Contact />
+  </main>
 </SiteLayout>

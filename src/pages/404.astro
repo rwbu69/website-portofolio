@@ -2,63 +2,28 @@
 import SiteLayout from '../layouts/SiteLayout.astro';
 ---
 
-<SiteLayout title="404 - File Not Found | RWBU's Home Page">
-  <div style="width: 100%;">
-    <div style="border-bottom: 3px solid #d6336c; padding-bottom: 1.2vh; margin-bottom: 2vh;">
-      <h2 style="font-size: 3.8vh; color: #d6003f; text-decoration: underline; margin: 0 0 0.5vh 0;">
-        HTTP 404 - Object / File Not Found
-      </h2>
-      <p style="font-size: 2.1vh; margin: 0.4vh 0; line-height: 1.4;">
-        The requested document or resource was not located on this web server. The link you clicked may be outdated, or the page may have been relocated.
-      </p>
-    </div>
+<SiteLayout title="404 — Page Not Found | Sebastian Hutagalung (RWBU)">
+  <div class="min-h-screen flex items-center justify-center px-6 py-20">
+    <div class="max-w-md w-full bg-white rounded-2xl border border-[#eddde6] shadow-soft p-8 text-center">
+      <span class="inline-block font-mono text-xs font-semibold px-2.5 py-1 rounded-md bg-[#fdf2f7] border border-[#f8cfdf] text-[#c23373] mb-4">
+        404 / Not Found
+      </span>
 
-    <!-- Diagnostic Table -->
-    <div style="margin-bottom: 2.5vh;">
-      <table border="2" cellpadding="8" cellspacing="0" width="100%" class="facts" style="border: 3px solid #b8860b; width: 100%; border-collapse: collapse; background: #fff3b0; font-size: 2vh;" class="mono">
-        <thead>
-          <tr style="background-color: #ffeaa7; text-align: left; font-weight: bold; color: #b8860b;">
-            <th colspan="2" style="border: 2px solid #b8860b; padding: 8px 12px;">Server Diagnostic Information</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td style="font-weight: bold; background: #ffffff; border: 2px solid #b8860b; width: 35%; color: #b8860b;">Status Code:</td>
-            <td style="border: 2px solid #b8860b; background: #ffffff; color: #d6003f; font-weight: bold;">404 NOT FOUND</td>
-          </tr>
-          <tr>
-            <td style="font-weight: bold; background: #ffffff; border: 2px solid #b8860b; color: #b8860b;">Web Engine:</td>
-            <td style="border: 2px solid #b8860b; background: #ffffff;">Astro 6 / Bun Static Server</td>
-          </tr>
-          <tr>
-            <td style="font-weight: bold; background: #ffffff; border: 2px solid #b8860b; color: #b8860b;">Host System:</td>
-            <td style="border: 2px solid #b8860b; background: #ffffff;">RWBU Personal Web Node (Indonesia)</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+      <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-[#19141e]">
+        Page Not Found
+      </h1>
 
-    <!-- Safe Navigation Directory -->
-    <div style="border: 3px solid #0b6e8a; background: #e0f4fa; padding: 2vh 2vw;">
-      <div style="font-size: 2.4vh; font-weight: bold; color: #0b6e8a; border-bottom: 2px solid #0b6e8a; padding-bottom: 6px; margin-bottom: 1.5vh;">
-        SAFE NAVIGATION DIRECTORY
-      </div>
-      <p style="font-size: 2vh; margin: 0 0 1.5vh 0;">
-        You can return to safe ground using any of the following verified links:
+      <p class="mt-3 text-sm text-[#595261] font-body leading-relaxed">
+        The page or resource you are looking for does not exist or has been relocated to the single-page portfolio.
       </p>
 
-      <div style="display: flex; flex-wrap: wrap; gap: 10px;" class="mono">
-        <a href="/" style="padding: 6px 14px; border: 3px outset #0b6e8a; background: #ffffff; color: #0b6e8a; font-weight: bold; text-decoration: none; font-size: 1.9vh;">
-          [ &lt;- Return to Home Page ]
-        </a>
-        <a href="/projects" style="padding: 6px 14px; border: 3px outset #0b6e8a; background: #ffffff; color: #0b6e8a; font-weight: bold; text-decoration: none; font-size: 1.9vh;">
-          [ Browse Projects Directory ]
-        </a>
-        <a href="/blog" style="padding: 6px 14px; border: 3px outset #0b6e8a; background: #ffffff; color: #0b6e8a; font-weight: bold; text-decoration: none; font-size: 1.9vh;">
-          [ Read Weblog &amp; Notes ]
-        </a>
-        <a href="/contact" style="padding: 6px 14px; border: 3px outset #0b6e8a; background: #ffffff; color: #0b6e8a; font-weight: bold; text-decoration: none; font-size: 1.9vh;">
-          [ Contact Administrator ]
+      <div class="mt-8">
+        <a
+          href="/"
+          class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#19141e] text-white text-sm font-medium hover:bg-[#c23373] transition-colors shadow-soft"
+        >
+          <span>Return to Portfolio</span>
+          <span aria-hidden="true">→</span>
         </a>
       </div>
     </div>

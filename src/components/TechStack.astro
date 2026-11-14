@@ -1,0 +1,51 @@
+---
+const stackCategories = [
+  {
+    title: "Desktop & Native",
+    tools: ["Tauri v2", "Rust", "Bun", "SQLite"],
+  },
+  {
+    title: "Frontend & Web",
+    tools: ["Svelte 5", "Astro", "React", "Tailwind CSS", "TypeScript"],
+  },
+  {
+    title: "AI & Local Workflows",
+    tools: ["Local-First RAG", "Vector Search", "Elysia", "Prompt Engineering"],
+  }
+];
+---
+
+<section id="stack" class="py-20 sm:py-28 border-b border-[#eddde6]/70">
+  <div class="max-w-5xl mx-auto px-5 sm:px-8">
+    
+    <!-- Section Header (No 02 numbering) -->
+    <div class="mb-12 sm:mb-16">
+      <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-[#19141e]">
+        Tech Stack
+      </h2>
+      <p class="mt-2 text-base sm:text-lg text-[#595261] font-body max-w-2xl leading-relaxed">
+        Technologies and frameworks I use for desktop applications, web interfaces, and local data workflows.
+      </p>
+    </div>
+
+    <!-- Clean, Direct 3-Column Stack Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+      {stackCategories.map((cat) => (
+        <div class="bg-white rounded-2xl border border-[#eddde6] shadow-soft p-6">
+          <h3 class="text-base font-bold text-[#19141e] tracking-tight">
+            {cat.title}
+          </h3>
+
+          <div class="mt-4 flex flex-wrap gap-2">
+            {cat.tools.map((tool) => (
+              <span class="text-xs font-mono px-2.5 py-1 rounded-md bg-[#faf8f9] border border-[#eddde6] text-[#19141e]">
+                {tool}
+              </span>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>

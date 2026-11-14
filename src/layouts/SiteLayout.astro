@@ -1,149 +1,152 @@
 ---
 import '../styles/site.css';
-import { ClientRouter } from 'astro:transitions';
+import { identity, contact } from '../data/profile';
+import { projects } from '../data/projects';
 
 interface Props {
-  title: string;
+  title?: string;
   description?: string;
-  activeNav?: 'home' | 'projects' | 'blog' | 'contact';
-  isSingleScreen?: boolean;
 }
 
 const {
-  title,
-  description = "RWBU's Portfolio — Software Developer based in Indonesia",
-  activeNav = 'home',
-  isSingleScreen = false,
+  title = `${identity.name} (${identity.alias}) — ${identity.role}`,
+  description = identity.positioning,
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site || Astro.url.origin);
+const previewImage = new URL('/preview.png', Astro.site || Astro.url.origin);
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": `${canonicalURL}#person`,
+      "name": identity.name,
+      "alternateName": identity.alias,
+      "description": identity.positioning,
+      "jobTitle": identity.role,
+      "alumniOf": {
+        "@type": "CollegeOrUniversity",
+        "name": "Universitas Kristen Immanuel"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Yogyakarta",
+        "addressCountry": "ID"
+      },
+      "url": canonicalURL.href,
+      "sameAs": [
+        contact.githubUrl,
+        contact.linkedinUrl,
+        contact.instagramUrl
+      ]
+    },
+    {
+      "@type": "ItemList",
+      "@id": `${canonicalURL}#projects`,
+      "name": "Selected Projects by Sebastian Hutagalung",
+      "itemListElement": projects.map((p, index) => ({
+        "@type": "ListItem",
+        "position": index + 1,
+        "item": {
+          "@type": "SoftwareApplication",
+          "name": p.title,
+          "description": p.description,
+          "applicationCategory": p.category,
+          "operatingSystem": "Web, Windows, macOS, Linux",
+          "url": p.demoLink || p.repoLink || canonicalURL.href
+        }
+      }))
+    }
+  ]
+};
 ---
 
 <!doctype html>
-<html lang="en" class={isSingleScreen ? 'single-screen' : 'subpage-html'}>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/png" href="/icon.png" />
-    <link rel="shortcut icon" type="image/png" href="/icon.png" />
     <link rel="apple-touch-icon" href="/icon.png" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
-    <ClientRouter />
+
+    <!-- Google Fonts: Plus Jakarta Sans, Inter, JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
+    <meta property="og:image" content={previewImage} />
 
-    <!-- Persistent Global Timestamp-Synchronized Ticker Script -->
-    <script is:inline>
-      function syncRunningTicker() {
-        const track = document.getElementById('ticker-track');
-        if (track) {
-          const duration = 35000;
-          const elapsed = Date.now() % duration;
-          track.style.animationDelay = `-${elapsed}ms`;
-        }
-      }
-      syncRunningTicker();
-      document.addEventListener('astro:page-load', syncRunningTicker);
-    </script>
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonicalURL} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={previewImage} />
+
+    <!-- JSON-LD Structured Data for SEO -->
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   </head>
-  <body class={isSingleScreen ? 'single-screen' : 'subpage-body'}>
-    {isSingleScreen ? (
-      <div id="page">
-        <!-- Row 1: Continuous Seamless Scrolling Marquee Banner (Never Restarts) -->
-        <div class="ticker-wrap" transition:persist="top-running-ticker">
-          <div class="ticker-track" id="ticker-track">
-            <span class="ticker-item">
-              Welcome to RWBU's Portfolio — soft interfaces, useful software, and tiny experiments
-              <span class="ticker-star">★</span>
-            </span>
-            <span class="ticker-item">
-              Welcome to RWBU's Portfolio — soft interfaces, useful software, and tiny experiments
-              <span class="ticker-star">★</span>
-            </span>
-            <span class="ticker-item">
-              Welcome to RWBU's Portfolio — soft interfaces, useful software, and tiny experiments
-              <span class="ticker-star">★</span>
-            </span>
-            <span class="ticker-item">
-              Welcome to RWBU's Portfolio — soft interfaces, useful software, and tiny experiments
-              <span class="ticker-star">★</span>
-            </span>
-          </div>
-        </div>
+  <body class="bg-[#faf8f9] text-[#19141e] selection:bg-[#fbcfe8] selection:text-[#831843]">
+    <slot />
 
-        <!-- Row 2: Top Title + Tagline + Nav (No Otaku, No Guestbook) -->
-        <div id="top">
-          <h1>
-            <a href="/" class="site-title-link">
-              <img src="/icon.png" alt="RWBU" class="site-title-icon" />
-              <span>RWBU's Portfolio</span>
-            </a>
-          </h1>
-          <span class="tag">Software Developer · Indonesia</span>
-          <nav id="nav" aria-label="Main Navigation">
-            <a href="/" class={activeNav === 'home' ? 'active' : ''}>Home</a>
-            <a href="/projects" class={activeNav === 'projects' ? 'active' : ''}>Projects</a>
-            <a href="/blog" class={activeNav === 'blog' ? 'active' : ''}>Blog</a>
-            <a href="/contact" class={activeNav === 'contact' ? 'active' : ''}>Contact Me</a>
-          </nav>
-        </div>
+    <!-- Client-side Smooth Scroll (Lenis) & GSAP Scroll Engine -->
+    <script>
+      import Lenis from 'lenis';
+      import { gsap } from 'gsap';
+      import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-        <!-- Main 100vh Content Slot (Hero + Projects Row) -->
-        <slot />
-      </div>
-    ) : (
-      <div id="subpage">
-        <!-- Row 1: Continuous Seamless Scrolling Marquee Banner (Never Restarts) -->
-        <div class="ticker-wrap" transition:persist="top-running-ticker">
-          <div class="ticker-track" id="ticker-track">
-            <span class="ticker-item">
-              Welcome to RWBU's Portfolio — soft interfaces, useful software, and tiny experiments
-              <span class="ticker-star">★</span>
-            </span>
-            <span class="ticker-item">
-              Welcome to RWBU's Portfolio — soft interfaces, useful software, and tiny experiments
-              <span class="ticker-star">★</span>
-            </span>
-            <span class="ticker-item">
-              Welcome to RWBU's Portfolio — soft interfaces, useful software, and tiny experiments
-              <span class="ticker-star">★</span>
-            </span>
-            <span class="ticker-item">
-              Welcome to RWBU's Portfolio — soft interfaces, useful software, and tiny experiments
-              <span class="ticker-star">★</span>
-            </span>
-          </div>
-        </div>
+      gsap.registerPlugin(ScrollTrigger);
 
-        <!-- Row 2: Top Title + Tagline + Nav -->
-        <div id="top">
-          <h1>
-            <a href="/" class="site-title-link">
-              <img src="/icon.png" alt="RWBU" class="site-title-icon" />
-              <span>RWBU's Portfolio</span>
-            </a>
-          </h1>
-          <span class="tag">Software Developer · Indonesia</span>
-          <nav id="nav" aria-label="Main Navigation">
-            <a href="/" class={activeNav === 'home' ? 'active' : ''}>Home</a>
-            <a href="/projects" class={activeNav === 'projects' ? 'active' : ''}>Projects</a>
-            <a href="/blog" class={activeNav === 'blog' ? 'active' : ''}>Blog</a>
-            <a href="/contact" class={activeNav === 'contact' ? 'active' : ''}>Contact Me</a>
-          </nav>
-        </div>
+      // Check user reduced motion preference
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-        <!-- Subpage Content Slot (Scrollable) -->
-        <main id="subpage-content">
-          <slot />
-        </main>
-      </div>
-    )}
+      if (!prefersReducedMotion) {
+        // Initialize Lenis
+        const lenis = new Lenis({
+          duration: 1.1,
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          orientation: 'vertical',
+          gestureOrientation: 'vertical',
+          smoothWheel: true,
+          wheelMultiplier: 1,
+        });
+
+        // Sync Lenis with GSAP ScrollTrigger
+        lenis.on('scroll', ScrollTrigger.update);
+
+        gsap.ticker.add((time) => {
+          lenis.raf(time * 1000);
+        });
+
+        gsap.ticker.lagSmoothing(0);
+
+        // Global smooth anchor scroll handling
+        document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+          anchor.addEventListener('click', (e) => {
+            const href = anchor.getAttribute('href');
+            if (!href || href === '#') return;
+            const target = document.querySelector(href);
+            if (target) {
+              e.preventDefault();
+              lenis.scrollTo(target, { offset: -70 });
+            }
+          });
+        });
+      }
+    </script>
   </body>
 </html>

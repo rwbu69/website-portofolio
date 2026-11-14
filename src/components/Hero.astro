@@ -1,0 +1,70 @@
+---
+import { identity } from '../data/profile';
+---
+
+<section id="top" class="pt-24 sm:pt-36 pb-16 sm:pb-24 border-b border-[#eddde6]/70">
+  <div class="max-w-5xl mx-auto px-5 sm:px-8">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-8 items-start">
+      
+      <!-- Left Column: Name & Statement (8 cols) -->
+      <div class="md:col-span-8 flex flex-col items-start">
+        <!-- Metadata Badges -->
+        <div class="flex flex-wrap items-center gap-2 sm:gap-3 mb-5">
+          <span class="inline-flex items-center font-mono text-xs font-semibold px-2.5 py-1 rounded-md bg-[#fdf2f7] border border-[#f8cfdf] text-[#c23373]">
+            Known as {identity.alias}
+          </span>
+          <span class="text-xs font-mono text-[#827a8c]">
+            {identity.location}
+          </span>
+        </div>
+
+        <!-- Primary Name Heading -->
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#19141e] leading-[1.1]">
+          {identity.name}
+        </h1>
+
+        <!-- Positioning Statement -->
+        <p class="mt-4 text-xl sm:text-2xl font-semibold text-[#19141e] leading-snug">
+          {identity.positioning}
+        </p>
+
+        <!-- Brief Context Narrative -->
+        <p class="mt-4 text-base sm:text-lg text-[#595261] font-body leading-relaxed max-w-2xl">
+          Studying Computer Science at Universitas Kristen Immanuel in Yogyakarta. Focused on building desktop utilities, local-first web applications, and practical tools.
+        </p>
+
+        <!-- Actions -->
+        <div class="mt-8 flex flex-wrap items-center gap-3">
+          <a
+            href="#projects"
+            class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#19141e] text-white font-medium text-sm hover:bg-[#c23373] transition-colors shadow-soft"
+          >
+            <span>View Projects</span>
+            <span aria-hidden="true">↓</span>
+          </a>
+          <a
+            href="#contact"
+            class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white border border-[#eddde6] text-[#19141e] font-medium text-sm hover:border-[#d48aa8] hover:bg-[#fff0f6] transition-colors shadow-soft"
+          >
+            Contact
+          </a>
+        </div>
+      </div>
+
+      <!-- Right Column: Real Photo Card (4 cols) -->
+      <div class="md:col-span-4 flex justify-start md:justify-end">
+        <div class="w-48 sm:w-56 md:w-full max-w-[280px] bg-white rounded-2xl p-2 border border-[#eddde6] shadow-soft hover:border-[#d48aa8] transition-all duration-300 group">
+          <div class="overflow-hidden rounded-xl aspect-[4/5] bg-[#faf8f9] relative">
+            <img
+              src={identity.avatar}
+              alt="Portrait of Sebastian Hutagalung"
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              loading="eager"
+            />
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

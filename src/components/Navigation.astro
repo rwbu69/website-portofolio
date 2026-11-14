@@ -1,0 +1,81 @@
+---
+import { identity } from '../data/profile';
+---
+
+<header class="fixed top-0 left-0 right-0 z-50 bg-[#faf8f9]/85 backdrop-blur-md border-b border-[#eddde6] transition-all duration-200">
+  <!-- Hairline Pink Reading Progress Indicator (Top Edge) -->
+  <div id="reading-progress" class="absolute top-0 left-0 h-[2px] bg-gradient-to-r from-[#d48aa8] to-[#c23373] w-0 transition-[width] duration-75"></div>
+
+  <div class="max-w-5xl mx-auto px-5 sm:px-8 h-14 flex items-center justify-between">
+    <!-- Left: Identity reveals when scrolling past hero -->
+    <a
+      href="#top"
+      id="nav-identity"
+      class="flex items-center gap-2 opacity-0 pointer-events-none transition-opacity duration-300 group"
+      aria-label="Back to top"
+    >
+      <span class="font-bold text-sm text-[#19141e] group-hover:text-[#c23373] transition-colors">
+        {identity.name}
+      </span>
+      <span class="font-mono text-xs px-1.5 py-0.5 rounded bg-[#fdf2f7] border border-[#f8cfdf] text-[#c23373]">
+        {identity.alias}
+      </span>
+    </a>
+
+    <!-- Right: Minimalist Anchor Jump Links -->
+    <nav class="flex items-center gap-6 sm:gap-8 ml-auto" aria-label="Page navigation">
+      <a
+        href="#projects"
+        class="text-xs sm:text-sm font-medium text-[#595261] hover:text-[#c23373] transition-colors"
+      >
+        Projects
+      </a>
+      <a
+        href="#stack"
+        class="text-xs sm:text-sm font-medium text-[#595261] hover:text-[#c23373] transition-colors"
+      >
+        Tech Stack
+      </a>
+      <a
+        href="#contact"
+        class="text-xs sm:text-sm font-medium text-[#595261] hover:text-[#c23373] transition-colors"
+      >
+        Contact
+      </a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  function setupNavWatcher() {
+    const progressEl = document.getElementById('reading-progress');
+    const identityEl = document.getElementById('nav-identity');
+
+    function onScroll() {
+      const scrollY = window.scrollY;
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+
+      // Update progress bar
+      if (progressEl && maxScroll > 0) {
+        const percent = Math.min(100, Math.max(0, (scrollY / maxScroll) * 100));
+        progressEl.style.width = `${percent}%`;
+      }
+
+      // Reveal identity breadcrumb after hero
+      if (identityEl) {
+        if (scrollY > 280) {
+          identityEl.classList.remove('opacity-0', 'pointer-events-none');
+          identityEl.classList.add('opacity-100', 'pointer-events-auto');
+        } else {
+          identityEl.classList.remove('opacity-100', 'pointer-events-auto');
+          identityEl.classList.add('opacity-0', 'pointer-events-none');
+        }
+      }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+
+  setupNavWatcher();
+</script>
